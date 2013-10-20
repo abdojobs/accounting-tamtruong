@@ -40,9 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Business\AccountBusiness.cs" />
+    <Compile Include="Business\ReceiptBusiness.cs" />
+    <Compile Include="Business\ServiceInterfaces\IReceiptBusiness.cs" />
+    <Compile Include="Models\AccountCompareModel.cs" />
+    <Compile Include="Models\ReceiptModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\AccountDataAccess.csproj">
+      <Project>{80214720-983C-488D-B60E-0DFA9E1DD77F}</Project>
+      <Name>AccountDataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
