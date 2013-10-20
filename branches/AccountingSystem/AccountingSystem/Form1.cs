@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DataAccess.Repositories;
 
 namespace AccountingSystem
 {
@@ -14,6 +15,12 @@ namespace AccountingSystem
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            BaseConnector connector = new BaseConnector();
+            dtg.DataSource = connector.Context.Accounts.GetAll().ToList();
         }
     }
 }

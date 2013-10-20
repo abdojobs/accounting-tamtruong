@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DataAccess
+namespace DataAccess.Entities
 {
-    public class Class1
+    public class Receiver : Person
     {
     }
 }

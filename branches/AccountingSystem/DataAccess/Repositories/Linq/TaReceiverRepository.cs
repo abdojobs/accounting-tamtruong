@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using DataAccess.Entities;
+
+namespace DataAccess.Repositories.Linq
+{
+    public class TaReceiverRepository:TaDataContextEntity<Receiver>,ITaReceiverRepository
+    {
+        public TaReceiverRepository(TaDalContext Context)
+        {
+            this.Context = Context;
+        }
+    }
+}
