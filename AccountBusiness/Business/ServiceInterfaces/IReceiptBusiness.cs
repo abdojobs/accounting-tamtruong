@@ -11,5 +11,6 @@ namespace AccountBusiness.Business.ServiceInterfaces
         public void CreateNewReceipt(ReceiptModel receiptmodel) { 
         
         }
+        
     }
 }

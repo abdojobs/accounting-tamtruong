@@ -13,6 +13,9 @@ namespace AccountBusiness.Models
         public TradingPartner TradingPartner { get; set; }
         public DeliveryPerson DeliveryPerson { get; set; }
         public List<AccountCompareModel> AccountCompareModels { get; set; }
+        /// <summary>
+        /// use to get reason write to GeneralJournal
+        /// </summary>
         public AccountClause AccountClause { get; set; }
     }
 }
