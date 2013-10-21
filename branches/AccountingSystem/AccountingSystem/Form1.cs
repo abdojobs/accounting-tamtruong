@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DataAccess.Repositories;
+using AccountingSystem.Utils;
 
 namespace AccountingSystem
 {
@@ -19,8 +20,12 @@ namespace AccountingSystem
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            BaseConnector connector = new BaseConnector();
-            dtg.DataSource = connector.Context.Accounts.GetAll().ToList();
+            //BaseConnector connector = new BaseConnector();
+            //dtg.DataSource = connector.Context.Accounts.GetAll().ToList();
+            ErrorProvider error = new ErrorProvider();
+            ErrorManager.Error(txt1, "Not an integer value.");
+            ErrorManager.Error(txt2, "Not an integer value.");
+            //error.SetError(txt2, "Not an integer value.");
         }
     }
 }

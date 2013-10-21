@@ -43,11 +43,13 @@
     <Compile Include="Business\AccountBusiness.cs" />
     <Compile Include="Business\ReceiptBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\IReceiptBusiness.cs" />
-    <Compile Include="Models\AccountCompareModel.cs" />
-    <Compile Include="Models\ReceiptModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{5447EFEE-DD65-414B-AF60-40BB7E89AF70}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\AccountDataAccess.csproj">
       <Project>{80214720-983C-488D-B60E-0DFA9E1DD77F}</Project>
       <Name>AccountDataAccess</Name>

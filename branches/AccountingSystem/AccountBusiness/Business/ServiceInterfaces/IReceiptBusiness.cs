@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AccountBusiness.Models;
+using DataAccess.Models;
 
 namespace AccountBusiness.Business.ServiceInterfaces
 {
     public interface IReceiptBusiness
     {
-        public void CreateNewReceipt(ReceiptModel receiptmodel) { 
-        
-        }
-        
+        void CreateNewReceipt(ReceiptModel receiptmodel);
     }
 }
