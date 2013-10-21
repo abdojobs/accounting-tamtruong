@@ -76,6 +76,9 @@
     <Compile Include="Entities\TradingPartner.cs" />
     <Compile Include="Entities\VatType.cs" />
     <Compile Include="Entities\WareHouse.cs" />
+    <Compile Include="Models\AccountCompareModel.cs" />
+    <Compile Include="Models\PayBillModel.cs" />
+    <Compile Include="Models\ReceiptModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ADO\ADOData.cs" />
     <Compile Include="Repositories\BaseConnector.cs" />
@@ -84,7 +87,11 @@
     <Compile Include="Repositories\ITaData.cs" />
     <Compile Include="Repositories\ITaDeliveryPersonRepository.cs" />
     <Compile Include="Repositories\ITaGeneralJournalRepository.cs" />
+    <Compile Include="Repositories\ITaInvoicePayBillRepository.cs" />
+    <Compile Include="Repositories\ITaInvoiceReceiptRepository.cs" />
     <Compile Include="Repositories\ITaInvoiceRepository.cs" />
+    <Compile Include="Repositories\ITaInvoiceStockInReceiptRepository.cs" />
+    <Compile Include="Repositories\ITaInvoiceStockOutReceiptRepository.cs" />
     <Compile Include="Repositories\ITaProceduceTypeRepository.cs" />
     <Compile Include="Repositories\ITaReceiptRepository.cs" />
     <Compile Include="Repositories\ITaReceiverRepository.cs" />
@@ -107,7 +114,11 @@
     <Compile Include="Repositories\Linq\TaDataContextEntity.cs" />
     <Compile Include="Repositories\Harsh\TaDataEntity.cs" />
     <Compile Include="Repositories\Linq\TaGeneralJournalRepository.cs" />
+    <Compile Include="Repositories\Linq\TaInvoicePayBillRepository.cs" />
+    <Compile Include="Repositories\Linq\TaInvoiceReceiptRepository.cs" />
     <Compile Include="Repositories\Linq\TaInvoiceRepository.cs" />
+    <Compile Include="Repositories\Linq\TaInvoiceStockInReceiptRepository.cs" />
+    <Compile Include="Repositories\Linq\TaInvoiceStockOutReceiptRepository.cs" />
     <Compile Include="Repositories\Linq\TaPayBillRepository.cs" />
     <Compile Include="Repositories\Linq\TaReceiptRepository.cs" />
     <Compile Include="Repositories\Linq\TaReceiverRepository.cs" />
@@ -131,9 +142,17 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{5447EFEE-DD65-414B-AF60-40BB7E89AF70}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Validations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
