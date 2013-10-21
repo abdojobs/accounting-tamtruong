@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using DataAccess.Entities;
 
-namespace AccountBusiness.Models
+namespace DataAccess.Models
 {
     public class PayBillModel
     {
