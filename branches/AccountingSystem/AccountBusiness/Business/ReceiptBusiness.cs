@@ -8,6 +8,7 @@ using Common.Messages;
 using DataAccess.Entities;
 using DataAccess.Repositories;
 using DataAccess.Models;
+using AccountBusiness.Validations;
 
 namespace AccountBusiness.Business
 {
@@ -16,7 +17,9 @@ namespace AccountBusiness.Business
         private ITaReceiptRepository receiptRepository;
         private ITaInvoiceRepository invoiceRepository;
         private ITaGeneralJournalRepository generalJournalRepository;
-        private ITaInvoiceReceiptRepository generalJournalRepository;
+        private ReceiptValidate receiptValidate;
+        private InvoiceValidate invoiceValidate;
+        private ITaInvoiceReceiptRepository invoiceReceiptRepository;
        
         public ReceiptBusiness(ITaReceiptRepository ReceiptRepository) {
             this.receiptRepository = ReceiptRepository;
@@ -35,21 +38,28 @@ namespace AccountBusiness.Business
             receipt.CreateDate = receipt.CreateDate == DateTime.MinValue ? DateTime.Now : receipt.CreateDate;
 
             // validate
-            receipt.validate(receiptmodel.AccountCompareModels);
+            receiptValidate.validate(receipt, receiptmodel.AccountCompareModels);
 
             //save
             receiptRepository.Add(receipt);
             #endregion
 
             #region invoices
+            List<Invoice_Receipt> invrecs=new List<Invoice_Receipt>();
             foreach (Invoice i in receiptmodel.Invoices) { 
                 //validate invoice
-                i.validate();
+                invoiceValidate.validate(i);
                 //save
                 invoiceRepository.Add(i);
                 //save detail invoice
-
+                Invoice_Receipt invrec = new Invoice_Receipt()
+                {
+                    Invoice = i,
+                    Receipt = receipt
+                };
+                invrecs.Add(invrec);
             }
+            invoiceReceiptRepository.AddList(invrecs);
             #endregion
         }
             

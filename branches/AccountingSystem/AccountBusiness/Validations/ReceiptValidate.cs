@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DataAccess.Entities;
 using Common.Exceptions;
 using Common.Messages;
 using DataAccess.Models;
 
-namespace DataAccess.Entities
+namespace AccountBusiness.Validations
 {
-    /// <summary>
-    /// using for validation
-    /// </summary>
-    partial class Receipt
+    public class ReceiptValidate
     {
-        public void validate() {
-            Receipt receipt = this;
+        public void validate(Receipt receipt) {
             if (receipt.Code == string.Empty)
                 throw new UserException(ErrorsManager.Error0001);
             if (receipt.TradingPartner == null)
@@ -22,8 +19,9 @@ namespace DataAccess.Entities
             if (receipt.DeliveryPerson == null)
                 throw new UserException(ErrorsManager.Error0003);
         }
-        public void validate(List<AccountCompareModel> accounts) { 
-            if(accounts==null || accounts.Count==0)
+        public void validate(Receipt receipt,List<AccountCompareModel> accounts) {
+            validate(receipt);
+            if (accounts == null || accounts.Count == 0)
                 throw new UserException(ErrorsManager.Error0004);
         }
     }
