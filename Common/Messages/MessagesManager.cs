@@ -55,6 +55,30 @@ namespace Common.Messages
         /// price is not 0
         /// </summary>
         public static readonly string Error0011 = "";
+        /// <summary>
+        /// stockinreceipt code is not empty
+        /// </summary>
+        public static readonly string Error0012 = "";
+        /// <summary>
+        /// warehouse is not null
+        /// </summary>
+        public static readonly string Error0013 = "";
+        /// <summary>
+        /// Description is not empty
+        /// </summary>
+        public static readonly string Error0014 = "";
+        /// <summary>
+        /// stockinreceipt is not null
+        /// </summary>
+        public static readonly string Error0015 = "";
+        /// <summary>
+        /// Supplier is not null
+        /// </summary>
+        public static readonly string Error0016 = "";
+        /// <summary>
+        /// stockindetail is not null
+        /// </summary>
+        public static readonly string Error0017 = "";
     }
     public class WarnningsManager { 
         

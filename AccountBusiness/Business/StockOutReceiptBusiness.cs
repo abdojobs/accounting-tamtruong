@@ -22,6 +22,7 @@ namespace AccountBusiness.Business
         ITaInvoiceRepository invoiceRepository;
         InvoiceValidate _invoiceValidate;
         StockOutDetailValidate _stockOutDetailValidate;
+        StockOutReceiptValidate _stockOutReceiptValidate;
         #region properties
         InvoiceValidate invoiceValidate {
             get {
@@ -37,9 +38,16 @@ namespace AccountBusiness.Business
                 return _stockOutDetailValidate;
             }
         }
+        StockOutReceiptValidate stockOutReceiptValidate {
+            get {
+                if (_stockOutReceiptValidate == null)
+                    _stockOutReceiptValidate = new StockOutReceiptValidate();
+                return _stockOutReceiptValidate;
+            }
+        }
         #endregion
         
-        public void addStockInProceduce(Models.StockOutReceiptModel model)
+        public void addStockOutProceduce(Models.StockOutReceiptModel model)
         {
             using (TransactionScope transactionScope = new TransactionScope())
             {
@@ -73,14 +81,16 @@ namespace AccountBusiness.Business
             stockOutReceipt.VatType = model.VatType;
             stockOutReceipt.WareHouse = model.WareHouse;
             stockOutReceipt.CreateDate = stockOutReceipt.CreateDate == DateTime.MinValue ? DateTime.Now : stockOutReceipt.CreateDate;
+            // add
+            Context.StockOutReceipts.Add(stockOutReceipt);
+
             decimal amount = 0;
             amount = writeStockOutDetails(stockOutReceipt,model.StockOutDetails);
             stockOutReceipt.Amount = amount;
             
             //validate
-
-            // add
-            Context.StockOutReceipts.AddSubmit(stockOutReceipt);
+            stockOutReceiptValidate.validate(stockOutReceipt);
+            
 
             return stockOutReceipt;
         }
@@ -90,6 +100,8 @@ namespace AccountBusiness.Business
             decimal amount = 0;
             foreach (var s in stockOutDetails) {
                 //validate
+                stockOutDetailValidate.validate(s);
+
                 s.StockOutReceipt = stockOutReceipt;
                 updateInventory(s);
                 amount += CalAmount(s);
@@ -106,7 +118,7 @@ namespace AccountBusiness.Business
                 //validate invoice
                 invoiceValidate.validate(i);
                 //save
-                invoiceRepository.Add(i);
+                Context.Invoices.Add(i);
                 //save detail invoice
                 Invoice_StockOutReceipt invrec = new Invoice_StockOutReceipt()
                 {

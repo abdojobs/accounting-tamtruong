@@ -10,7 +10,7 @@ namespace AccountBusiness.Business.ServiceInterfaces
 {
     public interface IStockOutReceiptBusiness
     {
-        void addStockInProceduce(StockOutReceiptModel model);
+        void addStockOutProceduce(StockOutReceiptModel model);
         StockOutReceipt addStockOutReceipt(StockOutReceiptModel model);
         /// <summary>
         /// write stockoutdetail
