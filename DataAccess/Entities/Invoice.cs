@@ -17,7 +17,7 @@ namespace DataAccess.Entities
         [DataType(DataType.Date)]
         public DateTime PerformDate { get; set; }
         public virtual Customer Customer { get; set; }
-        public decimal Total { get; set; }
+        public decimal Amount { get; set; }
         public virtual VatType VatType { get; set; }
         public virtual Stock Stock { get; set; }
         [StringLength(GlobalConstant.MaxLengthDefault)]

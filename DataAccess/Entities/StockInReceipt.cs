@@ -20,7 +20,7 @@ namespace DataAccess.Entities
         public virtual VatType VatType { get; set; }
         [StringLength(GlobalConstant.MaxLengthDefault)]
         public string Description { get; set; }
-        public decimal Total { get; set; }
+        public decimal Amount { get; set; }
         public float DiscountPercent { get; set; }
     }
 }

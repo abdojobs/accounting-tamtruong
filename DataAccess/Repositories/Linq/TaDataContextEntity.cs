@@ -51,13 +51,14 @@ namespace DataAccess.Repositories.Linq
             return Entities;
         }
         public virtual void Add(T entity) {
-            ContextAdd(entity);
+            Entities.Add(entity);
         }
         public virtual void Update(T entity) {
-            ContextUpdate(entity);
+            Context.Entry(entity).State = EntityState.Modified;
         }
         public virtual void Delete(int id) {
-            ContextDelete(id);
+            var obj = ContextGet(id);
+            Entities.Remove(obj);
         }
         public virtual T Get(int id) {
             return ContextGet(id);
@@ -65,18 +66,50 @@ namespace DataAccess.Repositories.Linq
 
         public virtual void AddList(List<T> list) {
             foreach (var e in list) {
+                Add(e);
+            }
+        }
+        public virtual void UpdateList(List<T> list) {
+            foreach (var entity in list) {
+                Update(entity);
+            }
+        }
+        public virtual void DeleteList(List<T> list){
+            foreach (var entity in list) {
+                Entities.Remove(entity);
+            }
+        }
+
+        public virtual void AddSubmit(T entity) {
+            ContextAdd(entity);
+        }
+        public virtual void AddListSubmit(List<T> list) {
+            foreach (var e in list)
+            {
                 Entities.Add(e);
             }
             Context.SaveChanges();
         }
-        public virtual void UpdateList(List<T> list) {
-            foreach (var entity in list) {
+        public virtual void UpdateSubmit(T entity)
+        {
+            ContextUpdate(entity);
+        }
+        public virtual void DeleteSubmit(int id)
+        {
+            ContextDelete(id);
+        }
+        public virtual void UpdateListSubmit(List<T> list)
+        {
+            foreach (var entity in list)
+            {
                 Context.Entry(entity).State = EntityState.Modified;
             }
             Context.SaveChanges();
         }
-        public virtual void DeleteList(List<T> list){
-            foreach (var entity in list) {
+        public virtual void DeleteListSubmit(List<T> list)
+        {
+            foreach (var entity in list)
+            {
                 Entities.Remove(entity);
             }
             Context.SaveChanges();

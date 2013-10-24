@@ -14,7 +14,7 @@ namespace DataAccess.Entities
         public string Code { get; set; }
         [DataType(DataType.Date)]
         public DateTime CreateDate { get; set; }
-        public decimal Total { get; set; }
+        public decimal Amount { get; set; }
         public virtual TradingPartner TradingPartner { get; set; }
         public virtual DeliveryPerson DeliveryPerson { get; set; }
         public virtual AccountClause AccountClause { get; set; }

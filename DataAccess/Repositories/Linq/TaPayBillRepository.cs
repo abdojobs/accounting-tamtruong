@@ -6,7 +6,7 @@ using DataAccess.Entities;
 
 namespace DataAccess.Repositories.Linq
 {
-    public class TaPayBillRepository:TaDataContextEntity<PayBill>,ITaPaybillRepository
+    public class TaPayBillRepository:TaDataContextEntity<PayBill>,ITaPayBillRepository
     {
         public TaPayBillRepository(TaDalContext Context)
         {

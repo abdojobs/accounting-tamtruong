@@ -18,8 +18,11 @@ namespace AccountBusiness.Validations
                 throw new UserException(ErrorsManager.Error0002);
             if (receipt.DeliveryPerson == null)
                 throw new UserException(ErrorsManager.Error0003);
+            // amount is not less than or equal 0
+            if(receipt.Amount<=0)
+                throw new UserException(ErrorsManager.Error0006);
         }
-        public void validate(Receipt receipt,List<AccountCompareModel> accounts) {
+        public void validate(Receipt receipt,List<BalanceAccountModel> accounts) {
             validate(receipt);
             if (accounts == null || accounts.Count == 0)
                 throw new UserException(ErrorsManager.Error0004);

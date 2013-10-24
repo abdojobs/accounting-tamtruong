@@ -14,8 +14,8 @@ namespace DataAccess.Entities
         [StringLength(GlobalConstant.MaxLengthDefault)]
         public string Description { get; set; }
         public virtual Account Account { get; set; }
-        public decimal DebtMoney { get; set; }
-        public decimal RecieveMoney { get; set; }
+        public decimal DebtAmount { get; set; }
+        public decimal ReceiveAmount { get; set; }
         public virtual ProceduceType Proceducetype { get; set; }
     }
 }

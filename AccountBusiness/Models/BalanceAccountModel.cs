@@ -6,10 +6,11 @@ using DataAccess.Entities;
 
 namespace DataAccess.Models
 {
-    public class AccountCompareModel
+    public class BalanceAccountModel
     {
         public Account Account { get; set; }
-        public decimal DedtMoney { get; set; }
-        public decimal ReceiveMoney { get; set; }
+        public decimal DedtAmount { get; set; }
+        public decimal ReceiveAmount { get; set; }
+        public string Description { get; set; }
     }
 }
