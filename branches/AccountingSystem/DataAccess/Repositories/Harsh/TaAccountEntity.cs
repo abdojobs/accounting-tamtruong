@@ -50,5 +50,36 @@ namespace DataAccess.Repositories.Harsh
         {
             throw new NotImplementedException();
         }
+
+
+        public void AddSubmit(Account entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateSubmit(Account entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteSubmit(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddListSubmit(List<Account> list)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateListSubmit(List<Account> list)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteListSubmit(List<Account> list)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

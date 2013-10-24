@@ -12,7 +12,7 @@ namespace DataAccess.Models
         public List<Invoice> Invoices { get; set; }
         public TradingPartner TradingPartner { get; set; }
         public DeliveryPerson DeliveryPerson { get; set; }
-        public List<AccountCompareModel> AccountCompareModels { get; set; }
+        public List<BalanceAccountModel> BalanceAccounts { get; set; }
         /// <summary>
         /// use to get reason write to GeneralJournal
         /// </summary>

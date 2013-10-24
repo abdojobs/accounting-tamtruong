@@ -6,7 +6,7 @@ using DataAccess.Entities;
 
 namespace DataAccess.Repositories
 {
-    public interface ITaPaybillRepository:ITaRepositoryBase<PayBill>
+    public interface ITaPayBillRepository:ITaRepositoryBase<PayBill>
     {
     }
 }

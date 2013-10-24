@@ -11,7 +11,7 @@ namespace DataAccess.Models
         public PayBill PayBill { get; set; }
         public List<Invoice> Invoices { get; set; }
         public Receiver Receiver { get; set; }
-        public List<AccountCompareModel> AccountCompareModels { get; set; }
+        public List<BalanceAccountModel> BalanceAccounts { get; set; }
         /// <summary>
         /// use to get reason write to GeneralJournal
         /// </summary>

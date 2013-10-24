@@ -15,5 +15,12 @@ namespace DataAccess.Repositories
         void AddList(List<T> list);
         void UpdateList(List<T> list);
         void DeleteList(List<T> list);
+
+        void AddSubmit(T entity);
+        void UpdateSubmit(T entity);
+        void DeleteSubmit(int id);
+        void AddListSubmit(List<T> list);
+        void UpdateListSubmit(List<T> list);
+        void DeleteListSubmit(List<T> list);
     }
 }

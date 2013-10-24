@@ -8,5 +8,9 @@ namespace DataAccess.Repositories.Linq
 {
     public class TaInvoicePayBillRepository:TaDataContextEntity<Invoice_PayBill>,ITaInvoicePayBillRepository
     {
+        public TaInvoicePayBillRepository(TaDalContext Context)
+        {
+            this.Context = Context;
+        }
     }
 }
