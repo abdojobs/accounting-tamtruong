@@ -15,7 +15,7 @@ namespace AccountBusiness.Validations
             if (stockOutDetail.StockOutReceipt == null || stockOutDetail.StockOutReceipt.Id == 0)
                 throw new UserException(ErrorsManager.Error0008);
             // stock is not null
-            if(stockOutDetail.Stock==null || stockOutDetail.Stock.Id==0)
+            if(stockOutDetail.Stock==null)
                 throw new UserException(ErrorsManager.Error0009);
             // quantity is not less than or equal 0
             if(stockOutDetail.Quantity==0)
