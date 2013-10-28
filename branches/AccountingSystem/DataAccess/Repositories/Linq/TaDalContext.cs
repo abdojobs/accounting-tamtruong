@@ -27,6 +27,9 @@ namespace DataAccess.Repositories.Linq
         { 
             
         }
+        public TaDalContext():base(GlobalConstant.DBConnecstring) { 
+            
+        }
         #region DataContext To Database
         public DbSet<Account> Accounts { get;set; }
         public DbSet<AccountClause> AccountClauses { get;set; }

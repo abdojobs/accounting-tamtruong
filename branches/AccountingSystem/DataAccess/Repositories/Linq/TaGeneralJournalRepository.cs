@@ -8,9 +8,6 @@ namespace DataAccess.Repositories.Linq
 {
     public class TaGeneralJournalRepository : TaDataContextEntity<GeneralJournal>,ITaGeneralJournalRepository
     {
-        public TaGeneralJournalRepository(TaDalContext Context)
-        {
-            this.Context = Context;
-        }
+        
     }
 }

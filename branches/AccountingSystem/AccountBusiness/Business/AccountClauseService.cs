@@ -13,6 +13,7 @@ using DataAccess.Entities;
 using AccountBusiness.Models;
 using System.Data.Objects;
 using System.Data.Entity;
+using DataAccess.Repositories.Linq;
 
 namespace Business.Business
 {
@@ -96,7 +97,19 @@ namespace Business.Business
 
         public ProceduceType GetProceduceType(int id)
         {
-            return Context.ProceduceTypes.Get(id);
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    return Context.ProceduceTypes.Find(id);
+                }
+                catch { }
+                finally
+                {
+                    Context.Dispose();
+                }
+                return null;
+            }
         }
 
 
@@ -128,7 +141,18 @@ namespace Business.Business
 
         public AccountType GetAccountType(string code)
         {
-            return Context.AccountTypes.GetAll().Where(a => a.Code == code).FirstOrDefault();
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    return Context.AccountTypes.Where(a => a.Code == code).FirstOrDefault();
+                }
+                catch { }
+                finally {
+                    Context.Dispose();
+                }
+                return null;
+            }
         }
 
 

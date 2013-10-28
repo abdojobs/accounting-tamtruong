@@ -8,9 +8,6 @@ namespace DataAccess.Repositories.Linq
 {
     public class TaReceiverRepository:TaDataContextEntity<Receiver>,ITaReceiverRepository
     {
-        public TaReceiverRepository(TaDalContext Context)
-        {
-            this.Context = Context;
-        }
+       
     }
 }

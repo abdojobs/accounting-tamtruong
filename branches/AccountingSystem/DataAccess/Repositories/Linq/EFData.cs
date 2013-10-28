@@ -24,7 +24,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_Accounts == null)
                 {
-                    _Accounts = new TaAccountRepository(Context);
+                    _Accounts = new TaAccountRepository();
                     
                 }
                 return _Accounts;
@@ -37,7 +37,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_DeliveryPersons == null)
                 {
-                    _DeliveryPersons = new TaDeliveryPersonRepository(Context);
+                    _DeliveryPersons = new TaDeliveryPersonRepository();
                     
                 }
                 return _DeliveryPersons;
@@ -49,7 +49,7 @@ namespace DataAccess.Repositories.Linq
             get {
                 if (_GeneralJournals == null)
                 {
-                    _GeneralJournals = new TaGeneralJournalRepository(Context);
+                    _GeneralJournals = new TaGeneralJournalRepository();
 
                 }
                 return _GeneralJournals;
@@ -62,7 +62,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_InvoicePayBills == null)
                 {
-                    _InvoicePayBills = new TaInvoicePayBillRepository(Context);
+                    _InvoicePayBills = new TaInvoicePayBillRepository();
 
                 }
                 return _InvoicePayBills;
@@ -75,7 +75,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_InvoiceReceipts == null)
                 {
-                    _InvoiceReceipts = new TaInvoiceReceiptRepository(Context);
+                    _InvoiceReceipts = new TaInvoiceReceiptRepository();
 
                 }
                 return _InvoiceReceipts;
@@ -88,7 +88,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_Invoices == null)
                 {
-                    _Invoices = new TaInvoiceRepository(Context);
+                    _Invoices = new TaInvoiceRepository();
 
                 }
                 return _Invoices;
@@ -101,7 +101,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_InvoiceStockInReceipts == null)
                 {
-                    _InvoiceStockInReceipts = new TaInvoiceStockInReceiptRepository(Context);
+                    _InvoiceStockInReceipts = new TaInvoiceStockInReceiptRepository();
 
                 }
                 return _InvoiceStockInReceipts;
@@ -114,7 +114,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_InvoiceStockOutReceipts == null)
                 {
-                    _InvoiceStockOutReceipts = new TaInvoiceStockOutReceiptRepository(Context);
+                    _InvoiceStockOutReceipts = new TaInvoiceStockOutReceiptRepository();
 
                 }
                 return _InvoiceStockOutReceipts;
@@ -127,7 +127,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_PayBills == null)
                 {
-                    _PayBills = new TaPayBillRepository(Context);
+                    _PayBills = new TaPayBillRepository();
 
                 }
                 return _PayBills;
@@ -140,7 +140,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_Receipts == null)
                 {
-                    _Receipts = new TaReceiptRepository(Context);
+                    _Receipts = new TaReceiptRepository();
 
                 }
                 return _Receipts;
@@ -153,7 +153,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_Receivers == null)
                 {
-                    _Receivers = new TaReceiverRepository(Context);
+                    _Receivers = new TaReceiverRepository();
 
                 }
                 return _Receivers;
@@ -166,7 +166,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_StockInDetails == null)
                 {
-                    _StockInDetails = new TaStockInDetailRepository(Context);
+                    _StockInDetails = new TaStockInDetailRepository();
 
                 }
                 return _StockInDetails;
@@ -179,7 +179,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_StockInReceipts == null)
                 {
-                    _StockInReceipts = new TaStockInReceiptRepository(Context);
+                    _StockInReceipts = new TaStockInReceiptRepository();
 
                 }
                 return _StockInReceipts;
@@ -192,7 +192,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_StockOutDetails == null)
                 {
-                    _StockOutDetails = new TaStockOutDetailRepository(Context);
+                    _StockOutDetails = new TaStockOutDetailRepository();
 
                 }
                 return _StockOutDetails;
@@ -205,7 +205,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_StockOutReceipts == null)
                 {
-                    _StockOutReceipts = new TaStockOutReceiptRepository(Context);
+                    _StockOutReceipts = new TaStockOutReceiptRepository();
 
                 }
                 return _StockOutReceipts;
@@ -218,7 +218,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_Stocks == null)
                 {
-                    _Stocks = new TaStockRepository(Context);
+                    _Stocks = new TaStockRepository();
 
                 }
                 return _Stocks;
@@ -231,7 +231,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_Suppliers == null)
                 {
-                    _Suppliers = new TaSupplierRepository(Context);
+                    _Suppliers = new TaSupplierRepository();
 
                 }
                 return _Suppliers;
@@ -244,7 +244,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_TradingPartners == null)
                 {
-                    _TradingPartners = new TaTradingPartnerRepository(Context);
+                    _TradingPartners = new TaTradingPartnerRepository();
 
                 }
                 return _TradingPartners;
@@ -257,7 +257,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_WareHouses == null)
                 {
-                    _WareHouses = new TaWareHouseRepository(Context);
+                    _WareHouses = new TaWareHouseRepository();
 
                 }
                 return _WareHouses;
@@ -277,7 +277,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_AccountClauses == null)
                 {
-                    _AccountClauses = new TaAccountClauseRepository(Context);
+                    _AccountClauses = new TaAccountClauseRepository();
 
                 }
                 return _AccountClauses;
@@ -290,7 +290,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_AccountClauseDetails == null)
                 {
-                    _AccountClauseDetails = new TaAccountClauseDetailRepository(Context);
+                    _AccountClauseDetails = new TaAccountClauseDetailRepository();
 
                 }
                 return _AccountClauseDetails;
@@ -304,7 +304,7 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_AccountTypes == null)
                 {
-                    _AccountTypes = new TaAccountTypeRepository(Context);
+                    _AccountTypes = new TaAccountTypeRepository();
 
                 }
                 return _AccountTypes;
@@ -318,11 +318,17 @@ namespace DataAccess.Repositories.Linq
             {
                 if (_ProceduceTypes == null)
                 {
-                    _ProceduceTypes = new TaProceduceTypeRepository(Context);
+                    _ProceduceTypes = new TaProceduceTypeRepository();
 
                 }
                 return _ProceduceTypes;
             }
+        }
+
+
+        public void Dispose()
+        {
+            Context.Dispose();
         }
     }
 }
