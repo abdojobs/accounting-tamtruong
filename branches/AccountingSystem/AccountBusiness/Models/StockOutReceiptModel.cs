@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataAccess.Entities;
-using DataAccess.Models;
 
-namespace AccountBusiness.Models
+namespace Business.Models
 {
     public class StockOutReceiptModel
     {

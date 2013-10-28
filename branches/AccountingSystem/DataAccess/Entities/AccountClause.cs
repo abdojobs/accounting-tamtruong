@@ -15,5 +15,6 @@ namespace DataAccess.Entities
         [StringLength(GlobalConstant.MaxLengthDefault)]
         public string Code { get; set; }
         public string Description { get; set; }
+        public virtual ProceduceType ProceduceType { get; set; }
     }
 }

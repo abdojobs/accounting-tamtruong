@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AccountBusiness.Business.ServiceInterfaces;
+using Business.Business.ServiceInterfaces;
 using System.Transactions;
 using DataAccess.Entities;
 using Common.Logs;
@@ -10,16 +10,14 @@ using Common.Exceptions;
 using Common.Messages;
 using DataAccess.Repositories;
 using Common.Maths;
-using AccountBusiness.Validations;
+using Business.Validations;
+using Business.Models;
 
-namespace AccountBusiness.Business
+namespace Business.Business
 {
-    public class StockOutReceiptBusiness:BaseConnector,IStockOutReceiptBusiness
+    public class StockOutReceiptService : BaseConnector, IStockOutReceiptBusiness
     {
-        ITaStockOutReceiptRepository stockOutReceiptRepository;
-        ITaStockOutDetailRepository stockOutDetailtRepository;
-        ITaInvoiceStockOutReceiptRepository invoiceStockOutReceiptRepository;
-        ITaInvoiceRepository invoiceRepository;
+        
         InvoiceValidate _invoiceValidate;
         StockOutDetailValidate _stockOutDetailValidate;
         StockOutReceiptValidate _stockOutReceiptValidate;
@@ -130,7 +128,7 @@ namespace AccountBusiness.Business
             Context.InvoiceStockOutReceipts.AddList(invrecs);
         }
 
-        public void writeGeneralLedger(DataAccess.Entities.StockOutReceipt stockOutReceipt, List<DataAccess.Models.BalanceAccountModel> accounts)
+        public void writeGeneralLedger(DataAccess.Entities.StockOutReceipt stockOutReceipt, List<BalanceAccountModel> accounts)
         {
             List<GeneralJournal> list = new List<GeneralJournal>();
             foreach (var a in accounts)

@@ -9,9 +9,11 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AccountBusiness</RootNamespace>
-    <AssemblyName>AccountBusiness</AssemblyName>
+    <AssemblyName>Business</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,8 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,21 +48,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\AccountBusiness.cs" />
-    <Compile Include="Business\PayBillBusiness.cs" />
-    <Compile Include="Business\ReceiptBusiness.cs" />
+    <Compile Include="Business\AccountService.cs" />
+    <Compile Include="Business\AccountClauseService.cs" />
+    <Compile Include="Business\PayBillService.cs" />
+    <Compile Include="Business\ReceiptService.cs" />
+    <Compile Include="Business\ServiceInterfaces\IAccountBusiness.cs" />
+    <Compile Include="Business\ServiceInterfaces\IAccountClauseBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\IPayBillBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\IReceiptBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\IStockInReceiptBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\IStockOutReceiptBusiness.cs" />
-    <Compile Include="Business\StockInReceiptBusiness.cs" />
-    <Compile Include="Business\StockOutReceiptBusiness.cs" />
+    <Compile Include="Business\StockInReceiptService.cs" />
+    <Compile Include="Business\StockOutReceiptService.cs" />
+    <Compile Include="Models\AccountClauseModel.cs" />
+    <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\BalanceAccountModel.cs" />
     <Compile Include="Models\PayBillModel.cs" />
     <Compile Include="Models\ReceiptModel.cs" />
     <Compile Include="Models\StockInReceiptModel.cs" />
     <Compile Include="Models\StockOutReceiptModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validations\AccountClauseValidate.cs" />
+    <Compile Include="Validations\AccountValidate.cs" />
     <Compile Include="Validations\BalanceAccountValidate.cs" />
     <Compile Include="Validations\InvoiceValidate.cs" />
     <Compile Include="Validations\PayBillValidate.cs" />

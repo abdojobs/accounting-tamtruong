@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataAccess.Repositories;
-using AccountBusiness.Business.ServiceInterfaces;
+using Business.Business.ServiceInterfaces;
 using DataAccess.Entities;
-using AccountBusiness.Models;
+using Business.Models;
 using Common.Logs;
 using Common.Exceptions;
 using Common.Messages;
 using System.Transactions;
 using Common.Utils;
-using AccountBusiness.Validations;
+using Business.Validations;
 using Common.Maths;
 
-namespace AccountBusiness.Business
+namespace Business.Business
 {
-    public class StockInReceiptBusiness:BaseConnector, IStockInReceiptBusiness
+    public class StockInReceiptService : BaseConnector, IStockInReceiptBusiness
     {
         InvoiceValidate _invoiceValidate;
         StockInDetailValidate _stockInDetailValidate;
@@ -124,7 +124,7 @@ namespace AccountBusiness.Business
             Context.InvoiceStockInReceipts.AddList(invrecs);
         }
 
-        public void writeGeneralLedger(StockInReceipt stockInReceipt, List<DataAccess.Models.BalanceAccountModel> accounts)
+        public void writeGeneralLedger(StockInReceipt stockInReceipt, List<BalanceAccountModel> accounts)
         {
             List<GeneralJournal> list = new List<GeneralJournal>();
             foreach (var a in accounts)

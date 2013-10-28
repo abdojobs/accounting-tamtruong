@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataAccess.Entities;
-using DataAccess.Models;
-using AccountBusiness.Models;
+using Business.Models;
 
-namespace AccountBusiness.Business.ServiceInterfaces
+namespace Business.Business.ServiceInterfaces
 {
     public interface IStockInReceiptBusiness
     {

@@ -11,7 +11,8 @@
     <RootNamespace>AccountingSystem</RootNamespace>
     <AssemblyName>AccountingSystem</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,17 +51,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Components\AccountClauseGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\AccountGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\AutoGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\ICustomizeColumn.cs" />
+    <Compile Include="Controls\AccountClauseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AccountClauseControl.Designer.cs">
+      <DependentUpon>AccountClauseControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AccountControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AccountControl.Designer.cs">
+      <DependentUpon>AccountControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Utils\EditEventStyle.cs" />
     <Compile Include="Utils\ErrorManager.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\AccountClauseControl.resx">
+      <DependentUpon>AccountClauseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AccountControl.resx">
+      <DependentUpon>AccountControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -66,6 +101,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
@@ -79,6 +115,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AccountBusiness\AccountBusiness.csproj">
+      <Project>{7B5C49EF-AEBF-4947-8281-6680DCA1A791}</Project>
+      <Name>AccountBusiness</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{5637C5BC-3433-4260-9651-4D2C2FF78739}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\AccountDataAccess.csproj">
       <Project>{80214720-983C-488D-B60E-0DFA9E1DD77F}</Project>
       <Name>AccountDataAccess</Name>

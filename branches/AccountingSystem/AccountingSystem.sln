@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountingSystem", "AccountingSystem\AccountingSystem.csproj", "{1F13B208-D3E5-4322-83FF-8B0FBE3A74AE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7B5C49EF-AEBF-4947-8281-6680DCA1A791} = {7B5C49EF-AEBF-4947-8281-6680DCA1A791}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountDataAccess", "DataAccess\AccountDataAccess.csproj", "{80214720-983C-488D-B60E-0DFA9E1DD77F}"
 EndProject

@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AccountBusiness.Business.ServiceInterfaces;
+using Business.Business.ServiceInterfaces;
 using DataAccess.Repositories;
-using AccountBusiness.Validations;
+using Business.Validations;
 using System.Transactions;
 using DataAccess.Entities;
 using Common.Logs;
 using Common.Messages;
 using Common.Exceptions;
+using Business.Models;
 
-namespace AccountBusiness.Business
+namespace Business.Business
 {
-    public class PayBillBusiness :BaseConnector ,IPayBillBusiness
+    public class PayBillService :BaseConnector ,IPayBillBusiness
     {
         #region fields
        
@@ -50,7 +51,7 @@ namespace AccountBusiness.Business
         }
         #endregion
 
-        public void addPayBillProceduce(DataAccess.Models.PayBillModel payBillModel)
+        public void addPayBillProceduce(PayBillModel payBillModel)
         {
             using (TransactionScope transaction = new TransactionScope())
             {
@@ -76,7 +77,7 @@ namespace AccountBusiness.Business
             }
         }
 
-        public DataAccess.Entities.PayBill addPayBill(DataAccess.Models.PayBillModel payBillModel)
+        public DataAccess.Entities.PayBill addPayBill(PayBillModel payBillModel)
         {
             PayBill payBill = payBillModel.PayBill;
             // set receiver for paybill
@@ -92,7 +93,7 @@ namespace AccountBusiness.Business
             return payBill;
         }
 
-        public void writeGeneralLedger(DataAccess.Entities.PayBill payBill, List<DataAccess.Models.BalanceAccountModel> balanceaccounts)
+        public void writeGeneralLedger(PayBill payBill, List<BalanceAccountModel> balanceaccounts)
         {
             List<GeneralJournal> list = new List<GeneralJournal>();
             foreach (var a in balanceaccounts)

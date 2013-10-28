@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AccountBusiness.Models;
+using Business.Models;
 using DataAccess.Entities;
-using DataAccess.Models;
 
-namespace AccountBusiness.Business.ServiceInterfaces
+namespace Business.Business.ServiceInterfaces
 {
     public interface IStockOutReceiptBusiness
     {
