@@ -8,9 +8,6 @@ namespace DataAccess.Repositories.Linq
 {
     public class TaStockOutReceiptRepository:TaDataContextEntity<StockOutReceipt>,ITaStockOutReceiptRepository
     {
-        public TaStockOutReceiptRepository(TaDalContext Context)
-        {
-            this.Context = Context;
-        }
+        
     }
 }

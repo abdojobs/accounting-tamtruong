@@ -11,8 +11,6 @@ namespace DataAccess.Repositories.Linq
 {
     public class TaAccountRepository :TaDataContextEntity<Account>,  ITaAccountRepository
     {
-        public TaAccountRepository(TaDalContext Context) {
-            this.Context = Context;
-        }
+        
     }
 }

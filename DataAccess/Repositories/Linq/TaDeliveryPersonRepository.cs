@@ -8,9 +8,6 @@ namespace DataAccess.Repositories.Linq
 {
     public class TaDeliveryPersonRepository:TaDataContextEntity<DeliveryPerson>,ITaDeliveryPersonRepository
     {
-        public TaDeliveryPersonRepository(TaDalContext Context)
-        {
-            this.Context = Context;
-        }
+        
     }
 }

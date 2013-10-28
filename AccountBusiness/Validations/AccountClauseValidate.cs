@@ -18,8 +18,8 @@ namespace Business.Validations
             if(accountClause.Description==string.Empty)
                 throw new UserException(ErrorsManager.Error0014);
             // proceducetype is not null
-            if(accountClause.ProceduceType==null || accountClause.ProceduceType.Id==0)
-                throw new UserException(ErrorsManager.Error0019);
+            //if(accountClause.ProceduceType==null || accountClause.ProceduceType.Id==0)
+            //    throw new UserException(ErrorsManager.Error0019);
         }
         public void validateBalanceAccount(AccountClauseDetail accountdetail) { 
             // accountclause is not null

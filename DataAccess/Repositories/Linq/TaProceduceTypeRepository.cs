@@ -8,9 +8,6 @@ namespace DataAccess.Repositories.Linq
 {
     public class TaProceduceTypeRepository : TaDataContextEntity<ProceduceType>, ITaProceduceTypeRepository
     {
-        public TaProceduceTypeRepository(TaDalContext Context)
-        {
-            this.Context = Context;
-        }
+        
     }
 }

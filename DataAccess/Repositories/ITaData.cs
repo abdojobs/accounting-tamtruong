@@ -31,5 +31,6 @@ namespace DataAccess.Repositories
         ITaWareHouseRepository WareHouses { get; }
         ITaProceduceTypeRepository ProceduceTypes { get; }
         void SaveChanges();
+        void Dispose();
     }
 }

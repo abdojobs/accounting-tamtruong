@@ -6,11 +6,7 @@ using DataAccess.Entities;
 namespace DataAccess.Repositories.Linq {
 	public class TaStockInDetailRepository : TaDataContextEntity<StockInDetail>, ITaStockInDetailRepository {
 
-        public TaStockInDetailRepository(TaDalContext Context)
-        {
-            this.Context = Context;
-        }
-
+        
 	}
 
 }
