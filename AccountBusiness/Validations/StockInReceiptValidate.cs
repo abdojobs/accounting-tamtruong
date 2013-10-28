@@ -6,7 +6,7 @@ using DataAccess.Entities;
 using Common.Exceptions;
 using Common.Messages;
 
-namespace AccountBusiness.Validations
+namespace Business.Validations
 {
     public class StockInReceiptValidate
     {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DataAccess.Models;
+using Business.Models;
 using Common.Exceptions;
 using Common.Messages;
 
-namespace AccountBusiness.Validations
+namespace Business.Validations
 {
     public class BalanceAccountValidate
     {

@@ -8,6 +8,9 @@ namespace DataAccess.Repositories
     public interface ITaData
     {
         ITaAccountRepository Accounts { get; }
+        ITaAccountClauseRepository AccountClauses { get; }
+        ITaAccountClauseDetailRepository AccountClauseDetails { get; }
+        ITaAccountTypeRepository AccountTypes { get; }
         ITaDeliveryPersonRepository DeliveryPersons { get; }
         ITaGeneralJournalRepository GeneralJournals { get; }
         ITaInvoicePayBillRepository InvoicePayBills { get; }
@@ -26,6 +29,7 @@ namespace DataAccess.Repositories
         ITaSupplierRepository Suppliers { get; }
         ITaTradingPartnerRepository TradingPartners { get; }
         ITaWareHouseRepository WareHouses { get; }
+        ITaProceduceTypeRepository ProceduceTypes { get; }
         void SaveChanges();
     }
 }

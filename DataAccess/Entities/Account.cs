@@ -12,9 +12,11 @@ namespace DataAccess.Entities
     {
         public int Id { get; set; }
         [UniqueKey]
-        public int Code { get; set; }
+        [StringLength(6)]
+        public string Code { get; set; }
         [StringLength(GlobalConstant.MaxLengthDefault)]
         public string Description { get; set; }
         public virtual AccountType AccountType { get; set; }
+        public virtual Account Parent { get; set; }
     }
 }

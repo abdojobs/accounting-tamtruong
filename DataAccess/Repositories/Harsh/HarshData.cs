@@ -107,5 +107,27 @@ namespace DataAccess.Repositories.Harsh
         {
             throw new NotImplementedException();
         }
+
+
+        public ITaAccountClauseRepository AccountClauses
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public ITaAccountClauseDetailRepository AccountClauseDetails
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public ITaAccountTypeRepository AccountTypes
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+
+        public ITaProceduceTypeRepository ProceduceTypes
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

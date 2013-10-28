@@ -18,26 +18,26 @@ namespace DataAccess.Repositories.Linq
     {
         public void InitializeDatabase(T context)
         {
-            context.Database.Delete();
-            context.Database.Create();
-            //Fetch all the father class's public properties 
-            var fatherPropertyNames = typeof(DbContext).GetProperties().Select(pi => pi.Name).ToList();
-            //Loop each dbset's T 
+            //context.Database.Delete();
+            //context.Database.Create();
+            ////Fetch all the father class's public properties 
+            //var fatherPropertyNames = typeof(DbContext).GetProperties().Select(pi => pi.Name).ToList();
+            ////Loop each dbset's T 
 
-            //ignore unique type
+            ////ignore unique type
 
-            foreach (PropertyInfo item in typeof(T).GetProperties().Where(p => fatherPropertyNames.IndexOf(p.Name) < 0 && !IsIgnoreUnique(p.PropertyType.GetGenericArguments()[0])).Select(p => p))
-            {
-                //fetch the type of "T" 
-                Type entityModelType = item.PropertyType.GetGenericArguments()[0];
-                var allfieldNames = from prop in entityModelType.GetProperties()
-                                    where prop.GetCustomAttributes(typeof(UniqueKeyAttribute), true).Count() > 0
-                                    select prop.Name;
-                foreach (string s in allfieldNames)
-                {
-                    context.Database.ExecuteSqlCommand("alter table " + entityModelType.Name + " add unique(" + s + ")");
-                }
-            }
+            //foreach (PropertyInfo item in typeof(T).GetProperties().Where(p => fatherPropertyNames.IndexOf(p.Name) < 0 && !IsIgnoreUnique(p.PropertyType.GetGenericArguments()[0])).Select(p => p))
+            //{
+            //    //fetch the type of "T" 
+            //    Type entityModelType = item.PropertyType.GetGenericArguments()[0];
+            //    var allfieldNames = from prop in entityModelType.GetProperties()
+            //                        where prop.GetCustomAttributes(typeof(UniqueKeyAttribute), true).Count() > 0
+            //                        select prop.Name;
+            //    foreach (string s in allfieldNames)
+            //    {
+            //        context.Database.ExecuteSqlCommand("alter table " + entityModelType.Name + " add unique(" + s + ")");
+            //    }
+            //}
             
         }
 

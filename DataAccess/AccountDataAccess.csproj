@@ -81,6 +81,9 @@
     <Compile Include="Repositories\BaseConnector.cs" />
     <Compile Include="Repositories\GlobalConstant.cs" />
     <Compile Include="Repositories\Harsh\HarshData.cs" />
+    <Compile Include="Repositories\ITaAccountClauseDetailRepository.cs" />
+    <Compile Include="Repositories\ITaAccountClauseRepository.cs" />
+    <Compile Include="Repositories\ITaAccountTypeRepository.cs" />
     <Compile Include="Repositories\ITaData.cs" />
     <Compile Include="Repositories\ITaDeliveryPersonRepository.cs" />
     <Compile Include="Repositories\ITaGeneralJournalRepository.cs" />
@@ -103,10 +106,13 @@
     <Compile Include="Repositories\ITaWareHouseRepository.cs" />
     <Compile Include="Repositories\Linq\EFData.cs" />
     <Compile Include="Repositories\ITaPayBillRepository.cs" />
+    <Compile Include="Repositories\Linq\TaAccountClauseDetailRepository.cs" />
+    <Compile Include="Repositories\Linq\TaAccountClauseRepository.cs" />
     <Compile Include="Repositories\Linq\TaAccountRepository.cs" />
     <Compile Include="Repositories\Linq\InitializerContext.cs" />
     <Compile Include="Repositories\ITaAccountRepository.cs" />
     <Compile Include="Repositories\Harsh\TaAccountEntity.cs" />
+    <Compile Include="Repositories\Linq\TaAccountTypeRepository.cs" />
     <Compile Include="Repositories\Linq\TaDalContext.cs" />
     <Compile Include="Repositories\Linq\TaDataContextEntity.cs" />
     <Compile Include="Repositories\Harsh\TaDataEntity.cs" />
@@ -117,6 +123,7 @@
     <Compile Include="Repositories\Linq\TaInvoiceStockInReceiptRepository.cs" />
     <Compile Include="Repositories\Linq\TaInvoiceStockOutReceiptRepository.cs" />
     <Compile Include="Repositories\Linq\TaPayBillRepository.cs" />
+    <Compile Include="Repositories\Linq\TaProceduceTypeRepository.cs" />
     <Compile Include="Repositories\Linq\TaReceiptRepository.cs" />
     <Compile Include="Repositories\Linq\TaReceiverRepository.cs" />
     <Compile Include="Repositories\Linq\TaStockInDetailRepository.cs">

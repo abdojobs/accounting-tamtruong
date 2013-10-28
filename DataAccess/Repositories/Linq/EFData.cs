@@ -5,98 +5,324 @@ using System.Text;
 
 namespace DataAccess.Repositories.Linq
 {
-    public class EFData:ITaData
+    public class EFData : ITaData
     {
         private TaDalContext _Context;
-        private TaDalContext Context {
-            get {
+        private TaDalContext Context
+        {
+            get
+            {
                 if (_Context == null)
                     _Context = new TaDalContext(GlobalConstant.DBConnecstring);
                 return _Context;
             }
         }
-        
+        private ITaAccountRepository _Accounts;
         public ITaAccountRepository Accounts
         {
-            get { return new TaAccountRepository(Context); }
+            get
+            {
+                if (_Accounts == null)
+                {
+                    _Accounts = new TaAccountRepository(Context);
+                    
+                }
+                return _Accounts;
+            }
         }
+        ITaDeliveryPersonRepository _DeliveryPersons;
         public ITaDeliveryPersonRepository DeliveryPersons
         {
-            get { return new TaDeliveryPersonRepository(Context); }
+            get
+            {
+                if (_DeliveryPersons == null)
+                {
+                    _DeliveryPersons = new TaDeliveryPersonRepository(Context);
+                    
+                }
+                return _DeliveryPersons;
+            }
         }
+        ITaGeneralJournalRepository _GeneralJournals;
         public ITaGeneralJournalRepository GeneralJournals
         {
-            get { return new TaGeneralJournalRepository(Context); }
+            get {
+                if (_GeneralJournals == null)
+                {
+                    _GeneralJournals = new TaGeneralJournalRepository(Context);
+
+                }
+                return _GeneralJournals;
+            }
         }
+        ITaInvoicePayBillRepository _InvoicePayBills;
         public ITaInvoicePayBillRepository InvoicePayBills
         {
-            get { return new TaInvoicePayBillRepository(Context); }
+            get
+            {
+                if (_InvoicePayBills == null)
+                {
+                    _InvoicePayBills = new TaInvoicePayBillRepository(Context);
+
+                }
+                return _InvoicePayBills;
+            }
         }
+        ITaInvoiceReceiptRepository _InvoiceReceipts;
         public ITaInvoiceReceiptRepository InvoiceReceipts
         {
-            get { return new TaInvoiceReceiptRepository(Context); }
+            get
+            {
+                if (_InvoiceReceipts == null)
+                {
+                    _InvoiceReceipts = new TaInvoiceReceiptRepository(Context);
+
+                }
+                return _InvoiceReceipts;
+            }
         }
+        ITaInvoiceRepository _Invoices;
         public ITaInvoiceRepository Invoices
         {
-            get { return new TaInvoiceRepository(Context); }
+            get
+            {
+                if (_Invoices == null)
+                {
+                    _Invoices = new TaInvoiceRepository(Context);
+
+                }
+                return _Invoices;
+            }
         }
+        ITaInvoiceStockInReceiptRepository _InvoiceStockInReceipts;
         public ITaInvoiceStockInReceiptRepository InvoiceStockInReceipts
         {
-            get { return new TaInvoiceStockInReceiptRepository(Context); }
+            get
+            {
+                if (_InvoiceStockInReceipts == null)
+                {
+                    _InvoiceStockInReceipts = new TaInvoiceStockInReceiptRepository(Context);
+
+                }
+                return _InvoiceStockInReceipts;
+            }
         }
+        ITaInvoiceStockOutReceiptRepository _InvoiceStockOutReceipts;
         public ITaInvoiceStockOutReceiptRepository InvoiceStockOutReceipts
         {
-            get { return new TaInvoiceStockOutReceiptRepository(Context); }
+            get
+            {
+                if (_InvoiceStockOutReceipts == null)
+                {
+                    _InvoiceStockOutReceipts = new TaInvoiceStockOutReceiptRepository(Context);
+
+                }
+                return _InvoiceStockOutReceipts;
+            }
         }
+        ITaPayBillRepository _PayBills;
         public ITaPayBillRepository PayBills
         {
-            get { return new TaPayBillRepository(Context); }
+            get
+            {
+                if (_PayBills == null)
+                {
+                    _PayBills = new TaPayBillRepository(Context);
+
+                }
+                return _PayBills;
+            }
         }
+        ITaReceiptRepository _Receipts;
         public ITaReceiptRepository Receipts
         {
-            get { return new TaReceiptRepository(Context); }
+            get
+            {
+                if (_Receipts == null)
+                {
+                    _Receipts = new TaReceiptRepository(Context);
+
+                }
+                return _Receipts;
+            }
         }
+        ITaReceiverRepository _Receivers;
         public ITaReceiverRepository Receivers
         {
-            get { return new TaReceiverRepository(Context); }
+            get
+            {
+                if (_Receivers == null)
+                {
+                    _Receivers = new TaReceiverRepository(Context);
+
+                }
+                return _Receivers;
+            }
         }
+        ITaStockInDetailRepository _StockInDetails;
         public ITaStockInDetailRepository StockInDetails
         {
-            get { return new TaStockInDetailRepository(Context); }
+            get
+            {
+                if (_StockInDetails == null)
+                {
+                    _StockInDetails = new TaStockInDetailRepository(Context);
+
+                }
+                return _StockInDetails;
+            }
         }
+        ITaStockInReceiptRepository _StockInReceipts;
         public ITaStockInReceiptRepository StockInReceipts
         {
-            get { return new TaStockInReceiptRepository(Context); }
+            get
+            {
+                if (_StockInReceipts == null)
+                {
+                    _StockInReceipts = new TaStockInReceiptRepository(Context);
+
+                }
+                return _StockInReceipts;
+            }
         }
+        ITaStockOutDetailRepository _StockOutDetails;
         public ITaStockOutDetailRepository StockOutDetails
         {
-            get { return new TaStockOutDetailRepository(Context); }
+            get
+            {
+                if (_StockOutDetails == null)
+                {
+                    _StockOutDetails = new TaStockOutDetailRepository(Context);
+
+                }
+                return _StockOutDetails;
+            }
         }
+        ITaStockOutReceiptRepository _StockOutReceipts;
         public ITaStockOutReceiptRepository StockOutReceipts
         {
-            get { return new TaStockOutReceiptRepository(Context); }
+            get
+            {
+                if (_StockOutReceipts == null)
+                {
+                    _StockOutReceipts = new TaStockOutReceiptRepository(Context);
+
+                }
+                return _StockOutReceipts;
+            }
         }
+        ITaStockRepository _Stocks;
         public ITaStockRepository Stocks
         {
-            get { return new TaStockRepository(Context); }
+            get
+            {
+                if (_Stocks == null)
+                {
+                    _Stocks = new TaStockRepository(Context);
+
+                }
+                return _Stocks;
+            }
         }
+        ITaSupplierRepository _Suppliers;
         public ITaSupplierRepository Suppliers
         {
-            get { return new TaSupplierRepository(Context); }
+            get
+            {
+                if (_Suppliers == null)
+                {
+                    _Suppliers = new TaSupplierRepository(Context);
+
+                }
+                return _Suppliers;
+            }
         }
+        ITaTradingPartnerRepository _TradingPartners;
         public ITaTradingPartnerRepository TradingPartners
         {
-            get { return new TaTradingPartnerRepository(Context); }
+            get
+            {
+                if (_TradingPartners == null)
+                {
+                    _TradingPartners = new TaTradingPartnerRepository(Context);
+
+                }
+                return _TradingPartners;
+            }
         }
+        ITaWareHouseRepository _WareHouses;
         public ITaWareHouseRepository WareHouses
         {
-            get { return new TaWareHouseRepository(Context); }
+            get
+            {
+                if (_WareHouses == null)
+                {
+                    _WareHouses = new TaWareHouseRepository(Context);
+
+                }
+                return _WareHouses;
+            }
         }
 
 
         public void SaveChanges()
         {
             Context.SaveChanges();
+        }
+
+        ITaAccountClauseRepository _AccountClauses;
+        public ITaAccountClauseRepository AccountClauses
+        {
+            get
+            {
+                if (_AccountClauses == null)
+                {
+                    _AccountClauses = new TaAccountClauseRepository(Context);
+
+                }
+                return _AccountClauses;
+            }
+        }
+        ITaAccountClauseDetailRepository _AccountClauseDetails;
+        public ITaAccountClauseDetailRepository AccountClauseDetails
+        {
+            get
+            {
+                if (_AccountClauseDetails == null)
+                {
+                    _AccountClauseDetails = new TaAccountClauseDetailRepository(Context);
+
+                }
+                return _AccountClauseDetails;
+            }
+        }
+
+        ITaAccountTypeRepository _AccountTypes;
+        public ITaAccountTypeRepository AccountTypes
+        {
+            get
+            {
+                if (_AccountTypes == null)
+                {
+                    _AccountTypes = new TaAccountTypeRepository(Context);
+
+                }
+                return _AccountTypes;
+            }
+        }
+
+        ITaProceduceTypeRepository _ProceduceTypes;
+        public ITaProceduceTypeRepository ProceduceTypes
+        {
+            get
+            {
+                if (_ProceduceTypes == null)
+                {
+                    _ProceduceTypes = new TaProceduceTypeRepository(Context);
+
+                }
+                return _ProceduceTypes;
+            }
         }
     }
 }

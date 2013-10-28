@@ -2,25 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AccountBusiness.Business.ServiceInterfaces;
+using Business.Business.ServiceInterfaces;
 using Common.Exceptions;
 using Common.Messages;
 using DataAccess.Entities;
 using DataAccess.Repositories;
-using DataAccess.Models;
-using AccountBusiness.Validations;
+using Business.Models;
+using Business.Validations;
 using System.Transactions;
 using Common.Logs;
 
-namespace AccountBusiness.Business
+namespace Business.Business
 {
-    public class ReceiptBusiness : BaseConnector,IReceiptBusiness
+    public class ReceiptService : BaseConnector, IReceiptBusiness
     {
         
-        private ReceiptValidate receiptValidate;
-        private InvoiceValidate invoiceValidate;
-       
+        private ReceiptValidate _receiptValidate;
+        private InvoiceValidate _invoiceValidate;
 
+        ReceiptValidate receiptValidate {
+            get {
+                if (_receiptValidate == null)
+                    _receiptValidate = new ReceiptValidate();
+                return _receiptValidate;
+            }
+        }
+        InvoiceValidate invoiceValidate {
+            get {
+                if (_invoiceValidate==null)
+                    _invoiceValidate = new InvoiceValidate();
+                return _invoiceValidate;
+            }
+        }
        
         public void addReceiptProceduce(ReceiptModel receiptmodel)
         {

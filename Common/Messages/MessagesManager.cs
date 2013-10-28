@@ -79,6 +79,31 @@ namespace Common.Messages
         /// stockindetail is not null
         /// </summary>
         public static readonly string Error0017 = "";
+        /// <summary>
+        /// code is not less than or equal 0
+        /// </summary>
+        public static readonly string Error0018 = "";
+        /// <summary>
+        /// proceducetype is not empty
+        /// </summary>
+        public static readonly string Error0019 = "";
+        /// <summary>
+        /// code is not empty
+        /// </summary>
+        public static readonly string Error0020 = "";
+        /// <summary>
+        /// accountclause is not null
+        /// </summary>
+        public static readonly string Error0021 = "";
+        /// <summary>
+        /// account is not null
+        /// </summary>
+        public static readonly string Error0022 = "";
+        /// <summary>
+        /// Account code must numeric type
+        /// </summary>
+        public static readonly string Error0023 = "";
+        
     }
     public class WarnningsManager { 
         

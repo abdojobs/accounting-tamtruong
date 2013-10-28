@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using DataAccess.Entities;
 
-namespace AccountBusiness.Validations
+namespace Business.Validations
 {
     public class InvoiceValidate
     {

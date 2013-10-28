@@ -13,9 +13,10 @@ namespace DataAccess.Entities
         public int Account_Id { get; set; }
         [Key, ForeignKey("AccountClause"), Column(Order = 2)]
         public int AccountClause_Id { get; set; }
-        public AccountClause AccountClause { get; set; }
-        public Account Account { get; set; }
+        public virtual AccountClause AccountClause { get; set; }
+        public virtual Account Account { get; set; }
         [StringLength(GlobalConstant.MaxLengthDefault)]
         public string Description { get; set; }
+        public virtual AccountType AccountType { get; set; }
     }
 }

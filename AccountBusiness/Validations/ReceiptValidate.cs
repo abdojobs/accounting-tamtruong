@@ -5,9 +5,9 @@ using System.Text;
 using DataAccess.Entities;
 using Common.Exceptions;
 using Common.Messages;
-using DataAccess.Models;
+using Business.Models;
 
-namespace AccountBusiness.Validations
+namespace Business.Validations
 {
     public class ReceiptValidate
     {

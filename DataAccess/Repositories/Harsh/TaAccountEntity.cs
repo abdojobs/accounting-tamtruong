@@ -81,5 +81,11 @@ namespace DataAccess.Repositories.Harsh
         {
             throw new NotImplementedException();
         }
+
+
+        public void DeleteSubmit(Account entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

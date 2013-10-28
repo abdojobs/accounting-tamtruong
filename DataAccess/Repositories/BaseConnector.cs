@@ -10,7 +10,6 @@ namespace DataAccess.Repositories
 {
     public class BaseConnector
     {
-        private ConnectType ConnectType;
         private ITaData Connector;
         public BaseConnector() {
             string type = GlobalConstant.ConnectType;

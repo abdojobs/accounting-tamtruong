@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using DataAccess.Entities;
 
-namespace DataAccess.Models
+namespace Business.Models
 {
     public class ReceiptModel
     {
