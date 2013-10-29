@@ -10,7 +10,7 @@ namespace Business.Business.ServiceInterfaces
     public interface IAccountClauseBusiness
     {
         void addAccountClauseProceduce(AccountClause accountClause, List<AccountClauseDetail> balanceAccounts);
-        AccountClause addAccountClause(AccountClause accountClause);
+        AccountClause addAccountClause(AccountClause accountClause,int proceduceTypeId);
         void addBalanceAccounts(AccountClause accountClause, List<AccountClauseDetail> balanceAccount);
         IEnumerable<AccountClauseModel> GetAllWithAccountClauseModel();
         IEnumerable<ProceduceType> GetProceduceTypes();

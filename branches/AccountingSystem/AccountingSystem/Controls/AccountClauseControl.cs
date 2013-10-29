@@ -83,11 +83,12 @@ namespace AccountingSystem.Controls
         public AccountClauseControl()
         {
             InitializeComponent();
+
             BindingSource dbSource = new BindingSource();
 
-            gridAccountClause.ColumnAdded+=new DataGridViewColumnEventHandler(gridAccountClause_ColumnAdded);
-            gridAccountClause.SaveChange+=new Components.AutoGrid.SaveChangeHandler(gridAccountClause_SaveChange);
-            gridAccountClause.CellEnter+=new DataGridViewCellEventHandler(gridAccountClause_CellEnter);
+            gridAccountClause.ColumnAdded += new DataGridViewColumnEventHandler(gridAccountClause_ColumnAdded);
+            gridAccountClause.SaveChange += new Components.AutoGrid.SaveChangeHandler(gridAccountClause_SaveChange);
+            gridAccountClause.CellEnter += new DataGridViewCellEventHandler(gridAccountClause_CellEnter);
 
             DataGridViewComboBoxColumn ColumnProceduceType = new DataGridViewComboBoxColumn();
             ColumnProceduceType.DataPropertyName = "ProceduceType_Id";
@@ -114,21 +115,31 @@ namespace AccountingSystem.Controls
             columnAD.Name = "ComboAccount";
             columnAD.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
             columnAD.FlatStyle = FlatStyle.Flat;
-            
+
 
             columnAR = (DataGridViewComboBoxColumn)columnAD.Clone();
             columnAR.DataSource = accountRList;
-            
+
             gridAD.Columns.Add(columnAD);
-            gridAD.EditingControlShowing+=new DataGridViewEditingControlShowingEventHandler(Account_EditingControlShowing);
-            gridAD.ColumnAdded+=new DataGridViewColumnEventHandler(ColumnAdded);
+            gridAD.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(Account_EditingControlShowing);
+            gridAD.ColumnAdded += new DataGridViewColumnEventHandler(ColumnAdded);
+
+            gridAD.Columns.Add("Combo", "Combo");
+            gridAD.CellEndEdit+=new DataGridViewCellEventHandler(gridAD_CellEndEdit);
 
             //gridAD.DataSource = dbaccount;
             gridAR.Columns.Add(columnAR);
             gridAR.ColumnAdded += new DataGridViewColumnEventHandler(ColumnAdded);
 
             gridAccountClause.Columns.Add(ColumnProceduceType);
-            
+        }
+        protected void gridAD_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                var cell = gridAD.Rows[e.RowIndex].Cells[1] as DataGridViewComboBoxCell;
+                cell.DataSource = new string[] { "silver", "sage" };
+            }
         }
         protected void ColumnAdded(object sender,DataGridViewColumnEventArgs e) {
             if (e.Column.Name == "Description")
@@ -136,6 +147,7 @@ namespace AccountingSystem.Controls
                 e.Column.HeaderText = "Diễn giải";
             }
             else if (e.Column.Name == "ComboAccount") { }
+            else if (e.Column.Name == "Combo") { }
             else
             {
                 e.Column.Visible = false;
@@ -169,9 +181,19 @@ namespace AccountingSystem.Controls
         protected void Account_EditingControlShowing(object sender,DataGridViewEditingControlShowingEventArgs e) {
             if (e.Control is ComboBox) { 
                 ((ComboBox)e.Control).SelectedIndexChanged+=new EventHandler(AccountClauseControl_SelectedIndexChanged);
+                ((ComboBox)e.Control).SelectedValueChanged += new EventHandler(AccountClauseControl_SelectedValueChanged);
+                ((ComboBox)e.Control).SelectionChangeCommitted+=new EventHandler(AccountClauseControl_SelectionChangeCommitted);
+                ((ComboBox)e.Control).TextChanged+=new EventHandler(AccountClauseControl_TextChanged);
+                
             }
         }
-        protected void AccountClauseControl_SelectedIndexChanged(object sender, EventArgs e) {
+        protected void AccountClauseControl_TextChanged(object sender, EventArgs e) {
+            string a = string.Empty;
+        }
+        protected void AccountClauseControl_SelectionChangeCommitted(object sender, EventArgs e) {
+            string a = string.Empty;
+        }
+        protected void AccountClauseControl_SelectedValueChanged(object sender, EventArgs e) {
             try
             {
                 ComboBox combo = sender as ComboBox;
@@ -182,9 +204,10 @@ namespace AccountingSystem.Controls
                 AccountClauseDetail detail = gridAD.CurrentRow.DataBoundItem as AccountClauseDetail;
                 AccountType ad = accountClauseService.GetAccountType("N");
                 detail = SaveAccountClauseDetail(account, ad, detail);
-                if (detail != null)
-                    ReloadGridAccount(detail.AccountClause_Id);
+                //if (detail != null)
+                //    ReloadGridAccount(detail.AccountClause_Id);
                 gridAD.CurrentRow.ErrorText = string.Empty;
+
             }
             catch (UserException ex)
             {
@@ -198,6 +221,9 @@ namespace AccountingSystem.Controls
                 WriteLog.Error(this.GetType(), ex);
                 gridAD.CurrentRow.ErrorText = " ";
             }
+        }
+        protected void AccountClauseControl_SelectedIndexChanged(object sender, EventArgs e) {
+            
             
         }
         protected AccountClauseDetail SaveAccountClauseDetail(Account account, AccountType accountType, AccountClauseDetail detail)
@@ -232,7 +258,7 @@ namespace AccountingSystem.Controls
 
                 if (account.Id == 0)
                 {
-                    accountClauseService.addAccountClause(account);
+                    accountClauseService.addAccountClause(account,account.ProceduceType.Id);
                     accountModel.Id = account.Id;
                 }
                 else
@@ -259,7 +285,7 @@ namespace AccountingSystem.Controls
 
         private void AccountClauseControl_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

@@ -14,7 +14,7 @@ namespace TestEF
     {
         static void Main(string[] args)
         {
-            TestAddClause();
+            AddClause();
         }
         public static void TestDisposeDbContext() {
             IAccountBusiness accountService = new AccountService();
@@ -104,9 +104,9 @@ namespace TestEF
             accountService.addAccountLevel1(a1);
             accountService.addAccountLevel1(a2);
 
-            clauses.addAccountClause(clause);
-            clauses.addAccountClause(clause1);
-            clauses.addAccountClause(clause2);
+            //clauses.addAccountClause(clause);
+            //clauses.addAccountClause(clause1);
+            //clauses.addAccountClause(clause2);
 
             clauses.addBalanceAccounts(clause,details);
         }
@@ -165,7 +165,19 @@ namespace TestEF
                     Context.Dispose();
                 }
             }
-            
+        }
+        public static void AddClause() {
+            IAccountClauseBusiness clauses = new AccountClauseService();
+
+            ProceduceType ptype = clauses.GetProceduceType(1);
+
+            AccountClause clause = new AccountClause()
+            {
+                Code = "2222",
+                Description = "2222",
+                ProceduceType = ptype
+            };
+            clauses.addAccountClause(clause,ptype.Id);
         }
     }
 }

@@ -33,6 +33,7 @@
             this.plcontainer = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.combo = new System.Windows.Forms.ComboBox();
             this.ptop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.plcontainer)).BeginInit();
             this.plcontainer.Panel1.SuspendLayout();
@@ -42,6 +43,7 @@
             // 
             // ptop
             // 
+            this.ptop.Controls.Add(this.combo);
             this.ptop.Controls.Add(this.button1);
             this.ptop.Dock = System.Windows.Forms.DockStyle.Top;
             this.ptop.Location = new System.Drawing.Point(0, 0);
@@ -99,6 +101,14 @@
             "item2"});
             this.Column1.Name = "Column1";
             // 
+            // combo
+            // 
+            this.combo.FormattingEnabled = true;
+            this.combo.Location = new System.Drawing.Point(563, 41);
+            this.combo.Name = "combo";
+            this.combo.Size = new System.Drawing.Size(121, 21);
+            this.combo.TabIndex = 1;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -126,6 +136,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
+        private System.Windows.Forms.ComboBox combo;
 
     }
 }

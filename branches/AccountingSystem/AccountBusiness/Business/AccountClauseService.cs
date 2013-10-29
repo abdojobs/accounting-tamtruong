@@ -33,7 +33,7 @@ namespace Business.Business
             {
                 try
                 {
-                    addAccountClause(accountClause);
+                    addAccountClause(accountClause,accountClause.ProceduceType.Id);
                     addBalanceAccounts(accountClause, balanceAccounts);
 
                     Context.SaveChanges();
@@ -47,11 +47,26 @@ namespace Business.Business
             }
         }
 
-        public AccountClause addAccountClause(AccountClause accountClause)
+        public AccountClause addAccountClause(AccountClause accountClause,int proceduceTypeId)
         {
-            accountClauseValidate.validate(accountClause);
-            Context.AccountClauses.AddSubmit(accountClause);
-            return accountClause;
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    accountClauseValidate.validate(accountClause);
+                    ProceduceType type = Context.ProceduceTypes.Find(proceduceTypeId);
+                    accountClause.ProceduceType = type;
+                    Context.AccountClauses.Add(accountClause);
+                    Context.SaveChanges();
+                    return accountClause;
+                }
+                catch (Exception ex)
+                {
+                    WriteLog.Error(this.GetType(), ex);
+                    throw new UserException(ErrorsManager.Error0000);
+                }
+                
+            }
         }
 
         public void addBalanceAccounts(AccountClause accountClause, List<DataAccess.Entities.AccountClauseDetail> balanceAccounts)
@@ -122,7 +137,29 @@ namespace Business.Business
 
         public void addBalanceAccount(AccountClauseDetail balanceAccount)
         {
-            Context.AccountClauseDetails.AddSubmit(balanceAccount);
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    var account = Context.Accounts.Find(balanceAccount.Account_Id);
+                    var accountType = Context.AccountTypes.Find(balanceAccount.AccountType.Id);
+                    var clause = Context.AccountClauses.Find(balanceAccount.AccountClause_Id);
+                    balanceAccount.Account = account;
+                    balanceAccount.AccountClause = clause;
+                    balanceAccount.AccountType = accountType;
+                    Context.AccountClauseDetails.Add(balanceAccount);
+                    Context.SaveChanges();
+                    
+                }
+                catch(Exception ex) {
+                    WriteLog.Error(this.GetType(), ex);
+                    throw new UserException(ErrorsManager.Error0000);
+                }
+                finally
+                {
+                    Context.Dispose();
+                }
+            }
         }
 
 
