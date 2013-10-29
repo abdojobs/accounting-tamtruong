@@ -58,7 +58,7 @@ namespace AccountingSystem.Controls
                 {
                     _accountList = new BindingSource();
                     var query = accountService.GetAll().ToList();
-                    query.Add(new Account() { Id = 0, Description = string.Empty,Code=string.Empty });
+                    //query.Add(new Account() { Id = 0, Description = string.Empty,Code=string.Empty });
                     _accountList.DataSource = query;
                 }
                 return _accountList;
@@ -80,6 +80,7 @@ namespace AccountingSystem.Controls
             }
         }
         int indexRowChange=-1;
+        int indexRowAccount = -1;
         public AccountClauseControl()
         {
             InitializeComponent();
@@ -105,8 +106,7 @@ namespace AccountingSystem.Controls
             gridAccountClause.DataSource = dbSource;
 
             DataGridViewComboBoxColumn columnAD = new DataGridViewComboBoxColumn();
-            DataGridViewComboBoxColumn columnAR;
-            columnAD.DataPropertyName = "Account_Id";
+            columnAD.DataPropertyName = "Id";
             columnAD.HeaderText = "Tài khoản";
             columnAD.Width = 120;
             columnAD.DataSource = accountList;
@@ -115,39 +115,60 @@ namespace AccountingSystem.Controls
             columnAD.Name = "ComboAccount";
             columnAD.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
             columnAD.FlatStyle = FlatStyle.Flat;
+            //columnAD.DefaultCellStyle.DataSourceNullValue = 0;
+            columnAD.DefaultCellStyle.NullValue = "[Chọn tài khoản]";
+            //columnAD.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-
-            columnAR = (DataGridViewComboBoxColumn)columnAD.Clone();
-            columnAR.DataSource = accountRList;
 
             gridAD.Columns.Add(columnAD);
             gridAD.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(Account_EditingControlShowing);
-            gridAD.ColumnAdded += new DataGridViewColumnEventHandler(ColumnAdded);
-
-            gridAD.Columns.Add("Combo", "Combo");
-            gridAD.CellEndEdit+=new DataGridViewCellEventHandler(gridAD_CellEndEdit);
-
-            //gridAD.DataSource = dbaccount;
-            gridAR.Columns.Add(columnAR);
-            gridAR.ColumnAdded += new DataGridViewColumnEventHandler(ColumnAdded);
-
-            gridAccountClause.Columns.Add(ColumnProceduceType);
+            gridAD.CellEnter+=new DataGridViewCellEventHandler(gridAD_CellEnter);
+            gridAD.ColumnAdded+=new DataGridViewColumnEventHandler(ColumnAdded);
+            //gridAD.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.None;
+            
         }
-        protected void gridAD_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
+        protected void gridAD_CellEnter(object sender, DataGridViewCellEventArgs e) {
+            if (indexRowAccount != e.RowIndex && indexRowAccount!=-1)
             {
-                var cell = gridAD.Rows[e.RowIndex].Cells[1] as DataGridViewComboBoxCell;
-                cell.DataSource = new string[] { "silver", "sage" };
+                SaveAccountDetail(indexRowAccount);
             }
         }
+        protected void SaveAccountDetail(int rowindex) {
+            try
+            {
+                DataGridViewComboBoxCell combo = gridAD.Rows[rowindex].Cells["ComboAccount"] as DataGridViewComboBoxCell;
+
+                AccountCombo account = combo.Value as AccountCombo;
+                //gridAD.CurrentRow.Cells["Description"].Value = account.Description;
+                AccountClauseDetail detail = gridAD.Rows[rowindex].DataBoundItem as AccountClauseDetail;
+                AccountType ad = accountClauseService.GetAccountType("N");
+                detail = SaveAccountClauseDetail(account, ad, detail);
+                //if (detail != null)
+                //    ReloadGridAccount(detail.AccountClause_Id);
+                gridAD.CurrentRow.ErrorText = string.Empty;
+
+            }
+            catch (UserException ex)
+            {
+                MessageBox.Show(ErrorsManager.Error0000);
+                WriteLog.Warnning(this.GetType(), ex);
+                gridAD.CurrentRow.ErrorText = " ";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ErrorsManager.Error0000);
+                WriteLog.Error(this.GetType(), ex);
+                gridAD.CurrentRow.ErrorText = " ";
+            }
+        }
+        
         protected void ColumnAdded(object sender,DataGridViewColumnEventArgs e) {
             if (e.Column.Name == "Description")
             {
                 e.Column.HeaderText = "Diễn giải";
             }
             else if (e.Column.Name == "ComboAccount") { }
-            else if (e.Column.Name == "Combo") { }
+            
             else
             {
                 e.Column.Visible = false;
@@ -168,11 +189,11 @@ namespace AccountingSystem.Controls
         }
         protected void ReloadGridAccount(int clauseId) {
             BindingSource dbSourceD = new BindingSource();
-            BindingSource dbSourceR = new BindingSource();
-            dbSourceD.DataSource = accountClauseService.GetDetailWithType(clauseId, "N").ToList();
-            dbSourceR.DataSource = accountClauseService.GetDetailWithType(clauseId,"C").ToList();
+            dbSourceD.DataSource = accountClauseService.GetDetailWithType(clauseId, "N").ToList().Select(a => new AccountCombo{ 
+                Id=a.Account_Id,
+                Description=a.Description
+            }).ToList();
             gridAD.DataSource = dbSourceD;
-            gridAR.DataSource = dbSourceR;
         }
         protected void AdjustGridAccount(DataGridViewCellEventArgs e)
         { 
@@ -194,19 +215,18 @@ namespace AccountingSystem.Controls
             string a = string.Empty;
         }
         protected void AccountClauseControl_SelectedValueChanged(object sender, EventArgs e) {
+            
+        }
+        protected void AccountClauseControl_SelectedIndexChanged(object sender, EventArgs e) {
+
             try
             {
                 ComboBox combo = sender as ComboBox;
-                if (combo.SelectedItem == null || ((Account)combo.SelectedItem).Id == 0)
+                if (combo.SelectedItem == null || ((AccountCombo)combo.SelectedItem).Id == 0)
                     return;
-                Account account = accountService.Get(((Account)combo.SelectedItem).Id);
-                //gridAD.CurrentRow.Cells["Description"].Value = account.Description;
-                AccountClauseDetail detail = gridAD.CurrentRow.DataBoundItem as AccountClauseDetail;
-                AccountType ad = accountClauseService.GetAccountType("N");
-                detail = SaveAccountClauseDetail(account, ad, detail);
-                //if (detail != null)
-                //    ReloadGridAccount(detail.AccountClause_Id);
-                gridAD.CurrentRow.ErrorText = string.Empty;
+                Account account = accountService.Get(((AccountCombo)combo.SelectedItem).Id);
+                AccountClauseDetail clause = gridAD.CurrentRow.DataBoundItem as AccountClauseDetail;
+                clause.Description = account.Description;
 
             }
             catch (UserException ex)
@@ -222,11 +242,7 @@ namespace AccountingSystem.Controls
                 gridAD.CurrentRow.ErrorText = " ";
             }
         }
-        protected void AccountClauseControl_SelectedIndexChanged(object sender, EventArgs e) {
-            
-            
-        }
-        protected AccountClauseDetail SaveAccountClauseDetail(Account account, AccountType accountType, AccountClauseDetail detail)
+        protected AccountClauseDetail SaveAccountClauseDetail(AccountCombo account, AccountType accountType, AccountClauseDetail detail)
         {
             AccountClauseModel clause = (AccountClauseModel)gridAccountClause.CurrentRow.DataBoundItem;
             AccountClauseDetail cdetail = new AccountClauseDetail()
@@ -287,5 +303,9 @@ namespace AccountingSystem.Controls
         {
             
         }
+    }
+    public class AccountCombo {
+        public int Id { get; set; }
+        public string Description { get; set; }
     }
 }
