@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.ptop = new System.Windows.Forms.Panel();
+            this.combo = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.plcontainer = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.combo = new System.Windows.Forms.ComboBox();
             this.ptop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.plcontainer)).BeginInit();
             this.plcontainer.Panel1.SuspendLayout();
@@ -50,6 +51,14 @@
             this.ptop.Name = "ptop";
             this.ptop.Size = new System.Drawing.Size(816, 100);
             this.ptop.TabIndex = 0;
+            // 
+            // combo
+            // 
+            this.combo.FormattingEnabled = true;
+            this.combo.Location = new System.Drawing.Point(563, 41);
+            this.combo.Name = "combo";
+            this.combo.Size = new System.Drawing.Size(121, 21);
+            this.combo.TabIndex = 1;
             // 
             // button1
             // 
@@ -93,21 +102,11 @@
             // 
             // Column1
             // 
-            this.Column1.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.Column1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            dataGridViewCellStyle1.NullValue = "[no data]";
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle1;
             this.Column1.HeaderText = "Column1";
-            this.Column1.Items.AddRange(new object[] {
-            "item1",
-            "item2"});
             this.Column1.Name = "Column1";
-            // 
-            // combo
-            // 
-            this.combo.FormattingEnabled = true;
-            this.combo.Location = new System.Drawing.Point(563, 41);
-            this.combo.Name = "combo";
-            this.combo.Size = new System.Drawing.Size(121, 21);
-            this.combo.TabIndex = 1;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Main
             // 
@@ -135,8 +134,8 @@
         private System.Windows.Forms.SplitContainer plcontainer;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
         private System.Windows.Forms.ComboBox combo;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
 
     }
 }

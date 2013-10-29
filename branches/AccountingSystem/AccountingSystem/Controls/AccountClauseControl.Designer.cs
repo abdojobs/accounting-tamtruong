@@ -30,21 +30,21 @@ namespace AccountingSystem.Controls
         private void InitializeComponent()
         {
             this.spcMain = new System.Windows.Forms.SplitContainer();
-            this.gridAccountClause = new AccountingSystem.Components.AccountClauseGrid();
             this.spcAccount = new System.Windows.Forms.SplitContainer();
             this.gridAR = new System.Windows.Forms.DataGridView();
             this.gridAD = new System.Windows.Forms.DataGridView();
+            this.gridAccountClause = new AccountingSystem.Components.AccountClauseGrid();
             ((System.ComponentModel.ISupportInitialize)(this.spcMain)).BeginInit();
             this.spcMain.Panel1.SuspendLayout();
             this.spcMain.Panel2.SuspendLayout();
             this.spcMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridAccountClause)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spcAccount)).BeginInit();
             this.spcAccount.Panel1.SuspendLayout();
             this.spcAccount.Panel2.SuspendLayout();
             this.spcAccount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridAR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridAD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridAccountClause)).BeginInit();
             this.SuspendLayout();
             // 
             // spcMain
@@ -65,15 +65,6 @@ namespace AccountingSystem.Controls
             this.spcMain.Size = new System.Drawing.Size(855, 150);
             this.spcMain.SplitterDistance = 80;
             this.spcMain.TabIndex = 0;
-            // 
-            // gridAccountClause
-            // 
-            this.gridAccountClause.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridAccountClause.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridAccountClause.Location = new System.Drawing.Point(0, 0);
-            this.gridAccountClause.Name = "gridAccountClause";
-            this.gridAccountClause.Size = new System.Drawing.Size(855, 80);
-            this.gridAccountClause.TabIndex = 0;
             // 
             // spcAccount
             // 
@@ -110,6 +101,15 @@ namespace AccountingSystem.Controls
             this.gridAD.Size = new System.Drawing.Size(434, 66);
             this.gridAD.TabIndex = 0;
             // 
+            // gridAccountClause
+            // 
+            this.gridAccountClause.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridAccountClause.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridAccountClause.Location = new System.Drawing.Point(0, 0);
+            this.gridAccountClause.Name = "gridAccountClause";
+            this.gridAccountClause.Size = new System.Drawing.Size(855, 80);
+            this.gridAccountClause.TabIndex = 0;
+            // 
             // AccountClauseControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -122,13 +122,13 @@ namespace AccountingSystem.Controls
             this.spcMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spcMain)).EndInit();
             this.spcMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridAccountClause)).EndInit();
             this.spcAccount.Panel1.ResumeLayout(false);
             this.spcAccount.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spcAccount)).EndInit();
             this.spcAccount.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridAR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridAD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridAccountClause)).EndInit();
             this.ResumeLayout(false);
 
         }
