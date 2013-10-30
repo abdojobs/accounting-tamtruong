@@ -103,7 +103,38 @@ namespace AccountingSystem
                 dataGridView1.AutoResizeColumns(
                     DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
                 //dataGridView1.DataSource = bindingSource1;
-                ((DataGridViewComboBoxColumn)dataGridView1.Columns[0]).DataGridView.DataSource = table;
+                //((DataGridViewComboBoxColumn)dataGridView1.Columns[0]).DataSource = null;
+                //((DataGridViewComboBoxColumn)dataGridView1.Columns[0]).DataPropertyName = "Id";
+                //((DataGridViewComboBoxColumn)dataGridView1.Columns[0]).ValueMember = "Id";
+                //((DataGridViewComboBoxColumn)dataGridView1.Columns[0]).ValueType = typeof(int);
+                //((DataGridViewComboBoxColumn)dataGridView1.Columns[0]).DisplayMember = "Code";
+
+                //DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn();
+                //col1.Name = "Id";
+                //col1.HeaderText = "Ma";
+
+                //DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
+                //col2.Name = "Code";
+                //col2.HeaderText = "Mo ta";
+
+                //dataGridView1.Columns.Add(col1);
+                //dataGridView1.Columns.Add(col2);
+
+                //dataGridView1.Rows.Add(new List<object>() { 1, "item 1" });
+                //dataGridView1.Rows.Add(new List<object>() { 2, "item 2" });
+                //dataGridView1.Rows.Add(new List<object>() { 3, "item 3" });
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Name");
+                //dt.Rows.Add("foo");
+                //dt.Rows.Add("dsnv");
+                //dt.Rows.Add("nv");
+                //dt.Rows.Add(new object[] { null });
+                dt.Rows.Add(DBNull.Value);
+
+                Binding b = new Binding("Text", dt, "Name", true);
+                b.NullValue = "nv";
+                b.DataSourceNullValue = "dsnv";
+                this.textBox1.DataBindings.Add(b);
             }
             catch (SqlException)
             {

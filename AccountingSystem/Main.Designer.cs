@@ -35,6 +35,7 @@
             this.plcontainer = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.ptop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.plcontainer)).BeginInit();
             this.plcontainer.Panel1.SuspendLayout();
@@ -44,6 +45,7 @@
             // 
             // ptop
             // 
+            this.ptop.Controls.Add(this.textBox1);
             this.ptop.Controls.Add(this.combo);
             this.ptop.Controls.Add(this.button1);
             this.ptop.Dock = System.Windows.Forms.DockStyle.Top;
@@ -108,6 +110,13 @@
             this.Column1.Name = "Column1";
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(235, 42);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 2;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -119,6 +128,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ptop.ResumeLayout(false);
+            this.ptop.PerformLayout();
             this.plcontainer.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.plcontainer)).EndInit();
             this.plcontainer.ResumeLayout(false);
@@ -135,6 +145,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox combo;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
+        private System.Windows.Forms.TextBox textBox1;
 
     }
 }
