@@ -117,7 +117,6 @@
             this.Controls.Add(this.ptop);
             this.Name = "Main";
             this.Text = "Form1";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ptop.ResumeLayout(false);
             this.plcontainer.Panel1.ResumeLayout(false);
