@@ -58,7 +58,7 @@ namespace AccountingSystem.Controls
                 {
                     _accountList = new BindingSource();
                     var query = accountService.GetAll().ToList();
-                    //query.Add(new Account() { Id = 0, Description = string.Empty,Code=string.Empty });
+                    query.Add(new Account() { Id = 0, Description = "[Chọn tài khoản]",Code=string.Empty });
                     _accountList.DataSource = query;
                 }
                 return _accountList;
@@ -138,7 +138,7 @@ namespace AccountingSystem.Controls
             {
                 DataGridViewComboBoxCell combo = gridAD.Rows[rowindex].Cells["ComboAccount"] as DataGridViewComboBoxCell;
 
-                AccountCombo account = combo.Value as AccountCombo;
+                Account account = combo.Value as Account;
                 //gridAD.CurrentRow.Cells["Description"].Value = account.Description;
                 AccountClauseDetail detail = gridAD.Rows[rowindex].DataBoundItem as AccountClauseDetail;
                 AccountType ad = accountClauseService.GetAccountType("N");
@@ -222,11 +222,20 @@ namespace AccountingSystem.Controls
             try
             {
                 ComboBox combo = sender as ComboBox;
-                if (combo.SelectedItem == null || ((AccountCombo)combo.SelectedItem).Id == 0)
+                if (combo.SelectedItem == null || ((Account)combo.SelectedItem).Id == 0)
+                {
+                    gridAD.AllowUserToAddRows = false;
                     return;
-                Account account = accountService.Get(((AccountCombo)combo.SelectedItem).Id);
-                AccountClauseDetail clause = gridAD.CurrentRow.DataBoundItem as AccountClauseDetail;
-                clause.Description = account.Description;
+                }
+                gridAD.AllowUserToAddRows = true;
+                Account account = accountService.Get(((Account)combo.SelectedItem).Id);
+                AccountCombo clause = gridAD.CurrentRow.DataBoundItem as AccountCombo;
+                if (clause == null)
+                {
+                    clause = new AccountCombo() { Id = account.Id, Description = account.Description };
+                }
+                else
+                    clause.Description = account.Description;
 
             }
             catch (UserException ex)
@@ -242,7 +251,7 @@ namespace AccountingSystem.Controls
                 gridAD.CurrentRow.ErrorText = " ";
             }
         }
-        protected AccountClauseDetail SaveAccountClauseDetail(AccountCombo account, AccountType accountType, AccountClauseDetail detail)
+        protected AccountClauseDetail SaveAccountClauseDetail(Account account, AccountType accountType, AccountClauseDetail detail)
         {
             AccountClauseModel clause = (AccountClauseModel)gridAccountClause.CurrentRow.DataBoundItem;
             AccountClauseDetail cdetail = new AccountClauseDetail()
