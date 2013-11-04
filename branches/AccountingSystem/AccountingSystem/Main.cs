@@ -11,6 +11,8 @@ using AccountingSystem.Utils;
 using AccountingSystem.Controls;
 using DataAccess.Entities;
 using System.Data.SqlClient;
+using MultiColumnComboBoxDemo;
+using AccountingSystem.Components;
 
 namespace AccountingSystem
 {
@@ -74,7 +76,7 @@ namespace AccountingSystem
             BaseConnector connect = new BaseConnector();
             connect.Context.Accounts.AddSubmit(a);
         }
-
+        private static ComboBox maincombo;
         protected void GetData() {
             try
             {
@@ -102,6 +104,7 @@ namespace AccountingSystem
                 // Resize the DataGridView columns to fit the newly loaded content.
                 dataGridView1.AutoResizeColumns(
                     DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
+                dataGridView1.EditingControlShowing+=new DataGridViewEditingControlShowingEventHandler(dataGridView1_EditingControlShowing);
                 //dataGridView1.DataSource = bindingSource1;
                 //((DataGridViewComboBoxColumn)dataGridView1.Columns[0]).DataSource = null;
                 //((DataGridViewComboBoxColumn)dataGridView1.Columns[0]).DataPropertyName = "Id";
@@ -124,17 +127,52 @@ namespace AccountingSystem
                 //dataGridView1.Rows.Add(new List<object>() { 2, "item 2" });
                 //dataGridView1.Rows.Add(new List<object>() { 3, "item 3" });
                 DataTable dt = new DataTable();
+                dt.Columns.Add("Id");
                 dt.Columns.Add("Name");
-                //dt.Rows.Add("foo");
+                dt.Rows.Add(new object[]{1,"item1"});
+                dt.Rows.Add(new object[] { 2, "item2" });
+                dt.Rows.Add(new object[] { 3, "item3" });
+                dataGridView1.DataSource = dt;
+                dataGridView1.Columns["Id"].DefaultCellStyle.NullValue = "[chon tai khoan1]";
+                dataGridView1.Columns["Id"].DefaultCellStyle.DataSourceNullValue = -1;
+
+                DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
+                col.CellTemplate = new MultiColumnComboboxCell();
+                col.DataPropertyName = "Id";
+                col.ValueMember = "Id";
+                col.ValueType = typeof(int);
+                col.DisplayMember = "Name";
+                col.DefaultCellStyle.DataSourceNullValue = -1;
+                col.DefaultCellStyle.NullValue = "[chon tai khoan]";
+                col.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+                col.Name = "Combo";
+                List<string> fields = new List<string>();
+                fields.Add("Id");
+                fields.Add("Name");
+                ((MultiColumnComboboxCell)col.CellTemplate).FieldsList = fields;
+                //((MultiColumnComboboxCell)col.CellTemplate).RegisterEvents(maincombo);
+                
+                
+
+                DataTable dt1 = new DataTable();
+                dt1.Columns.Add("Id");
+                dt1.Columns.Add("Name");
+                dt1.Rows.Add(new object[] { 1, "item1" });
+                dt1.Rows.Add(new object[] { 2, "item2" });
+                dt1.Rows.Add(new object[] { 3, "item3" });
+
+                col.DataSource = dt1;
+
+                dataGridView1.Columns.Add(col);
                 //dt.Rows.Add("dsnv");
                 //dt.Rows.Add("nv");
                 //dt.Rows.Add(new object[] { null });
-                dt.Rows.Add(DBNull.Value);
+                //dt.Rows.Add(DBNull.Value);
 
-                Binding b = new Binding("Text", dt, "Name", true);
-                b.NullValue = "nv";
-                b.DataSourceNullValue = "dsnv";
-                this.textBox1.DataBindings.Add(b);
+                //Binding b = new Binding("Text", dt, "Name", true);
+                //b.NullValue = "nv";
+                //b.DataSourceNullValue = "dsnv";
+                //this.textBox1.DataBindings.Add(b);
             }
             catch (SqlException)
             {
@@ -142,6 +180,70 @@ namespace AccountingSystem
                     "connectionString variable with a connection string that is " +
                     "valid for your system.");
             }
+        }
+        public static void dataGridView1_EditingControlShowing(object sender,DataGridViewEditingControlShowingEventArgs e) {
+            if (e.Control is ComboBox) {
+                ComboBox cb = (ComboBox)e.Control;
+                cb.DrawMode = DrawMode.OwnerDrawFixed;
+                cb.DrawItem -= new DrawItemEventHandler(DrawItem);
+                cb.DrawItem += new DrawItemEventHandler(DrawItem);
+               
+            }
+        }
+        protected static void DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0)
+                return;
+            string[] columnNames = new string[] { "Id", "Name" };
+            float[] columnWidths = new float[] { 50, 50 };
+            int columnPadding = 5;
+            int valueMemberColumnIndex = 0;
+            ComboBox cb = (ComboBox)sender;
+            e.DrawBackground();
+
+            Rectangle boundsRect = e.Bounds;
+            int lastRight = 0;
+
+            using (Pen linePen = new Pen(SystemColors.GrayText))
+            {
+                using (SolidBrush brush = new SolidBrush(cb.ForeColor))
+                {
+                    if (columnNames.Length == 0)
+                    {
+                        e.Graphics.DrawString(cb.Items[e.Index].ToString(), cb.Font, brush, boundsRect);
+                    }
+                    else
+                    {
+                        for (int colIndex = 0; colIndex < columnNames.Length; colIndex++)
+                        {
+                            string item = ((DataRowView)cb.Items[e.Index])[colIndex].ToString();
+
+                            boundsRect.X = lastRight;
+                            boundsRect.Width = (int)columnWidths[colIndex] + columnPadding;
+                            lastRight = boundsRect.Right;
+
+                            if (colIndex == valueMemberColumnIndex)
+                            {
+                                using (Font boldFont = new Font(cb.Font, FontStyle.Bold))
+                                {
+                                    e.Graphics.DrawString(item, boldFont, brush, boundsRect);
+                                }
+                            }
+                            else
+                            {
+                                e.Graphics.DrawString(item, cb.Font, brush, boundsRect);
+                            }
+
+                            if (colIndex < columnNames.Length - 1)
+                            {
+                                e.Graphics.DrawLine(linePen, boundsRect.Right, boundsRect.Top, boundsRect.Right, boundsRect.Bottom);
+                            }
+                        }
+                    }
+                }
+            }
+
+            e.DrawFocusRectangle();
         }
     }
     public class foo {

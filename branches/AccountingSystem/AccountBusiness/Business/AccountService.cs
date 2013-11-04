@@ -7,6 +7,10 @@ using DataAccess.Repositories;
 using Business.Business.ServiceInterfaces;
 using Business.Validations;
 using Common.Utils;
+using System.Data.SqlClient;
+using Common.Logs;
+using Common.Exceptions;
+using Common.Messages;
 
 namespace Business.Business
 {
@@ -113,6 +117,20 @@ namespace Business.Business
         public Account Get(int id)
         {
             return Context.Accounts.Get(id);
+        }
+
+
+        public System.Data.DataTable GetToDataTable()
+        {
+            try
+            {
+                string sql = "select Id,Code from Account";
+                return Execute(sql);
+            }
+            catch (Exception ex) {
+                WriteLog.Error(this.GetType(), ex);
+                throw new UserException(ErrorsManager.Error0000);
+            }
         }
     }
 }

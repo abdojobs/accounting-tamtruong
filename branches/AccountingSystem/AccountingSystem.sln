@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEF", "TestEF\TestEF.csproj", "{E5888A84-1420-464B-B3FE-120BCC1673FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoControls", "DemoControls\DemoControls.csproj", "{B2C3A713-2C23-44DB-8C7D-7E845648EB13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,16 @@ Global
 		{E5888A84-1420-464B-B3FE-120BCC1673FC}.Release|Mixed Platforms.Build.0 = Release|x86
 		{E5888A84-1420-464B-B3FE-120BCC1673FC}.Release|x86.ActiveCfg = Release|x86
 		{E5888A84-1420-464B-B3FE-120BCC1673FC}.Release|x86.Build.0 = Release|x86
+		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Debug|x86.ActiveCfg = Debug|x86
+		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Debug|x86.Build.0 = Debug|x86
+		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Release|Any CPU.ActiveCfg = Release|x86
+		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Release|Mixed Platforms.Build.0 = Release|x86
+		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Release|x86.ActiveCfg = Release|x86
+		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
