@@ -51,15 +51,24 @@ namespace AccountingSystem.Controls
                 return _proceduceType;
             }
         }
-        BindingSource _accountList;
-        BindingSource accountList {
+        DataTable _accountList;
+        DataTable accountList
+        {
             get {
                 if (_accountList == null)
                 {
-                    _accountList = new BindingSource();
-                    var query = accountService.GetAll().ToList();
+                    _accountList = new DataTable();
+                    _accountList.Columns.Add("Id");
+                    _accountList.Columns.Add("Code");
+                    var query = accountService.GetAll();
+                    //BindingSource db = new BindingSource();
+                    //_accountList = new BindingSource();
+                    //db.DataSource = query;
                     //query.Add(new Account() { Id = 0, Description = "[Chọn tài khoản]", Code = "[Chọn tài khoản]" });
-                    _accountList.DataSource = query;
+                    foreach (var r in query)
+                    {
+                        _accountList.Rows.Add(new object[] { r.Id, r.Code });
+                    }
                 }
                 return _accountList;
             }
@@ -73,7 +82,7 @@ namespace AccountingSystem.Controls
                 {
                     _accountRList = new BindingSource();
                     var query = accountService.GetAll().ToList();
-                    query.Add(new Account() { Id = 0, Description = string.Empty, Code = string.Empty });
+                    //query.Add(new Account() { Id = 0, Description = string.Empty, Code = string.Empty });
                     _accountRList.DataSource = query;
                 }
                 return _accountRList;
@@ -105,41 +114,14 @@ namespace AccountingSystem.Controls
             dbSource.DataSource = accountClauseService.GetAllWithAccountClauseModel().ToList();
             gridAccountClause.DataSource = dbSource;
 
-            DataGridViewComboBoxColumn columnAD = new DataGridViewComboBoxColumn();
-            columnAD.DataPropertyName = "Id";
-            columnAD.HeaderText = "Tài khoản";
-            columnAD.Width = 120;
-            columnAD.DataSource = accountList;
-            columnAD.ValueMember = "Id";
-            columnAD.DisplayMember = "Code";
-            columnAD.Name = "ComboAccount";
-            columnAD.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
-            columnAD.FlatStyle = FlatStyle.Flat;
-            columnAD.DefaultCellStyle.DataSourceNullValue = 0;
-            columnAD.DefaultCellStyle.NullValue = "[Chọn tài khoản]";
-            //columnAD.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            columnAD.ValueType = typeof(int);
+            
 
 
-            gridAD.Columns.Add(columnAD);
+            
             gridAD.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(Account_EditingControlShowing);
             gridAD.CellEnter+=new DataGridViewCellEventHandler(gridAD_CellEnter);
             gridAD.ColumnAdded+=new DataGridViewColumnEventHandler(ColumnAdded);
-            gridAD.DataError+=new DataGridViewDataErrorEventHandler(gridAD_DataError);
-            gridAD.UserAddedRow+=new DataGridViewRowEventHandler(gridAD_UserAddedRow);
-            gridAD.AllowUserToAddRows = false;
-            gridAD.AllowUserToAddRowsChanged+=new EventHandler(gridAD_AllowUserToAddRowsChanged);
             
-        }
-        protected void gridAD_AllowUserToAddRowsChanged(object sender,EventArgs e)
-        {
-            string a = string.Empty;
-        }
-        protected void gridAD_UserAddedRow(object sender, DataGridViewRowEventArgs e) {
-            Account account = e.Row.DataBoundItem as Account;
-        }
-        protected void gridAD_DataError(object sender,DataGridViewDataErrorEventArgs e) {
-            e.Cancel = false;
         }
         protected void gridAD_CellEnter(object sender, DataGridViewCellEventArgs e) {
             if (indexRowAccount != e.RowIndex && indexRowAccount!=-1)
@@ -177,16 +159,20 @@ namespace AccountingSystem.Controls
         }
         
         protected void ColumnAdded(object sender,DataGridViewColumnEventArgs e) {
-            if (e.Column.Name == "Description")
-            {
-                e.Column.HeaderText = "Diễn giải";
-            }
-            else if (e.Column.Name == "ComboAccount") { }
-            
-            else
-            {
-                e.Column.Visible = false;
-            }
+            //if (e.Column.Name == "Description")
+            //{
+            //    e.Column.HeaderText = "Diễn giải";
+            //}
+            //else if (e.Column.Name == "ComboAccount") { }
+            //else if (e.Column.Name == "Code") { e.Column.HeaderText = "Mã"; }
+            //else if (e.Column.Name == "Id") {
+            //    e.Column.DefaultCellStyle.NullValue = "[chon tai khoan 1]";
+            //    e.Column.DefaultCellStyle.DataSourceNullValue = 0;
+            //}
+            //else
+            //{
+            //    //e.Column.Visible = false;
+            //}
             
         }
         protected void gridAccountClause_CellEnter(object sender,DataGridViewCellEventArgs e) {
@@ -202,14 +188,47 @@ namespace AccountingSystem.Controls
             }
         }
         protected void ReloadGridAccount(int clauseId) {
-            BindingSource dbSourceD = new BindingSource();
-            var list = accountClauseService.GetDetailWithType(clauseId, "N").ToList().Select(a => new AccountCombo
+            DataTable dbSourceD = new DataTable();
+            dbSourceD.Columns.Add("Id");
+            dbSourceD.Columns.Add("Code");
+            //dbSourceD.Columns.Add("Description");
+            //BindingSource dbSourceD = new BindingSource();
+            var list = accountClauseService.GetDetailWithType(clauseId, "N").Select(a => new AccountCombo
             {
                 Id = a.Account_Id,
                 Description = a.Description
             }).ToList();
-            dbSourceD.DataSource = list;
+            foreach (var r in list)
+            {
+                dbSourceD.Rows.Add(new object[] { r.Id, r.Description });
+            }
+            //dbSourceD.DataSource = list;
             gridAD.DataSource = dbSourceD;
+            gridAD.Columns["Id"].DefaultCellStyle.NullValue="Chon tai khoan";
+            gridAD.Columns["Id"].DefaultCellStyle.DataSourceNullValue=-1;
+
+            //gridAD.Columns["Description"].DefaultCellStyle.NullValue = "Chon tai khoan";
+            //gridAD.Columns["Description"].DefaultCellStyle.DataSourceNullValue = -1;
+
+            gridAD.Columns["Code"].DefaultCellStyle.NullValue = "Chon tai khoan";
+            gridAD.Columns["Code"].DefaultCellStyle.DataSourceNullValue = -1;
+
+            DataGridViewComboBoxColumn columnAD = new DataGridViewComboBoxColumn();
+            columnAD.DataPropertyName = "Id";
+            columnAD.HeaderText = "Tài khoản";
+            columnAD.Width = 120;
+            columnAD.DataSource = accountList;
+            columnAD.ValueMember = "Id";
+            columnAD.DisplayMember = "Code";
+            //columnAD.Name = "ComboAccount";
+            columnAD.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+            columnAD.FlatStyle = FlatStyle.Flat;
+            columnAD.DefaultCellStyle.DataSourceNullValue = -1;
+            columnAD.DefaultCellStyle.NullValue = "[Chọn tài khoản]";
+            //columnAD.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            columnAD.ValueType = typeof(int);
+            gridAD.Columns.Add(columnAD);
+            columnAD.DisplayIndex = 0;
         }
         protected void AdjustGridAccount(DataGridViewCellEventArgs e)
         { 
@@ -217,7 +236,7 @@ namespace AccountingSystem.Controls
         }
         protected void Account_EditingControlShowing(object sender,DataGridViewEditingControlShowingEventArgs e) {
             if (e.Control is ComboBox) { 
-                ((ComboBox)e.Control).SelectedIndexChanged+=new EventHandler(AccountClauseControl_SelectedIndexChanged);
+                //((ComboBox)e.Control).SelectedIndexChanged+=new EventHandler(AccountClauseControl_SelectedIndexChanged);
             }
         }
         
@@ -322,5 +341,6 @@ namespace AccountingSystem.Controls
     public class AccountCombo {
         public int Id { get; set; }
         public string Description { get; set; }
+        public string Code { get; set; }
     }
 }

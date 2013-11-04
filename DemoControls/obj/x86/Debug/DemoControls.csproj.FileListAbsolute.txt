@@ -1,0 +1,10 @@
+D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\DemoControls\bin\Debug\DemoControls.exe
+D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\DemoControls\bin\Debug\DemoControls.pdb
+D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\DemoControls\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\DemoControls\obj\x86\Debug\MultiColumnComboBoxDemo.DemoForm.resources
+D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\DemoControls\obj\x86\Debug\DemoControls.Properties.Resources.resources
+D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\DemoControls\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\DemoControls\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\DemoControls\obj\x86\Debug\DemoControls.exe
+D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\DemoControls\obj\x86\Debug\DemoControls.pdb
+D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\DemoControls\obj\x86\Debug\DemoControls.Form1.resources

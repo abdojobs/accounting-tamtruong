@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataAccess.Entities;
+using System.Data;
 
 namespace Business.Business.ServiceInterfaces
 {
@@ -18,5 +19,6 @@ namespace Business.Business.ServiceInterfaces
         IEnumerable<Account> GetChildrenByParentId(int id);
         IEnumerable<Account> GetAll();
         Account Get(int id);
+        DataTable GetToDataTable();
     }
 }
