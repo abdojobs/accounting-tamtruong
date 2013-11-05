@@ -29,53 +29,39 @@
         private void InitializeComponent()
         {
             this.ptop = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.combo = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.plcontainer = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.gridCombobox1 = new AccountingSystem.Components.GridCombobox();
             this.ptop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.plcontainer)).BeginInit();
             this.plcontainer.Panel1.SuspendLayout();
             this.plcontainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridCombobox1)).BeginInit();
             this.SuspendLayout();
             // 
             // ptop
             // 
-            this.ptop.Controls.Add(this.textBox1);
-            this.ptop.Controls.Add(this.combo);
-            this.ptop.Controls.Add(this.button1);
+            this.ptop.Controls.Add(this.splitContainer1);
             this.ptop.Dock = System.Windows.Forms.DockStyle.Top;
             this.ptop.Location = new System.Drawing.Point(0, 0);
             this.ptop.Name = "ptop";
             this.ptop.Size = new System.Drawing.Size(816, 100);
             this.ptop.TabIndex = 0;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(235, 42);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
-            // 
             // combo
             // 
             this.combo.FormattingEnabled = true;
-            this.combo.Location = new System.Drawing.Point(563, 41);
+            this.combo.Location = new System.Drawing.Point(76, 12);
             this.combo.Name = "combo";
             this.combo.Size = new System.Drawing.Size(121, 21);
             this.combo.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(367, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // plcontainer
             // 
@@ -105,6 +91,33 @@
             this.dataGridView1.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserAddedRow);
             this.dataGridView1.Enter += new System.EventHandler(this.dataGridView1_Enter);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.combo);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.gridCombobox1);
+            this.splitContainer1.Size = new System.Drawing.Size(816, 100);
+            this.splitContainer1.SplitterDistance = 272;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // gridCombobox1
+            // 
+            this.gridCombobox1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridCombobox1.comboboxColumn = null;
+            this.gridCombobox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridCombobox1.Location = new System.Drawing.Point(0, 0);
+            this.gridCombobox1.Name = "gridCombobox1";
+            this.gridCombobox1.Size = new System.Drawing.Size(540, 100);
+            this.gridCombobox1.TabIndex = 2;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -116,11 +129,15 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ptop.ResumeLayout(false);
-            this.ptop.PerformLayout();
             this.plcontainer.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.plcontainer)).EndInit();
             this.plcontainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridCombobox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -130,9 +147,9 @@
         private System.Windows.Forms.Panel ptop;
         private System.Windows.Forms.SplitContainer plcontainer;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox combo;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private Components.GridCombobox gridCombobox1;
 
     }
 }

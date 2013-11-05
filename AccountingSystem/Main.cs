@@ -161,9 +161,21 @@ namespace AccountingSystem
                 dt1.Rows.Add(new object[] { 2, "item2" });
                 dt1.Rows.Add(new object[] { 3, "item3" });
 
-                col.DataSource = dt1;
+                DataGridViewComboBoxColumn col1 = new DataGridViewComboBoxColumn();
+                col1.DataPropertyName = "Id";
+                col1.ValueMember = "Id";
+                col1.ValueType = typeof(int);
+                col1.DisplayMember = "Name";
+                col1.DefaultCellStyle.DataSourceNullValue = -1;
+                col1.DefaultCellStyle.NullValue = "[chon tai khoan]";
+                col1.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+                col1.Name = "Combo";
 
-                dataGridView1.Columns.Add(col);
+                col1.DataSource = dt1;
+                gridCombobox1.comboboxColumn = col1;
+                gridCombobox1.DataSource = dt;
+                gridCombobox1.AddComboColumn(col1);
+                //dataGridView1.Columns.Add(col);
                 //dt.Rows.Add("dsnv");
                 //dt.Rows.Add("nv");
                 //dt.Rows.Add(new object[] { null });
