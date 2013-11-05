@@ -33,7 +33,7 @@
             this.plcontainer = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.gridCombobox1 = new AccountingSystem.Components.GridCombobox();
+            this.gridCombobox1 = new AccountingSystem.Components.GridComboBox();
             this.ptop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.plcontainer)).BeginInit();
             this.plcontainer.Panel1.SuspendLayout();
@@ -149,7 +149,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ComboBox combo;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private Components.GridCombobox gridCombobox1;
+        private Components.GridComboBox gridCombobox1;
 
     }
 }

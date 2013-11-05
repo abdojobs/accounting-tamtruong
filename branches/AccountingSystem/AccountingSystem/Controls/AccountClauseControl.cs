@@ -60,6 +60,7 @@ namespace AccountingSystem.Controls
                     _accountList = new DataTable();
                     _accountList.Columns.Add("Id");
                     _accountList.Columns.Add("Code");
+                    _accountList.Columns.Add("Description");
                     var query = accountService.GetAll();
                     //BindingSource db = new BindingSource();
                     //_accountList = new BindingSource();
@@ -67,12 +68,13 @@ namespace AccountingSystem.Controls
                     //query.Add(new Account() { Id = 0, Description = "[Chọn tài khoản]", Code = "[Chọn tài khoản]" });
                     foreach (var r in query)
                     {
-                        _accountList.Rows.Add(new object[] { r.Id, r.Code });
+                        _accountList.Rows.Add(new object[] { r.Id, r.Code,r.Description });
                     }
                 }
                 return _accountList;
             }
         }
+        DataTable tbAccountDebts;
         BindingSource _accountRList;
         BindingSource accountRList
         {
@@ -90,6 +92,7 @@ namespace AccountingSystem.Controls
         }
         int indexRowChange=-1;
         int indexRowAccount = -1;
+        DataGridViewComboBoxColumn columnAD;
         public AccountClauseControl()
         {
             InitializeComponent();
@@ -114,14 +117,34 @@ namespace AccountingSystem.Controls
             dbSource.DataSource = accountClauseService.GetAllWithAccountClauseModel().ToList();
             gridAccountClause.DataSource = dbSource;
 
-            
-
-
-            
-            gridAD.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(Account_EditingControlShowing);
-            gridAD.CellEnter+=new DataGridViewCellEventHandler(gridAD_CellEnter);
             gridAD.ColumnAdded+=new DataGridViewColumnEventHandler(ColumnAdded);
+
+            tbAccountDebts = new DataTable();
+            tbAccountDebts.Columns.Add("Id");
+            tbAccountDebts.Columns.Add("Description");
+            gridAD.DataSource = tbAccountDebts;
+            columnAD = new DataGridViewComboBoxColumn();
+            columnAD.DataPropertyName = "Id";
+            columnAD.HeaderText = "Tài khoản";
+            columnAD.Width = 120;
+            columnAD.DataSource = accountList;
+            columnAD.ValueMember = "Id";
+            columnAD.DisplayMember = "Code";
+            columnAD.Name = "ComboAccount";
+            columnAD.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+            columnAD.FlatStyle = FlatStyle.Flat;
+            columnAD.DefaultCellStyle.DataSourceNullValue = -1;
+            columnAD.DefaultCellStyle.NullValue = "[Chọn tài khoản]";
+            columnAD.ValueType = typeof(int);
+            gridAD.AddComboColumn(columnAD);
+            columnAD.DisplayIndex = 0;
+
+            gridAD.ComboBoxIndexChanged += new Components.GridComboBox.ComboBoxIndexChangedHandler(gridAD_ComboBoxIndexChanged);
             
+            
+        }
+        void gridAD_ComboBoxIndexChanged(object sender, EventArgs e) {
+            AccountClauseControl_SelectedIndexChanged(sender, e);
         }
         protected void gridAD_CellEnter(object sender, DataGridViewCellEventArgs e) {
             if (indexRowAccount != e.RowIndex && indexRowAccount!=-1)
@@ -159,20 +182,15 @@ namespace AccountingSystem.Controls
         }
         
         protected void ColumnAdded(object sender,DataGridViewColumnEventArgs e) {
-            //if (e.Column.Name == "Description")
-            //{
-            //    e.Column.HeaderText = "Diễn giải";
-            //}
-            //else if (e.Column.Name == "ComboAccount") { }
-            //else if (e.Column.Name == "Code") { e.Column.HeaderText = "Mã"; }
-            //else if (e.Column.Name == "Id") {
-            //    e.Column.DefaultCellStyle.NullValue = "[chon tai khoan 1]";
-            //    e.Column.DefaultCellStyle.DataSourceNullValue = 0;
-            //}
-            //else
-            //{
-            //    //e.Column.Visible = false;
-            //}
+            if (e.Column.Name == "Description")
+            {
+                e.Column.HeaderText = "Diễn giải";
+            }
+            else if (e.Column.Name == "ComboAccount") { }
+            else
+            {
+                e.Column.Visible = false;
+            }
             
         }
         protected void gridAccountClause_CellEnter(object sender,DataGridViewCellEventArgs e) {
@@ -188,47 +206,25 @@ namespace AccountingSystem.Controls
             }
         }
         protected void ReloadGridAccount(int clauseId) {
-            DataTable dbSourceD = new DataTable();
-            dbSourceD.Columns.Add("Id");
-            dbSourceD.Columns.Add("Code");
-            //dbSourceD.Columns.Add("Description");
-            //BindingSource dbSourceD = new BindingSource();
+            tbAccountDebts.Clear();
             var list = accountClauseService.GetDetailWithType(clauseId, "N").Select(a => new AccountCombo
             {
                 Id = a.Account_Id,
                 Description = a.Description
             }).ToList();
+
             foreach (var r in list)
             {
-                dbSourceD.Rows.Add(new object[] { r.Id, r.Description });
+                tbAccountDebts.Rows.Add(new object[] { r.Id, r.Description });
             }
-            //dbSourceD.DataSource = list;
-            gridAD.DataSource = dbSourceD;
+            gridAD.DataSource = tbAccountDebts;
             gridAD.Columns["Id"].DefaultCellStyle.NullValue="Chon tai khoan";
             gridAD.Columns["Id"].DefaultCellStyle.DataSourceNullValue=-1;
 
-            //gridAD.Columns["Description"].DefaultCellStyle.NullValue = "Chon tai khoan";
-            //gridAD.Columns["Description"].DefaultCellStyle.DataSourceNullValue = -1;
+            gridAD.Columns["Description"].DefaultCellStyle.NullValue = "Chon tai khoan";
+            gridAD.Columns["Description"].DefaultCellStyle.DataSourceNullValue = -1;
 
-            gridAD.Columns["Code"].DefaultCellStyle.NullValue = "Chon tai khoan";
-            gridAD.Columns["Code"].DefaultCellStyle.DataSourceNullValue = -1;
-
-            DataGridViewComboBoxColumn columnAD = new DataGridViewComboBoxColumn();
-            columnAD.DataPropertyName = "Id";
-            columnAD.HeaderText = "Tài khoản";
-            columnAD.Width = 120;
-            columnAD.DataSource = accountList;
-            columnAD.ValueMember = "Id";
-            columnAD.DisplayMember = "Code";
-            //columnAD.Name = "ComboAccount";
-            columnAD.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
-            columnAD.FlatStyle = FlatStyle.Flat;
-            columnAD.DefaultCellStyle.DataSourceNullValue = -1;
-            columnAD.DefaultCellStyle.NullValue = "[Chọn tài khoản]";
-            //columnAD.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            columnAD.ValueType = typeof(int);
-            gridAD.Columns.Add(columnAD);
-            columnAD.DisplayIndex = 0;
+            
         }
         protected void AdjustGridAccount(DataGridViewCellEventArgs e)
         { 
@@ -245,21 +241,21 @@ namespace AccountingSystem.Controls
             try
             {
                 ComboBox combo = sender as ComboBox;
-                if (combo.SelectedItem == null || ((Account)combo.SelectedItem).Id == 0)
+                DataRowView row = (DataRowView)combo.SelectedItem;
+                if (row == null || row.IsEdit == true || Convert.ToInt32(row["Id"]) == -1)
                 {
-                    gridAD.CurrentRow.Cells[1].Value = 0;
-                    gridAD.AllowUserToAddRows = false;
                     return;
                 }
-                gridAD.AllowUserToAddRows = true;
-                Account account = accountService.Get(((Account)combo.SelectedItem).Id);
-                AccountCombo clause = gridAD.CurrentRow.DataBoundItem as AccountCombo;
-                if (clause == null)
-                {
-                    clause = new AccountCombo() { Id = account.Id, Description = account.Description };
+                if (ExistAccountInGrid(gridAD, row["Id"])) {
+                    gridAD.CurrentRow.ErrorText = " ";
+                    MessageBox.Show(ErrorsManager.Error0000);
+                    gridAD.CurrentRow.ErrorText = string.Empty;
+                    combo.SelectedItem = gridAD.SelectedItemBeforce;
+                    return;
                 }
-                else
-                    clause.Description = account.Description;
+                gridAD.CurrentRow.Cells["Description"].Value = row["Description"];
+                gridAD.CurrentRow.Cells["Id"].Value = row["Id"];
+                
 
             }
             catch (UserException ex)
@@ -275,6 +271,13 @@ namespace AccountingSystem.Controls
                 WriteLog.Error(this.GetType(), ex);
             }
             
+        }
+        bool ExistAccountInGrid(DataGridView grid,object id) { 
+            foreach(DataGridViewRow r in grid.Rows){
+                if (r.Cells["Id"].Value.Equals(id))
+                    return true;
+            }
+            return false;
         }
         protected AccountClauseDetail SaveAccountClauseDetail(Account account, AccountType accountType, AccountClauseDetail detail)
         {

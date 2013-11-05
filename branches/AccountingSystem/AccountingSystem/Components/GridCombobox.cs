@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace AccountingSystem.Components
 {
-    public class GridCombobox : DataGridView
+    public class GridComboBox : DataGridView
     {
         private object ComboDataSource { get; set; }
         private string[] columnNames = new string[0];
@@ -17,8 +17,11 @@ namespace AccountingSystem.Components
         private int valueMemberColumnIndex = 0;
         private int columnCount;
         public DataGridViewComboBoxColumn comboboxColumn { get; set; }
+        public delegate void ComboBoxIndexChangedHandler(object sender, EventArgs e);
+        public ComboBoxIndexChangedHandler ComboBoxIndexChanged;
+        public object SelectedItemBeforce;
 
-        public GridCombobox()
+        public GridComboBox()
         {
             this.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(GridCombobox_EditingControlShowing);
         }
@@ -32,6 +35,7 @@ namespace AccountingSystem.Components
             if (e.Control is ComboBox)
             {
                 InitializeCombo(e.Control as ComboBox);
+                
             }
         }
         void InitializeCombo(ComboBox combo)
@@ -40,7 +44,15 @@ namespace AccountingSystem.Components
             combo.DrawMode = DrawMode.OwnerDrawVariable;
             combo.MeasureItem += new MeasureItemEventHandler(MeasureItem);
             combo.DrawItem += new DrawItemEventHandler(DrawItem);
-            
+            combo.SelectedIndexChanged+=new EventHandler(combo_SelectedIndexChanged);
+            combo.GotFocus+=new EventHandler(combo_GotFocus);
+        }
+        void combo_GotFocus(object sender, EventArgs e) {
+            SelectedItemBeforce = ((ComboBox)sender).SelectedItem;
+        }
+        void combo_SelectedIndexChanged(object sender, EventArgs e) {
+            if (ComboBoxIndexChanged!=null)
+                ComboBoxIndexChanged(sender, e);
         }
         void DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -64,6 +76,9 @@ namespace AccountingSystem.Components
                     {
                         for (int colIndex = 0; colIndex < columnNames.Length; colIndex++)
                         {
+                            // no draw if column is valuemember in combobox column
+                            if (columnNames[colIndex] == comboboxColumn.ValueMember)
+                                continue;
                             string item = ((DataRowView)cb.Items[e.Index])[colIndex].ToString();
 
                             boundsRect.X = lastRight;
