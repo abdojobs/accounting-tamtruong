@@ -93,6 +93,7 @@ namespace AccountingSystem.Controls
         int indexRowChange=-1;
         int indexRowAccount = -1;
         DataGridViewComboBoxColumn columnAD;
+        int AccountIdDtChange;
         public AccountClauseControl()
         {
             InitializeComponent();
@@ -140,6 +141,7 @@ namespace AccountingSystem.Controls
             columnAD.DisplayIndex = 0;
 
             gridAD.ComboBoxIndexChanged += new Components.GridComboBox.ComboBoxIndexChangedHandler(gridAD_ComboBoxIndexChanged);
+            gridAD.CellEnter+=new DataGridViewCellEventHandler(gridAD_CellEnter);
             
             
         }
@@ -155,16 +157,14 @@ namespace AccountingSystem.Controls
         protected void SaveAccountDetail(int rowindex) {
             try
             {
-                DataGridViewComboBoxCell combo = gridAD.Rows[rowindex].Cells["ComboAccount"] as DataGridViewComboBoxCell;
-
-                Account account = combo.Value as Account;
-                //gridAD.CurrentRow.Cells["Description"].Value = account.Description;
-                AccountClauseDetail detail = gridAD.Rows[rowindex].DataBoundItem as AccountClauseDetail;
+                int accountid = Convert.ToInt32(((DataGridViewRow)gridAD.Rows[rowindex]).Cells["Id"].Value);
+                string description=Convert.ToString(((DataGridViewRow)gridAD.Rows[rowindex]).Cells["Description"].Value);
+                
                 AccountType ad = accountClauseService.GetAccountType("N");
-                detail = SaveAccountClauseDetail(account, ad, detail);
-                //if (detail != null)
-                //    ReloadGridAccount(detail.AccountClause_Id);
+                SaveAccountClauseDetail(accountid,description,AccountIdDtChange, ad);
+
                 gridAD.CurrentRow.ErrorText = string.Empty;
+                AccountIdDtChange = -1;
 
             }
             catch (UserException ex)
@@ -172,6 +172,7 @@ namespace AccountingSystem.Controls
                 MessageBox.Show(ErrorsManager.Error0000);
                 WriteLog.Warnning(this.GetType(), ex);
                 gridAD.CurrentRow.ErrorText = " ";
+                
             }
             catch (Exception ex)
             {
@@ -179,6 +180,7 @@ namespace AccountingSystem.Controls
                 WriteLog.Error(this.GetType(), ex);
                 gridAD.CurrentRow.ErrorText = " ";
             }
+            indexRowAccount = -1;
         }
         
         protected void ColumnAdded(object sender,DataGridViewColumnEventArgs e) {
@@ -206,6 +208,7 @@ namespace AccountingSystem.Controls
             }
         }
         protected void ReloadGridAccount(int clauseId) {
+            indexRowAccount = -1;
             tbAccountDebts.Clear();
             var list = accountClauseService.GetDetailWithType(clauseId, "N").Select(a => new AccountCombo
             {
@@ -249,11 +252,14 @@ namespace AccountingSystem.Controls
                 if (ExistAccountInGrid(gridAD, row["Id"])) {
                     gridAD.CurrentRow.ErrorText = " ";
                     MessageBox.Show(ErrorsManager.Error0000);
-                    gridAD.CurrentRow.ErrorText = string.Empty;
+                    //gridAD.CurrentRow.ErrorText = string.Empty;
                     //combo.SelectedIndex = gridAD.SelectedIndexBeforce;
-                    ((DataGridViewComboBoxCell)gridAD.CurrentRow.Cells["ComboAccount"]).Value = combo.Items[gridAD.SelectedIndexBeforce];
+                    //gridAD.CurrentRow.Cells["ComboAccount"].Value = ((DataRowView)combo.Items[gridAD.SelectedIndexBeforce])["Id"];
                     return;
                 }
+                gridAD.CurrentRow.ErrorText = string.Empty;
+                indexRowAccount = gridAD.CurrentRow.Index;
+                AccountIdDtChange = Convert.ToInt32(gridAD.CurrentRow.Cells["Id"].Value);
                 gridAD.CurrentRow.Cells["Description"].Value = row["Description"];
                 gridAD.CurrentRow.Cells["Id"].Value = row["Id"];
                 
@@ -280,21 +286,21 @@ namespace AccountingSystem.Controls
             }
             return false;
         }
-        protected AccountClauseDetail SaveAccountClauseDetail(Account account, AccountType accountType, AccountClauseDetail detail)
+        protected void SaveAccountClauseDetail(int accountid,string description,int accountidchange, AccountType accountType)
         {
             AccountClauseModel clause = (AccountClauseModel)gridAccountClause.CurrentRow.DataBoundItem;
             AccountClauseDetail cdetail = new AccountClauseDetail()
             {
-                Account_Id = account.Id,
+                Account_Id = accountid,
                 AccountType = accountType,
-                Description = account.Description,
+                Description = description,
                 AccountClause_Id = clause.Id
 
             };
-            if (detail != null && detail.Account_Id != 0)
-                accountClauseService.DeleteDetail(detail.Account_Id, clause.Id);
+            // delete account is changed
+            accountClauseService.DeleteDetail(accountidchange, clause.Id);
+            // save account current
             accountClauseService.addBalanceAccount(cdetail);
-            return cdetail;
         }
         protected void gridAccountClause_SaveChange(object sender, int indexRowChange)
         {

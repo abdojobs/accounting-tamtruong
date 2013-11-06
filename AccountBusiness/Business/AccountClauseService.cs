@@ -172,7 +172,8 @@ namespace Business.Business
         public void DeleteDetail(int accountId, int clauseId)
         {
             AccountClauseDetail detail = Context.AccountClauseDetails.GetAll().Where(d => d.Account_Id == accountId && d.AccountClause_Id == clauseId).FirstOrDefault();
-            Context.AccountClauseDetails.DeleteSubmit(detail);
+            if(detail!=null)
+                Context.AccountClauseDetails.DeleteSubmit(detail);
         }
 
 
