@@ -250,7 +250,8 @@ namespace AccountingSystem.Controls
                     gridAD.CurrentRow.ErrorText = " ";
                     MessageBox.Show(ErrorsManager.Error0000);
                     gridAD.CurrentRow.ErrorText = string.Empty;
-                    combo.SelectedItem = gridAD.SelectedItemBeforce;
+                    //combo.SelectedIndex = gridAD.SelectedIndexBeforce;
+                    ((DataGridViewComboBoxCell)gridAD.CurrentRow.Cells["ComboAccount"]).Value = combo.Items[gridAD.SelectedIndexBeforce];
                     return;
                 }
                 gridAD.CurrentRow.Cells["Description"].Value = row["Description"];
@@ -274,7 +275,7 @@ namespace AccountingSystem.Controls
         }
         bool ExistAccountInGrid(DataGridView grid,object id) { 
             foreach(DataGridViewRow r in grid.Rows){
-                if (r.Cells["Id"].Value.Equals(id))
+                if (id.Equals(r.Cells["Id"].Value))
                     return true;
             }
             return false;

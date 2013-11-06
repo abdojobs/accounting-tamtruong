@@ -20,6 +20,7 @@ namespace AccountingSystem.Components
         public delegate void ComboBoxIndexChangedHandler(object sender, EventArgs e);
         public ComboBoxIndexChangedHandler ComboBoxIndexChanged;
         public object SelectedItemBeforce;
+        public int SelectedIndexBeforce;
 
         public GridComboBox()
         {
@@ -42,13 +43,18 @@ namespace AccountingSystem.Components
         {
             
             combo.DrawMode = DrawMode.OwnerDrawVariable;
+            combo.MeasureItem -= new MeasureItemEventHandler(MeasureItem);
             combo.MeasureItem += new MeasureItemEventHandler(MeasureItem);
+            combo.DrawItem -= new DrawItemEventHandler(DrawItem);
             combo.DrawItem += new DrawItemEventHandler(DrawItem);
-            combo.SelectedIndexChanged+=new EventHandler(combo_SelectedIndexChanged);
+            combo.SelectedIndexChanged-=new EventHandler(combo_SelectedIndexChanged);
+            combo.SelectedIndexChanged += new EventHandler(combo_SelectedIndexChanged);
+            combo.GotFocus -= new EventHandler(combo_GotFocus);
             combo.GotFocus+=new EventHandler(combo_GotFocus);
         }
         void combo_GotFocus(object sender, EventArgs e) {
             SelectedItemBeforce = ((ComboBox)sender).SelectedItem;
+            SelectedIndexBeforce = ((ComboBox)sender).SelectedIndex;
         }
         void combo_SelectedIndexChanged(object sender, EventArgs e) {
             if (ComboBoxIndexChanged!=null)
