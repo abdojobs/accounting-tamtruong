@@ -1,6 +1,29 @@
-Phieu Thu
-tao mot cai grid chua list phieu thu trong grid chi cho xem ko cho delete
+chuc nang chung
+	tim phieu theo thang va nam
+	tao mot cai grid chua list phieu  trong grid chi cho xem ko cho delete, tao button chon sua chua phieu 
+khi sua phieu  phai luu noi dung can sua va nguoi da chinh sua
+	tao form nhap phieu
 
-tao form nhap phieu thu
-tao grid chua list tai khoan doi ung, cho them hoac xoa tai khoan doi ung, co the cap nhat so tien va dien giai
+Chuc nang rieng
+
+Phieu Thu
+tao combobox chon dinh khoan
+tao grid chua list tai khoan doi ung, cho them hoac xoa tai khoan doi ung, co the cap nhat so tien va dien giai, 
+	khi cap nhat grid thi phai cap nhat lai tong tien trong phieu thu
+lay cac tai khoan duoc chon trong dinh khoan mac dinh dua vao grid tai khoan doi ung
 tao grid de nhap phieu gia tri gia tang
+
+phieu chi
+tao combobox chon dinh khoan
+tao grid chua list tai khoan doi ung, cho them hoac xoa tai khoan doi ung, co the cap nhat so tien va dien giai, 
+	khi cap nhat grid thi phai cap nhat lai tong tien trong phieu thu
+lay cac tai khoan duoc chon trong dinh khoan mac dinh dua vao grid tai khoan doi ung
+
+Phieu Nhap
+tao combobox chon dinh khoan
+tao grid chua list vat tu/hang hoa, co the them hoac xoa trong grid
+
+Phieu Xuat
+tao combobox chon dinh khoan
+tao grid chua list vat tu/hang hoa, co the them hoac xoa trong grid
+	tinh tong tien xuat khi cap so luong hoac them bot hang hoa
