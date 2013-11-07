@@ -14,6 +14,7 @@ using AccountBusiness.Models;
 using System.Data.Objects;
 using System.Data.Entity;
 using DataAccess.Repositories.Linq;
+using System.Data;
 
 namespace Business.Business
 {
@@ -169,9 +170,9 @@ namespace Business.Business
         }
 
 
-        public void DeleteDetail(int accountId, int clauseId)
+        public void DeleteDetail(int accountId, int clauseId,int accountTypeId)
         {
-            AccountClauseDetail detail = Context.AccountClauseDetails.GetAll().Where(d => d.Account_Id == accountId && d.AccountClause_Id == clauseId).FirstOrDefault();
+            AccountClauseDetail detail = Context.AccountClauseDetails.GetAll().Where(d => d.Account_Id == accountId && d.AccountClause_Id == clauseId && d.AccountType.Id==accountTypeId).FirstOrDefault();
             if(detail!=null)
                 Context.AccountClauseDetails.DeleteSubmit(detail);
         }
@@ -205,6 +206,34 @@ namespace Business.Business
             var query = ((DbSet<AccountClauseDetail>)Context.AccountClauseDetails.GetAll()).Include(x => x.AccountType).AsEnumerable();
             query = query.Where(a => a.AccountType.Code == code && a.AccountClause_Id == id);
             return query;
+        }
+
+
+        public void UpdateAccountDetail(int accountId, int clauseId, string typeCode, string description)
+        {
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    AccountType type = GetAccountType(typeCode);
+                    AccountClauseDetail a = new AccountClauseDetail()
+                    {
+                        Account_Id = accountId,
+                        AccountClause_Id = clauseId,
+                        Description = description,
+                        AccountType = type
+                    };
+                    Context.AccountClauseDetails.Attach(a);
+                    Context.Entry(a).State = EntityState.Modified;
+                    Context.SaveChanges();
+                }
+                catch { }
+                finally
+                {
+                    Context.Dispose();
+                }
+            }
+            
         }
     }
 }

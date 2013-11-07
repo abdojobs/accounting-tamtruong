@@ -1,0 +1,6 @@
+Phieu Thu
+tao mot cai grid chua list phieu thu trong grid chi cho xem ko cho delete
+
+tao form nhap phieu thu
+tao grid chua list tai khoan doi ung, cho them hoac xoa tai khoan doi ung, co the cap nhat so tien va dien giai
+tao grid de nhap phieu gia tri gia tang
