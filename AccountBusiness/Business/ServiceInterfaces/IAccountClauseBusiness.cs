@@ -20,9 +20,10 @@ namespace Business.Business.ServiceInterfaces
         void updateAccountClause(AccountClause accountClause);
         void addBalanceAccount(AccountClauseDetail balanceAccount);
         IEnumerable<AccountClauseDetail> GetAccountDetailsByClauseId(int id);
-        void DeleteDetail(int accountId, int clauseId);
+        void DeleteDetail(int accountId, int clauseId, int accountTypeId);
         AccountType GetAccountType(string code);
         AccountClause Get(int id);
         IEnumerable<AccountClauseDetail> GetDetailWithType(int id,string code);
+        void UpdateAccountDetail(int accountId, int clauseId, string typeCode, string description);
     }
 }

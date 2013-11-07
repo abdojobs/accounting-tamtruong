@@ -21,6 +21,8 @@ namespace AccountingSystem.Components
         public ComboBoxIndexChangedHandler ComboBoxIndexChanged;
         public object SelectedItemBeforce;
         public int SelectedIndexBeforce;
+        public GridChangeStyle GridChangeStyle;
+        public bool IsTextChanged;
 
         public GridComboBox()
         {
@@ -157,5 +159,10 @@ namespace AccountingSystem.Components
             }
             return totWidth + SystemInformation.VerticalScrollBarWidth;
         }
+    }
+    public enum GridChangeStyle {
+        None,
+        ComboBox,
+        Text
     }
 }

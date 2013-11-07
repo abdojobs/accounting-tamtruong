@@ -14,6 +14,7 @@ using Common.Logs;
 using Common.Exceptions;
 using AccountBusiness.Models;
 using System.Data.Entity;
+using AccountingSystem.Components;
 
 namespace AccountingSystem.Controls
 {
@@ -75,25 +76,34 @@ namespace AccountingSystem.Controls
             }
         }
         DataTable tbAccountDebts;
-        BindingSource _accountRList;
-        BindingSource accountRList
+        DataTable tbAccountRecs;
+        DataTable _accountRList;
+        DataTable accountRList
         {
             get
             {
                 if (_accountRList == null)
                 {
-                    _accountRList = new BindingSource();
-                    var query = accountService.GetAll().ToList();
-                    //query.Add(new Account() { Id = 0, Description = string.Empty, Code = string.Empty });
-                    _accountRList.DataSource = query;
+                    _accountRList = new DataTable();
+                    _accountRList.Columns.Add("Id");
+                    _accountRList.Columns.Add("Code");
+                    _accountRList.Columns.Add("Description");
+                    var query = accountService.GetAll();
+                    foreach (var r in query)
+                    {
+                        _accountRList.Rows.Add(new object[] { r.Id, r.Code, r.Description });
+                    }
                 }
                 return _accountRList;
             }
         }
         int indexRowChange=-1;
         int indexRowAccount = -1;
+        int indexRowAccountR = -1;
         DataGridViewComboBoxColumn columnAD;
+        DataGridViewComboBoxColumn columnAR;
         int AccountIdDtChange;
+        int AccountIdDtChangeR;
         public AccountClauseControl()
         {
             InitializeComponent();
@@ -142,8 +152,48 @@ namespace AccountingSystem.Controls
 
             gridAD.ComboBoxIndexChanged += new Components.GridComboBox.ComboBoxIndexChangedHandler(gridAD_ComboBoxIndexChanged);
             gridAD.CellEnter+=new DataGridViewCellEventHandler(gridAD_CellEnter);
-            
-            
+            gridAD.CellValueChanged+=new DataGridViewCellEventHandler(gridAD_CellValueChanged);
+
+            // init grid accountreceivable gridAR
+            gridAR.ColumnAdded += new DataGridViewColumnEventHandler(ColumnAdded);
+
+            tbAccountRecs = new DataTable();
+            tbAccountRecs.Columns.Add("Id");
+            tbAccountRecs.Columns.Add("Description");
+            gridAR.DataSource = tbAccountRecs;
+            columnAR = new DataGridViewComboBoxColumn();
+            columnAR.DataPropertyName = "Id";
+            columnAR.HeaderText = "Tài khoản";
+            columnAR.Width = 120;
+            columnAR.DataSource = accountList;
+            columnAR.ValueMember = "Id";
+            columnAR.DisplayMember = "Code";
+            columnAR.Name = "ComboAccount";
+            columnAR.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+            columnAR.FlatStyle = FlatStyle.Flat;
+            columnAR.DefaultCellStyle.DataSourceNullValue = -1;
+            columnAR.DefaultCellStyle.NullValue = "[Chọn tài khoản]";
+            columnAR.ValueType = typeof(int);
+            gridAR.AddComboColumn(columnAR);
+            columnAR.DisplayIndex = 0;
+
+            gridAR.ComboBoxIndexChanged += new Components.GridComboBox.ComboBoxIndexChangedHandler(gridAR_ComboBoxIndexChanged);
+            gridAR.CellEnter += new DataGridViewCellEventHandler(gridAR_CellEnter);
+            gridAR.CellValueChanged += new DataGridViewCellEventHandler(gridAR_CellValueChanged);
+        }
+        void gridAD_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
+            if (gridAD.GridChangeStyle == GridChangeStyle.ComboBox)
+                return;
+            gridAD.IsTextChanged = true;
+            indexRowAccount = e.RowIndex;
+            gridAD.GridChangeStyle = GridChangeStyle.Text;
+        }
+        void gridAR_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
+            if (gridAR.GridChangeStyle == GridChangeStyle.ComboBox)
+                return;
+            gridAR.IsTextChanged = true;
+            indexRowAccountR = e.RowIndex;
+            gridAR.GridChangeStyle = GridChangeStyle.Text;
         }
         void gridAD_ComboBoxIndexChanged(object sender, EventArgs e) {
             AccountClauseControl_SelectedIndexChanged(sender, e);
@@ -151,36 +201,69 @@ namespace AccountingSystem.Controls
         protected void gridAD_CellEnter(object sender, DataGridViewCellEventArgs e) {
             if (indexRowAccount != e.RowIndex && indexRowAccount!=-1)
             {
-                SaveAccountDetail(indexRowAccount);
+                if (gridAD.GridChangeStyle == GridChangeStyle.ComboBox)
+                {
+                    SaveAccountDetail(indexRowAccount, sender as DataGridView,"N");
+                }
+                else if (gridAD.GridChangeStyle == GridChangeStyle.Text) {
+                    UpdateAccountDetail(indexRowAccount, sender as DataGridView);
+                }
+                gridAD.GridChangeStyle = GridChangeStyle.None;
+                AccountIdDtChange = -1;
+                indexRowAccount = -1;
             }
         }
-        protected void SaveAccountDetail(int rowindex) {
+        void gridAR_CellEnter(object sender, DataGridViewCellEventArgs e) {
+            if (indexRowAccountR != e.RowIndex && indexRowAccountR != -1)
+            {
+                if (gridAR.GridChangeStyle == GridChangeStyle.ComboBox)
+                {
+                    SaveAccountDetail(indexRowAccountR, sender as DataGridView,"C");
+                }
+                else if (gridAR.GridChangeStyle == GridChangeStyle.Text)
+                {
+                    UpdateAccountDetail(indexRowAccountR, sender as DataGridView);
+                }
+                gridAR.GridChangeStyle = GridChangeStyle.None;
+                AccountIdDtChangeR = -1;
+                indexRowAccountR = -1;
+            }
+        }
+        void UpdateAccountDetail(int rowindex,DataGridView grid) {
+            int accountid = Convert.ToInt32(((DataGridViewRow)grid.Rows[rowindex]).Cells["Id"].Value);
+            string description = Convert.ToString(((DataGridViewRow)grid.Rows[rowindex]).Cells["Description"].Value);
+            AccountClauseModel clause = (AccountClauseModel)gridAccountClause.CurrentRow.DataBoundItem;
+
+            accountClauseService.UpdateAccountDetail(accountid, clause.Id, "N", description);
+
+            grid.Rows[rowindex].ErrorText = string.Empty;
+        }
+        protected void SaveAccountDetail(int rowindex,DataGridView grid,string typeCode) {
             try
             {
-                int accountid = Convert.ToInt32(((DataGridViewRow)gridAD.Rows[rowindex]).Cells["Id"].Value);
-                string description=Convert.ToString(((DataGridViewRow)gridAD.Rows[rowindex]).Cells["Description"].Value);
-                
-                AccountType ad = accountClauseService.GetAccountType("N");
+                int accountid = Convert.ToInt32(((DataGridViewRow)grid.Rows[rowindex]).Cells["Id"].Value);
+                string description = Convert.ToString(((DataGridViewRow)grid.Rows[rowindex]).Cells["Description"].Value);
+
+                AccountType ad = accountClauseService.GetAccountType(typeCode);
                 SaveAccountClauseDetail(accountid,description,AccountIdDtChange, ad);
 
                 gridAD.CurrentRow.ErrorText = string.Empty;
-                AccountIdDtChange = -1;
 
             }
             catch (UserException ex)
             {
                 MessageBox.Show(ErrorsManager.Error0000);
                 WriteLog.Warnning(this.GetType(), ex);
-                gridAD.CurrentRow.ErrorText = " ";
+                grid.CurrentRow.ErrorText = " ";
                 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ErrorsManager.Error0000);
                 WriteLog.Error(this.GetType(), ex);
-                gridAD.CurrentRow.ErrorText = " ";
+                grid.CurrentRow.ErrorText = " ";
             }
-            indexRowAccount = -1;
+            
         }
         
         protected void ColumnAdded(object sender,DataGridViewColumnEventArgs e) {
@@ -227,6 +310,25 @@ namespace AccountingSystem.Controls
             gridAD.Columns["Description"].DefaultCellStyle.NullValue = "Chon tai khoan";
             gridAD.Columns["Description"].DefaultCellStyle.DataSourceNullValue = -1;
 
+            // set for grid accountreceivable gridAR
+            indexRowAccountR = -1;
+            tbAccountRecs.Clear();
+            var listR = accountClauseService.GetDetailWithType(clauseId, "C").Select(a => new AccountCombo
+            {
+                Id = a.Account_Id,
+                Description = a.Description
+            }).ToList();
+
+            foreach (var r in listR)
+            {
+                tbAccountRecs.Rows.Add(new object[] { r.Id, r.Description });
+            }
+            gridAR.DataSource = tbAccountRecs;
+            gridAR.Columns["Id"].DefaultCellStyle.NullValue = "Chon tai khoan";
+            gridAR.Columns["Id"].DefaultCellStyle.DataSourceNullValue = -1;
+
+            gridAR.Columns["Description"].DefaultCellStyle.NullValue = "Chon tai khoan";
+            gridAR.Columns["Description"].DefaultCellStyle.DataSourceNullValue = -1;
             
         }
         protected void AdjustGridAccount(DataGridViewCellEventArgs e)
@@ -251,7 +353,7 @@ namespace AccountingSystem.Controls
                 }
                 if (ExistAccountInGrid(gridAD, row["Id"])) {
                     gridAD.CurrentRow.ErrorText = " ";
-                    MessageBox.Show(ErrorsManager.Error0000);
+                    //MessageBox.Show(ErrorsManager.Error0000);
                     //gridAD.CurrentRow.ErrorText = string.Empty;
                     //combo.SelectedIndex = gridAD.SelectedIndexBeforce;
                     //gridAD.CurrentRow.Cells["ComboAccount"].Value = ((DataRowView)combo.Items[gridAD.SelectedIndexBeforce])["Id"];
@@ -259,9 +361,10 @@ namespace AccountingSystem.Controls
                 }
                 gridAD.CurrentRow.ErrorText = string.Empty;
                 indexRowAccount = gridAD.CurrentRow.Index;
-                AccountIdDtChange = Convert.ToInt32(gridAD.CurrentRow.Cells["Id"].Value);
+                AccountIdDtChange = gridAD.CurrentRow.Cells["Id"].Value!=DBNull.Value?Convert.ToInt32(gridAD.CurrentRow.Cells["Id"].Value):-1;
                 gridAD.CurrentRow.Cells["Description"].Value = row["Description"];
                 gridAD.CurrentRow.Cells["Id"].Value = row["Id"];
+                gridAD.GridChangeStyle = GridChangeStyle.ComboBox;
                 
 
             }
@@ -278,6 +381,43 @@ namespace AccountingSystem.Controls
                 WriteLog.Error(this.GetType(), ex);
             }
             
+        }
+        void gridAR_ComboBoxIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ComboBox combo = sender as ComboBox;
+                DataRowView row = (DataRowView)combo.SelectedItem;
+                if (row == null || row.IsEdit == true || Convert.ToInt32(row["Id"]) == -1)
+                {
+                    return;
+                }
+                if (ExistAccountInGrid(gridAR, row["Id"]))
+                {
+                    gridAR.CurrentRow.ErrorText = " ";
+                    return;
+                }
+                gridAR.CurrentRow.ErrorText = string.Empty;
+                indexRowAccountR = gridAR.CurrentRow.Index;
+                AccountIdDtChangeR = gridAR.CurrentRow.Cells["Id"].Value != DBNull.Value ? Convert.ToInt32(gridAD.CurrentRow.Cells["Id"].Value) : -1;
+                gridAR.CurrentRow.Cells["Description"].Value = row["Description"];
+                gridAR.CurrentRow.Cells["Id"].Value = row["Id"];
+                gridAR.GridChangeStyle = GridChangeStyle.ComboBox;
+
+
+            }
+            catch (UserException ex)
+            {
+                MessageBox.Show(ErrorsManager.Error0000);
+                WriteLog.Warnning(this.GetType(), ex);
+                gridAR.CurrentRow.ErrorText = " ";
+            }
+            catch (Exception ex)
+            {
+                gridAR.CurrentRow.ErrorText = " ";
+                MessageBox.Show(ErrorsManager.Error0000);
+                WriteLog.Error(this.GetType(), ex);
+            }
         }
         bool ExistAccountInGrid(DataGridView grid,object id) { 
             foreach(DataGridViewRow r in grid.Rows){
@@ -298,7 +438,7 @@ namespace AccountingSystem.Controls
 
             };
             // delete account is changed
-            accountClauseService.DeleteDetail(accountidchange, clause.Id);
+            accountClauseService.DeleteDetail(accountidchange, clause.Id, accountType.Id);
             // save account current
             accountClauseService.addBalanceAccount(cdetail);
         }
