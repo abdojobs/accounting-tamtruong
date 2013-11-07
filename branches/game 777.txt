@@ -1,15 +1,37 @@
 lam game trung pass (777)
 http://game.vietgiaitri.com/danh-bai/slot-flash-10444.vgt
+-------------------------------------------------------------------
+Thiet ke
 
-thiet ke background
-thiet ke button len/xuong
-thiet ke anh san pham sap xep theo chieu doc, dung de quay so
-thiet ke con so giai thuong (1-2-3)
-chia san pham theo tung vi tri co dinh theo mot hinh chu nhat va dong thoi xac dinh vi tri cua tung san pham
 
-tao hieu ung cho su kien nhan button
-viet su kien start va stop quay san pham
-viet chuong trinh cho hieu ung quay san pham theo chieu top-bottom
-dinh vi vi tri dung cua san pham khi chon stop quay
-kiem tra ket qua tro choi theo tung giai thuong (1-2-3), dua vao vi tri dung cua tung anh theo tung o vuong (3 o) kiem tra xem vi tri dung cua
-3 o theo hang ngang co cung vi tri khong neu cung thi trung giai con nguoc lai thi khong.
+thiet ke background 4h
+thiet ke button len/xuong 2h
+thiet ke anh san pham theo mot khung hinh nhat dinh (chieu ngang va chieu doc). 2h
+thiet ke con so giai thuong (1-2-3) moi loai 2 anh 4h
+thiet ke khung tinh diem, va so thu tu 0-9 2h
+
+thiet ke giao dien demo 1ngay
+
+-----------------------------------------------------------------------
+Viet Chuong Trinh
+
+-tao hieu ung cho su kien nhan button 4h
+-viet su kien start va stop quay san pham 2h
+-viet chuong trinh cho hieu ung quay san pham theo chieu top-bottom, chia theo tung anh nho de scroll 1ngay
+-dinh vi vi tri dung cua san pham khi chon stop 2h
+-kiem tra ket qua tro choi theo tung giai thuong (1-2-3), dua vao vi tri dung cua tung anh theo tung o vuong (3 o) kiem tra xem vi tri dung cua
+3 o theo hang ngang co cung san pham khong neu cung thi trung giai con nguoc lai thi khong.
+-chia san pham theo tung cot (3 cot) 2h
+-thiet ke toc do quay (nhanh cham) dua vao thoi gian hien thi va do dich chuyen cua anh (theo pixel) 4h
+-tinh xac xuat trung thuong 4h
+-thiet ke vung dinh vi theo mang 2 chieu 3x3, moi mot o trong mang nay se dc cap mot vung dinh vi x1-x2 va y1-y2
+, neu mot san pham nao roi vao vung dinh vi cua o nao thi se dc danh dau o o do. sau do dua vo vao hang ngang cua 	1ngay
+mang de xac dinh gia thuong.
+
+
+---------------------------------------------------------------------------
+
+-cach tinh diem
+-cach tinh giai thuong
+-cach trinh bay giai thuong
+-cach choi nhu the nao, dung bang mat hay choi ngau nhien (co cho xac xuat trung thuong khong).
