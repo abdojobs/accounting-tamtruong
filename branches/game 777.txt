@@ -1,0 +1,14 @@
+lam game trung pass (777)
+
+thiet ke background
+thiet ke button len/xuong
+thiet ke anh san pham sap xep theo chieu doc, dung de quay so
+thiet ke con so giai thuong (1-2-3)
+chia san pham theo tung vi tri co dinh theo mot hinh chu nhat va dong thoi xac dinh vi tri cua tung san pham
+
+tao hieu ung cho su kien nhan button
+viet su kien start va stop quay san pham
+viet chuong trinh cho hieu ung quay san pham theo chieu top-bottom
+dinh vi vi tri dung cua san pham khi chon stop quay
+kiem tra ket qua tro choi theo tung giai thuong (1-2-3), dua vao vi tri dung cua tung anh theo tung o vuong (3 o) kiem tra xem vi tri dung cua
+3 o theo hang ngang co cung vi tri khong neu cung thi trung giai con nguoc lai thi khong.
