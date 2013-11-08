@@ -29,9 +29,14 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.gridReceipts = new System.Windows.Forms.DataGridView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.txtAmount = new System.Windows.Forms.TextBox();
             this.txtAcLDesription = new System.Windows.Forms.TextBox();
             this.cbbAccountClause = new MultiColumnComboBoxDemo.MultiColumnComboBox();
@@ -42,25 +47,23 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dpCreateDate = new System.Windows.Forms.DateTimePicker();
             this.txtCode = new System.Windows.Forms.TextBox();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.gridBalanceAccount = new System.Windows.Forms.DataGridView();
+            this.gridBill = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridReceipts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBalanceAccount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBill)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -72,26 +75,26 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.dataGridView1);
+            this.splitContainer1.Panel1.Controls.Add(this.gridReceipts);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(1024, 514);
-            this.splitContainer1.SplitterDistance = 209;
+            this.splitContainer1.SplitterDistance = 208;
             this.splitContainer1.TabIndex = 0;
             // 
-            // dataGridView1
+            // gridReceipts
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(1024, 209);
-            this.dataGridView1.TabIndex = 0;
+            this.gridReceipts.AllowUserToAddRows = false;
+            this.gridReceipts.AllowUserToDeleteRows = false;
+            this.gridReceipts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridReceipts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridReceipts.Location = new System.Drawing.Point(0, 0);
+            this.gridReceipts.Name = "gridReceipts";
+            this.gridReceipts.ReadOnly = true;
+            this.gridReceipts.Size = new System.Drawing.Size(1024, 208);
+            this.gridReceipts.TabIndex = 0;
             // 
             // splitContainer2
             // 
@@ -103,7 +106,11 @@
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1024, 301);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.gridBill);
+            this.splitContainer2.Size = new System.Drawing.Size(1024, 302);
             this.splitContainer2.SplitterDistance = 106;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -133,10 +140,55 @@
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.dataGridView2);
+            this.splitContainer3.Panel2.Controls.Add(this.gridBalanceAccount);
             this.splitContainer3.Size = new System.Drawing.Size(1024, 106);
             this.splitContainer3.SplitterDistance = 770;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(517, 68);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Tổng tiền";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 68);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(68, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Nội dung thu";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(513, 42);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Người nộp";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Đối tượng thu";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(506, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Ngày ghi sổ";
             // 
             // txtAmount
             // 
@@ -218,59 +270,23 @@
             this.txtCode.Size = new System.Drawing.Size(92, 20);
             this.txtCode.TabIndex = 1;
             // 
-            // dataGridView2
+            // gridBalanceAccount
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(250, 106);
-            this.dataGridView2.TabIndex = 0;
+            this.gridBalanceAccount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridBalanceAccount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridBalanceAccount.Location = new System.Drawing.Point(0, 0);
+            this.gridBalanceAccount.Name = "gridBalanceAccount";
+            this.gridBalanceAccount.Size = new System.Drawing.Size(250, 106);
+            this.gridBalanceAccount.TabIndex = 0;
             // 
-            // label2
+            // gridBill
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(506, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Ngày ghi sổ";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 42);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Đối tượng thu";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(513, 42);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Người nộp";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 68);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Nội dung thu";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(517, 68);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Tổng tiền";
+            this.gridBill.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridBill.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridBill.Location = new System.Drawing.Point(0, 0);
+            this.gridBill.Name = "gridBill";
+            this.gridBill.Size = new System.Drawing.Size(1024, 192);
+            this.gridBill.TabIndex = 0;
             // 
             // ReceiptControl
             // 
@@ -283,8 +299,9 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridReceipts)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
@@ -292,7 +309,8 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBalanceAccount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBill)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -301,7 +319,7 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView gridReceipts;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dpCreateDate;
         private System.Windows.Forms.TextBox txtCode;
@@ -313,11 +331,12 @@
         private System.Windows.Forms.TextBox txtCAddress;
         private MultiColumnComboBoxDemo.MultiColumnComboBox cbbCName;
         private MultiColumnComboBoxDemo.MultiColumnComboBox cbbCCode;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView gridBalanceAccount;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView gridBill;
     }
 }
