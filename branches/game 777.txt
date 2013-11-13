@@ -1,4 +1,4 @@
-lam game trung pass (777)
+﻿lam game trung pass (777)
 http://game.vietgiaitri.com/danh-bai/slot-flash-10444.vgt
 -------------------------------------------------------------------
 Thiet ke
@@ -31,7 +31,19 @@ mang de xac dinh gia thuong.
 
 ---------------------------------------------------------------------------
 
--cach tinh diem
--cach tinh giai thuong
+-cach tinh diem (1-2-3 tinh diem nhu the nao)
+-cach tinh trung thuong (1-2-3 trung cai gi)
 -cach trinh bay giai thuong
 -cach choi nhu the nao, dung bang mat hay choi ngau nhien (co cho xac xuat trung thuong khong).
+-nguoi choi duoc choi bao nhieu lan
+	de nghi neu choi mot lan thi tinh theo giai thuong, neu choi nhieu lan thi tinh theo diem
+	
+	
+-----------------------------------------------
+http://game.vietgiaitri.com/danh-bai/slot-flash-10444.vgt
+
+Thiết kế background: 1024x768, ngay vùng đặt ảnh sản phẩm cho nó trong suốt.
+Thiết kế button lên/xuống: giống như của link tham khảo
+Thiết kế ảnh sản phẩm: chia chiều ngang và chiều dọc sao cho sắp xếp 3 sản phẩm ngang và 3 sản phẩm đứng nằm trong vùng đặt sản phẩm.
+Thiết kế con số giải thưởng (1-2-3) mổi loại 2 ảnh
+Thiết kế khung tính điểm và số thứ tự từ 0-9
