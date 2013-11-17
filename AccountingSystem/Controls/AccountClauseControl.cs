@@ -252,7 +252,7 @@ namespace AccountingSystem.Controls
             }
             catch (UserException ex)
             {
-                MessageBox.Show(ErrorsManager.Error0000);
+                MessageBox.Show(ex.Message);
                 WriteLog.Warnning(this.GetType(), ex);
                 grid.CurrentRow.ErrorText = " ";
                 

@@ -135,5 +135,11 @@ namespace DataAccess.Repositories.ADO
         {
             throw new NotImplementedException();
         }
+
+
+        public ITaCustomerRepository Customers
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

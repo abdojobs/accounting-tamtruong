@@ -135,5 +135,11 @@ namespace DataAccess.Repositories.Harsh
         {
             throw new NotImplementedException();
         }
+
+
+        public ITaCustomerRepository Customers
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

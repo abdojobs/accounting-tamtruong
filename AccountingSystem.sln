@@ -16,6 +16,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEF", "TestEF\TestEF.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoControls", "DemoControls\DemoControls.csproj", "{B2C3A713-2C23-44DB-8C7D-7E845648EB13}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BFF6350B-D52A-4122-AD3A-546FF6BD68DF}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\trunk\documents\AccountingSystem.vsd = ..\..\trunk\documents\AccountingSystem.vsd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

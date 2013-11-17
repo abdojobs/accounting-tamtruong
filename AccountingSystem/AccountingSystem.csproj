@@ -60,6 +60,9 @@
     <Compile Include="Components\AutoGrid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Components\DateTimePickerColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Components\GridCombobox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -68,6 +71,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Components\MultiColumnComboboxCell.cs" />
+    <Compile Include="Components\DataGridViewMultiComboboxColumn.cs" />
     <Compile Include="Controls\AccountClauseControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

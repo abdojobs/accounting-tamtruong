@@ -30,6 +30,7 @@ namespace DataAccess.Repositories
         ITaTradingPartnerRepository TradingPartners { get; }
         ITaWareHouseRepository WareHouses { get; }
         ITaProceduceTypeRepository ProceduceTypes { get; }
+        ITaCustomerRepository Customers { get; }
         void SaveChanges();
         void Dispose();
     }

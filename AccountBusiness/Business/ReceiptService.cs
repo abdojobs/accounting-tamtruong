@@ -11,6 +11,9 @@ using Business.Models;
 using Business.Validations;
 using System.Transactions;
 using Common.Logs;
+using DataAccess.Repositories.Linq;
+using AccountBusiness.Models.Views;
+using System.Data;
 
 namespace Business.Business
 {
@@ -121,6 +124,78 @@ namespace Business.Business
             }
             Context.InvoiceReceipts.AddList(invrecs);
             #endregion
+        }
+
+
+        public IList<ReceiptView> Search(DateTime to, DateTime fro, string code)
+        {
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    to = new DateTime(to.Year, to.Month, to.Day);
+                    fro = new DateTime(fro.Year, fro.Month, fro.Day);
+
+
+                    var query = from r in Context.Receipts
+                                where r.CreateDate <= to
+                                && r.CreateDate >= fro
+                                && (r.Code.Contains(code) || string.IsNullOrEmpty(code))
+                                select new ReceiptView() { 
+                                    Id=r.Id,
+                                    Code=r.Code,
+                                    CreateDate=r.CreateDate,
+                                    TradingPartner=r.TradingPartner.Name,
+                                    Amount=r.Amount,
+                                    DeliveryPerson=r.DeliveryPerson.Name,
+                                };
+                    return query.ToList();
+                }
+                catch { }
+                finally
+                {
+                    Context.Dispose();
+                }
+                return null;
+            }
+        }
+
+
+        public IList<TradingPartner> GetTradingPartners()
+        {
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    return Context.TradingPartners.ToList();
+
+                }
+                catch { }
+                finally
+                {
+                    Context.Dispose();
+                }
+                return null;
+            }
+        }
+
+
+        public IList<DeliveryPerson> GetDeliveryPersons()
+        {
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    return Context.DeliveryPersons.ToList();
+
+                }
+                catch { }
+                finally
+                {
+                    Context.Dispose();
+                }
+                return null;
+            }
         }
     }
 }
