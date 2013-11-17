@@ -235,5 +235,17 @@ namespace Business.Business
             }
             
         }
+
+
+        public IEnumerable<AccountClauseDetail> GetAccountReceivableDetail(int id)
+        {
+            string code = "C";//Receivable
+            return GetDetailWithType(id, code);
+        }
+        public IEnumerable<AccountClauseDetail> GetAccountDebtDetail(int id)
+        {
+            string code = "N";//Debt
+            return GetDetailWithType(id, code);
+        }
     }
 }

@@ -24,6 +24,8 @@ namespace Business.Business.ServiceInterfaces
         AccountType GetAccountType(string code);
         AccountClause Get(int id);
         IEnumerable<AccountClauseDetail> GetDetailWithType(int id,string code);
+        IEnumerable<AccountClauseDetail> GetAccountReceivableDetail(int id);
+        IEnumerable<AccountClauseDetail> GetAccountDebtDetail(int id);
         void UpdateAccountDetail(int accountId, int clauseId, string typeCode, string description);
     }
 }

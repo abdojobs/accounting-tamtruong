@@ -330,5 +330,19 @@ namespace DataAccess.Repositories.Linq
         {
             Context.Dispose();
         }
+
+        ITaCustomerRepository _Customers;
+        public ITaCustomerRepository Customers
+        {
+            get
+            {
+                if (_Customers == null)
+                {
+                    _Customers = new TaCustomerRepository();
+
+                }
+                return _Customers;
+            }
+        }
     }
 }

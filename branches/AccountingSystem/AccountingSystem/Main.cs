@@ -32,11 +32,17 @@ namespace AccountingSystem
             //plcontainer.Panel2.Controls.Clear();
             //plcontainer.Panel2.Controls.Add(account);
 
-            accountClause = new AccountClauseControl();
-            accountClause.Dock = DockStyle.Fill;
+            //accountClause = new AccountClauseControl();
+            //accountClause.Dock = DockStyle.Fill;
+            //plcontainer.Panel2.Controls.Clear();
+            //plcontainer.Panel2.Controls.Add(accountClause);
+
+            ReceiptControl receipt = new ReceiptControl();
+            receipt.Dock = DockStyle.Fill;
             plcontainer.Panel2.Controls.Clear();
-            plcontainer.Panel2.Controls.Add(accountClause);
-            GetData();
+            plcontainer.Panel2.Controls.Add(receipt);
+
+            //GetData();
             
         }
 
@@ -126,12 +132,15 @@ namespace AccountingSystem
                 //dataGridView1.Rows.Add(new List<object>() { 1, "item 1" });
                 //dataGridView1.Rows.Add(new List<object>() { 2, "item 2" });
                 //dataGridView1.Rows.Add(new List<object>() { 3, "item 3" });
+                CalendarColumn calcol = new CalendarColumn();
+                dataGridView1.Columns.Add(calcol);
                 DataTable dt = new DataTable();
+                dt.Columns.Add("Calendar");
                 dt.Columns.Add("Id");
                 dt.Columns.Add("Name");
-                dt.Rows.Add(new object[]{1,"item1"});
-                dt.Rows.Add(new object[] { 2, "item2" });
-                dt.Rows.Add(new object[] { 3, "item3" });
+                dt.Rows.Add(new object[] { DateTime.Now,1, "item1" });
+                dt.Rows.Add(new object[] { DateTime.Now, 2, "item2" });
+                dt.Rows.Add(new object[] { DateTime.Now, 3, "item3" });
                 dataGridView1.DataSource = dt;
                 dataGridView1.Columns["Id"].DefaultCellStyle.NullValue = "[chon tai khoan1]";
                 dataGridView1.Columns["Id"].DefaultCellStyle.DataSourceNullValue = -1;
@@ -185,6 +194,20 @@ namespace AccountingSystem
                 //b.NullValue = "nv";
                 //b.DataSourceNullValue = "dsnv";
                 //this.textBox1.DataBindings.Add(b);
+
+                
+                //this.dataGridView1.Columns.Add(calcol);
+                //this.dataGridView1.RowCount = 5;
+                //DataTable dtcal = new DataTable();
+                //dtcal.Columns.Add("Calendar");
+                //dtcal.Rows.Add(new object[]{DateTime.Now});
+                //dtcal.Rows.Add(new object[] { DateTime.Now });
+                //dtcal.Rows.Add(new object[] { DateTime.Now });
+                //foreach (DataGridViewRow row in this.dataGridView1.Rows)
+                //{
+                //    row.Cells[0].Value = DateTime.Now;
+                //}
+                //this.dataGridView1.DataSource = dtcal;
             }
             catch (SqlException)
             {

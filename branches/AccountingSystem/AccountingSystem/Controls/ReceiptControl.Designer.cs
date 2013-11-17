@@ -1,4 +1,5 @@
-﻿namespace AccountingSystem.Controls
+﻿using System.Windows.Forms;
+namespace AccountingSystem.Controls
 {
     partial class ReceiptControl
     {
@@ -40,15 +41,15 @@
             this.txtAmount = new System.Windows.Forms.TextBox();
             this.txtAcLDesription = new System.Windows.Forms.TextBox();
             this.cbbAccountClause = new MultiColumnComboBoxDemo.MultiColumnComboBox();
-            this.cbbPersonDelievery = new MultiColumnComboBoxDemo.MultiColumnComboBox();
+            this.cbbPersonDelievery = new System.Windows.Forms.ComboBox();
             this.txtCAddress = new System.Windows.Forms.TextBox();
             this.cbbCName = new MultiColumnComboBoxDemo.MultiColumnComboBox();
             this.cbbCCode = new MultiColumnComboBoxDemo.MultiColumnComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dpCreateDate = new System.Windows.Forms.DateTimePicker();
             this.txtCode = new System.Windows.Forms.TextBox();
-            this.gridBalanceAccount = new System.Windows.Forms.DataGridView();
-            this.gridBill = new System.Windows.Forms.DataGridView();
+            this.gridBalanceAccounts = new System.Windows.Forms.DataGridView();
+            this.gridInvoices = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -62,8 +63,8 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridBalanceAccount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridBill)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBalanceAccounts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridInvoices)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -109,7 +110,7 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.gridBill);
+            this.splitContainer2.Panel2.Controls.Add(this.gridInvoices);
             this.splitContainer2.Size = new System.Drawing.Size(1024, 302);
             this.splitContainer2.SplitterDistance = 106;
             this.splitContainer2.TabIndex = 0;
@@ -140,7 +141,7 @@
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.gridBalanceAccount);
+            this.splitContainer3.Panel2.Controls.Add(this.gridBalanceAccounts);
             this.splitContainer3.Size = new System.Drawing.Size(1024, 106);
             this.splitContainer3.SplitterDistance = 770;
             this.splitContainer3.TabIndex = 0;
@@ -258,6 +259,8 @@
             // 
             // dpCreateDate
             // 
+            this.dpCreateDate.CustomFormat = "dd/MM/yyyy";
+            this.dpCreateDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dpCreateDate.Location = new System.Drawing.Point(575, 13);
             this.dpCreateDate.Name = "dpCreateDate";
             this.dpCreateDate.Size = new System.Drawing.Size(126, 20);
@@ -270,23 +273,23 @@
             this.txtCode.Size = new System.Drawing.Size(92, 20);
             this.txtCode.TabIndex = 1;
             // 
-            // gridBalanceAccount
+            // gridBalanceAccounts
             // 
-            this.gridBalanceAccount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridBalanceAccount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridBalanceAccount.Location = new System.Drawing.Point(0, 0);
-            this.gridBalanceAccount.Name = "gridBalanceAccount";
-            this.gridBalanceAccount.Size = new System.Drawing.Size(250, 106);
-            this.gridBalanceAccount.TabIndex = 0;
+            this.gridBalanceAccounts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridBalanceAccounts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridBalanceAccounts.Location = new System.Drawing.Point(0, 0);
+            this.gridBalanceAccounts.Name = "gridBalanceAccounts";
+            this.gridBalanceAccounts.Size = new System.Drawing.Size(250, 106);
+            this.gridBalanceAccounts.TabIndex = 0;
             // 
-            // gridBill
+            // gridInvoices
             // 
-            this.gridBill.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridBill.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridBill.Location = new System.Drawing.Point(0, 0);
-            this.gridBill.Name = "gridBill";
-            this.gridBill.Size = new System.Drawing.Size(1024, 192);
-            this.gridBill.TabIndex = 0;
+            this.gridInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridInvoices.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridInvoices.Location = new System.Drawing.Point(0, 0);
+            this.gridInvoices.Name = "gridInvoices";
+            this.gridInvoices.Size = new System.Drawing.Size(1024, 192);
+            this.gridInvoices.TabIndex = 0;
             // 
             // ReceiptControl
             // 
@@ -309,8 +312,8 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridBalanceAccount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridBill)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridBalanceAccounts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridInvoices)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -327,16 +330,16 @@
         private System.Windows.Forms.TextBox txtAmount;
         private System.Windows.Forms.TextBox txtAcLDesription;
         private MultiColumnComboBoxDemo.MultiColumnComboBox cbbAccountClause;
-        private MultiColumnComboBoxDemo.MultiColumnComboBox cbbPersonDelievery;
+        private ComboBox cbbPersonDelievery;
         private System.Windows.Forms.TextBox txtCAddress;
         private MultiColumnComboBoxDemo.MultiColumnComboBox cbbCName;
         private MultiColumnComboBoxDemo.MultiColumnComboBox cbbCCode;
-        private System.Windows.Forms.DataGridView gridBalanceAccount;
+        private System.Windows.Forms.DataGridView gridBalanceAccounts;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView gridBill;
+        private System.Windows.Forms.DataGridView gridInvoices;
     }
 }
