@@ -382,7 +382,8 @@ namespace AccountingSystem.Controls
         void text_TextChanged(object sender, EventArgs e) {
             TextBox text = sender as TextBox;
             string colname = gridInvoices.Columns[gridInvoices.CurrentCell.ColumnIndex].Name;
-            if (colname == "AmountNotTax") {
+            if (colname == "AmountNotTax")
+            {
                 double tax = text.Text.ToDouble();
                 decimal amount = gridInvoices.CurrentRow.Cells["AmountNotTax"].Value.ToDecimal();
                 gridInvoices.CurrentRow.Cells["Tax"].Value = tax;
