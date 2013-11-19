@@ -49,6 +49,7 @@
     <Compile Include="Exceptions\UserException.cs" />
     <Compile Include="Logs\WriteLog.cs" />
     <Compile Include="Maths\AccountMath.cs" />
+    <Compile Include="Maths\ExtensionClass.cs" />
     <Compile Include="Messages\MessagesManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\StringExtend.cs" />

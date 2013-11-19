@@ -56,6 +56,9 @@ namespace DataAccess.Repositories
                 throw new UserException(ErrorsManager.Error0000);
             }
         }
+        public SqlConnection CreatConnection() {
+            return new SqlConnection(ConfigurationManager.ConnectionStrings[GlobalConstant.DBConnecstring].ConnectionString);
+        }
     }
     public enum ConnectType { 
         EF,

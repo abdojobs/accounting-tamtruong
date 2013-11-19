@@ -14,6 +14,7 @@ using Common.Messages;
 using AccountBusiness.Business.ServiceInterfaces;
 using AccountBusiness.Business;
 using AccountingSystem.Components;
+using Common.Maths;
 
 namespace AccountingSystem.Controls
 {
@@ -266,6 +267,8 @@ namespace AccountingSystem.Controls
         }
 
         void LoadInvoices() {
+            gridInvoices.EditingControlShowing+=new DataGridViewEditingControlShowingEventHandler(gridInvoices_EditingControlShowing);
+
             DataGridViewComboBoxColumn vatcol = new DataGridViewComboBoxColumn();
             vatcol.DataPropertyName = "Id";
             vatcol.HeaderText = "01/2GTGT";
@@ -279,7 +282,9 @@ namespace AccountingSystem.Controls
             vatcol.FlatStyle = FlatStyle.Flat;
             vatcol.DefaultCellStyle.DataSourceNullValue = -1;
             vatcol.DefaultCellStyle.NullValue = "[Hóa đơn]";
-            vatcol.DisplayIndex = 0;
+            vatcol.DisplayIndex = 1;
+            vatcol.Name = "VatCol";
+            
 
             DataGridViewMultiComboboxColumn colCustomer = new DataGridViewMultiComboboxColumn();
             colCustomer.DataPropertyName = "CustomerId";
@@ -336,7 +341,7 @@ namespace AccountingSystem.Controls
             
             
 
-            gridInvoices.Columns["Tax"].DefaultCellStyle.NullValue = "[Thuế]";
+            gridInvoices.Columns["Tax"].DefaultCellStyle.NullValue = "0";
             gridInvoices.Columns["Tax"].DefaultCellStyle.DataSourceNullValue = -1;
 
             gridInvoices.Columns["CustomerId"].DefaultCellStyle.NullValue = "[Mã số khách hàng]";
@@ -348,15 +353,63 @@ namespace AccountingSystem.Controls
             gridInvoices.Columns["CustomerAccountNo"].DefaultCellStyle.NullValue = "[Tài khoản NH]";
             gridInvoices.Columns["CustomerAccountNo"].DefaultCellStyle.DataSourceNullValue = -1;
 
-            gridInvoices.Columns["AmountNotTax"].DefaultCellStyle.NullValue = "[Tiền chưa thuế]";
+            gridInvoices.Columns["AmountNotTax"].DefaultCellStyle.NullValue = "0";
             gridInvoices.Columns["AmountNotTax"].DefaultCellStyle.DataSourceNullValue = -1;
 
-            gridInvoices.Columns["AmountHasTax"].DefaultCellStyle.NullValue = "[Tiền thuế]";
+            gridInvoices.Columns["AmountHasTax"].DefaultCellStyle.NullValue = "0";
             gridInvoices.Columns["AmountHasTax"].DefaultCellStyle.DataSourceNullValue = -1;
 
             gridInvoices.Columns["Note"].DefaultCellStyle.NullValue = "[Ghi chú]";
             gridInvoices.Columns["Note"].DefaultCellStyle.DataSourceNullValue = -1;
         }
+
+        void gridInvoices_EditingControlShowing(object sender,DataGridViewEditingControlShowingEventArgs e) {
+            ComboBox combo = e.Control as ComboBox;
+            if (combo != null && combo.Name != "VatCol")
+            {
+                DataGridView grid = sender as DataGridView;
+                string colname = grid.Columns[grid.CurrentCell.ColumnIndex].Name;
+                combo.Name = colname;
+                combo.SelectionChangeCommitted -= new EventHandler(combo_SelectionChangeCommitted);
+                combo.SelectionChangeCommitted += new EventHandler(combo_SelectionChangeCommitted);
+            }
+            TextBox text = e.Control as TextBox;
+            if (text != null && text.Name != "TextBox") { 
+                text.TextChanged+=new EventHandler(text_TextChanged);
+                text.Name = "TextBox";
+            }
+        }
+        void text_TextChanged(object sender, EventArgs e) {
+            TextBox text = sender as TextBox;
+            string colname = gridInvoices.Columns[gridInvoices.CurrentCell.ColumnIndex].Name;
+            if (colname == "AmountNotTax") {
+                double tax = text.Text.ToDouble();
+                decimal amount = gridInvoices.CurrentRow.Cells["AmountNotTax"].Value.ToDecimal();
+                gridInvoices.CurrentRow.Cells["Tax"].Value = tax;
+                gridInvoices.CurrentRow.Cells["AmountHasTax"].Value = AccountMath.CalculateTax(amount, (double)tax);
+            }
+        }
+        void combo_SelectionChangeCommitted(object sender, EventArgs e) {
+            ComboBox combo = sender as ComboBox;
+            DataRowView item = combo.SelectedItem as DataRowView;
+            string colname = gridInvoices.Columns[gridInvoices.CurrentCell.ColumnIndex].Name;
+            if (item != null)
+            {
+                // execute for tax combobox
+                if (colname == "VatCol" || colname=="AccountNotTax")
+                {
+                    double tax = item.Row["Tax"].ToDouble();
+                    decimal amount = gridInvoices.CurrentRow.Cells["AmountNotTax"].Value.ToDecimal();
+                    gridInvoices.CurrentRow.Cells["Tax"].Value = tax;
+                    gridInvoices.CurrentRow.Cells["AmountHasTax"].Value = AccountMath.CalculateTax(amount, (double)tax);
+                }
+                else if (colname == "Customer") {
+                    gridInvoices.CurrentRow.Cells["CustomerName"].Value = item.Row["CustomerName"];
+                }
+            }
+
+        }
+       
         #endregion
         
     }
