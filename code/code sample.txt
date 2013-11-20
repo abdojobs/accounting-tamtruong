@@ -1,0 +1,7 @@
+public static T? GetValueOrNull<T>(this object valueAsString)
+    where T : struct
+        {
+            if (string.IsNullOrEmpty(valueAsString.ToString()))
+                return null;
+            return (T)Convert.ChangeType(valueAsString, typeof(T));
+        }
