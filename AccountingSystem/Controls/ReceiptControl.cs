@@ -343,6 +343,7 @@ namespace AccountingSystem.Controls
 
             gridInvoices.Columns["Tax"].DefaultCellStyle.NullValue = "0";
             gridInvoices.Columns["Tax"].DefaultCellStyle.DataSourceNullValue = -1;
+            gridInvoices.Columns["Tax"].ReadOnly = true;
 
             gridInvoices.Columns["CustomerId"].DefaultCellStyle.NullValue = "[Mã số khách hàng]";
             gridInvoices.Columns["CustomerId"].DefaultCellStyle.DataSourceNullValue = -1;
@@ -376,17 +377,29 @@ namespace AccountingSystem.Controls
             TextBox text = e.Control as TextBox;
             if (text != null && text.Name != "TextBox") { 
                 text.TextChanged+=new EventHandler(text_TextChanged);
+                text.KeyPress+=new KeyPressEventHandler(text_KeyPress);
+                text.Validating+=new CancelEventHandler(text_Validating);
                 text.Name = "TextBox";
             }
         }
+        void text_Validating(object sender, CancelEventArgs e) {
+            //TextBox text=sender as TextBox;
+            //if (!text.Text.IsDecimal()) {
+            //    e.Cancel = true;
+            //}
+        }
+        void text_KeyPress(object sender, KeyPressEventArgs e) {
+            e.Handled = !ValidateInput.OnlyDecimal(((TextBox)sender).Text, e.KeyChar);
+        }
+        string textbefore = string.Empty;
         void text_TextChanged(object sender, EventArgs e) {
             TextBox text = sender as TextBox;
+            
             string colname = gridInvoices.Columns[gridInvoices.CurrentCell.ColumnIndex].Name;
             if (colname == "AmountNotTax")
             {
-                double tax = text.Text.ToDouble();
+                double tax = gridInvoices.CurrentRow.Cells["Tax"].Value.ToDouble();
                 decimal amount = gridInvoices.CurrentRow.Cells["AmountNotTax"].Value.ToDecimal();
-                gridInvoices.CurrentRow.Cells["Tax"].Value = tax;
                 gridInvoices.CurrentRow.Cells["AmountHasTax"].Value = AccountMath.CalculateTax(amount, (double)tax);
             }
         }
@@ -406,6 +419,7 @@ namespace AccountingSystem.Controls
                 }
                 else if (colname == "Customer") {
                     gridInvoices.CurrentRow.Cells["CustomerName"].Value = item.Row["CustomerName"];
+                    gridInvoices.CurrentRow.Cells["CustomerAccountNo"].Value = item.Row["CustomerAccountNo"];
                 }
             }
 
