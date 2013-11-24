@@ -40,16 +40,17 @@ namespace AccountingSystem.Controls
             this.label2 = new System.Windows.Forms.Label();
             this.txtAmount = new System.Windows.Forms.TextBox();
             this.txtAcLDesription = new System.Windows.Forms.TextBox();
-            this.cbbAccountClause = new MultiColumnComboBoxDemo.MultiColumnComboBox();
             this.cbbPersonDelievery = new System.Windows.Forms.ComboBox();
             this.txtCAddress = new System.Windows.Forms.TextBox();
-            this.cbbCName = new MultiColumnComboBoxDemo.MultiColumnComboBox();
-            this.cbbCCode = new MultiColumnComboBoxDemo.MultiColumnComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dpCreateDate = new System.Windows.Forms.DateTimePicker();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.gridBalanceAccounts = new System.Windows.Forms.DataGridView();
             this.gridInvoices = new System.Windows.Forms.DataGridView();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.cbbAccountClause = new MultiColumnComboBoxDemo.MultiColumnComboBox();
+            this.cbbCName = new MultiColumnComboBoxDemo.MultiColumnComboBox();
+            this.cbbCCode = new MultiColumnComboBoxDemo.MultiColumnComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -112,7 +113,7 @@ namespace AccountingSystem.Controls
             // 
             this.splitContainer2.Panel2.Controls.Add(this.gridInvoices);
             this.splitContainer2.Size = new System.Drawing.Size(1024, 302);
-            this.splitContainer2.SplitterDistance = 106;
+            this.splitContainer2.SplitterDistance = 140;
             this.splitContainer2.TabIndex = 0;
             // 
             // splitContainer3
@@ -123,6 +124,7 @@ namespace AccountingSystem.Controls
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.btnSave);
             this.splitContainer3.Panel1.Controls.Add(this.label6);
             this.splitContainer3.Panel1.Controls.Add(this.label5);
             this.splitContainer3.Panel1.Controls.Add(this.label4);
@@ -142,7 +144,7 @@ namespace AccountingSystem.Controls
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.gridBalanceAccounts);
-            this.splitContainer3.Size = new System.Drawing.Size(1024, 106);
+            this.splitContainer3.Size = new System.Drawing.Size(1024, 140);
             this.splitContainer3.SplitterDistance = 770;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -158,7 +160,7 @@ namespace AccountingSystem.Controls
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 68);
+            this.label5.Location = new System.Drawing.Point(9, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(68, 13);
             this.label5.TabIndex = 13;
@@ -176,7 +178,7 @@ namespace AccountingSystem.Controls
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 42);
+            this.label3.Location = new System.Drawing.Point(6, 42);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 13);
             this.label3.TabIndex = 11;
@@ -200,19 +202,10 @@ namespace AccountingSystem.Controls
             // 
             // txtAcLDesription
             // 
-            this.txtAcLDesription.Location = new System.Drawing.Point(213, 66);
+            this.txtAcLDesription.Location = new System.Drawing.Point(204, 66);
             this.txtAcLDesription.Name = "txtAcLDesription";
             this.txtAcLDesription.Size = new System.Drawing.Size(290, 20);
             this.txtAcLDesription.TabIndex = 8;
-            // 
-            // cbbAccountClause
-            // 
-            this.cbbAccountClause.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.cbbAccountClause.FormattingEnabled = true;
-            this.cbbAccountClause.Location = new System.Drawing.Point(86, 65);
-            this.cbbAccountClause.Name = "cbbAccountClause";
-            this.cbbAccountClause.Size = new System.Drawing.Size(121, 21);
-            this.cbbAccountClause.TabIndex = 7;
             // 
             // cbbPersonDelievery
             // 
@@ -220,38 +213,20 @@ namespace AccountingSystem.Controls
             this.cbbPersonDelievery.FormattingEnabled = true;
             this.cbbPersonDelievery.Location = new System.Drawing.Point(575, 39);
             this.cbbPersonDelievery.Name = "cbbPersonDelievery";
-            this.cbbPersonDelievery.Size = new System.Drawing.Size(190, 21);
+            this.cbbPersonDelievery.Size = new System.Drawing.Size(177, 21);
             this.cbbPersonDelievery.TabIndex = 6;
             // 
             // txtCAddress
             // 
-            this.txtCAddress.Location = new System.Drawing.Point(372, 39);
+            this.txtCAddress.Location = new System.Drawing.Point(363, 39);
             this.txtCAddress.Name = "txtCAddress";
-            this.txtCAddress.Size = new System.Drawing.Size(131, 20);
+            this.txtCAddress.Size = new System.Drawing.Size(132, 20);
             this.txtCAddress.TabIndex = 5;
-            // 
-            // cbbCName
-            // 
-            this.cbbCName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.cbbCName.FormattingEnabled = true;
-            this.cbbCName.Location = new System.Drawing.Point(168, 38);
-            this.cbbCName.Name = "cbbCName";
-            this.cbbCName.Size = new System.Drawing.Size(198, 21);
-            this.cbbCName.TabIndex = 4;
-            // 
-            // cbbCCode
-            // 
-            this.cbbCCode.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.cbbCCode.FormattingEnabled = true;
-            this.cbbCCode.Location = new System.Drawing.Point(86, 38);
-            this.cbbCCode.Name = "cbbCCode";
-            this.cbbCCode.Size = new System.Drawing.Size(76, 21);
-            this.cbbCCode.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(338, 17);
+            this.label1.Location = new System.Drawing.Point(329, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 0;
@@ -268,7 +243,7 @@ namespace AccountingSystem.Controls
             // 
             // txtCode
             // 
-            this.txtCode.Location = new System.Drawing.Point(411, 13);
+            this.txtCode.Location = new System.Drawing.Point(402, 13);
             this.txtCode.Name = "txtCode";
             this.txtCode.Size = new System.Drawing.Size(92, 20);
             this.txtCode.TabIndex = 1;
@@ -279,7 +254,7 @@ namespace AccountingSystem.Controls
             this.gridBalanceAccounts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridBalanceAccounts.Location = new System.Drawing.Point(0, 0);
             this.gridBalanceAccounts.Name = "gridBalanceAccounts";
-            this.gridBalanceAccounts.Size = new System.Drawing.Size(250, 106);
+            this.gridBalanceAccounts.Size = new System.Drawing.Size(250, 140);
             this.gridBalanceAccounts.TabIndex = 0;
             // 
             // gridInvoices
@@ -288,8 +263,45 @@ namespace AccountingSystem.Controls
             this.gridInvoices.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridInvoices.Location = new System.Drawing.Point(0, 0);
             this.gridInvoices.Name = "gridInvoices";
-            this.gridInvoices.Size = new System.Drawing.Size(1024, 192);
+            this.gridInvoices.Size = new System.Drawing.Size(1024, 158);
             this.gridInvoices.TabIndex = 0;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(575, 91);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(126, 43);
+            this.btnSave.TabIndex = 15;
+            this.btnSave.Text = "Lưu Phiếu";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // cbbAccountClause
+            // 
+            this.cbbAccountClause.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cbbAccountClause.FormattingEnabled = true;
+            this.cbbAccountClause.Location = new System.Drawing.Point(77, 65);
+            this.cbbAccountClause.Name = "cbbAccountClause";
+            this.cbbAccountClause.Size = new System.Drawing.Size(121, 21);
+            this.cbbAccountClause.TabIndex = 7;
+            // 
+            // cbbCName
+            // 
+            this.cbbCName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cbbCName.FormattingEnabled = true;
+            this.cbbCName.Location = new System.Drawing.Point(159, 38);
+            this.cbbCName.Name = "cbbCName";
+            this.cbbCName.Size = new System.Drawing.Size(198, 21);
+            this.cbbCName.TabIndex = 4;
+            // 
+            // cbbCCode
+            // 
+            this.cbbCCode.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cbbCCode.FormattingEnabled = true;
+            this.cbbCCode.Location = new System.Drawing.Point(77, 38);
+            this.cbbCCode.Name = "cbbCCode";
+            this.cbbCCode.Size = new System.Drawing.Size(76, 21);
+            this.cbbCCode.TabIndex = 3;
             // 
             // ReceiptControl
             // 
@@ -341,5 +353,6 @@ namespace AccountingSystem.Controls
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView gridInvoices;
+        private Button btnSave;
     }
 }

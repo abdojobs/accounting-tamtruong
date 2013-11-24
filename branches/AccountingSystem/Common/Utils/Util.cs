@@ -7,6 +7,7 @@ namespace Common.Utils
 {
     public class Util
     {
+        
     }
     public static class DateTimeExtend {
         public static DateTime NowOrOwner(this DateTime date) {

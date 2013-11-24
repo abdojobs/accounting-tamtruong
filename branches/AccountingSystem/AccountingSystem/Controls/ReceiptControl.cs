@@ -15,6 +15,7 @@ using AccountBusiness.Business.ServiceInterfaces;
 using AccountBusiness.Business;
 using AccountingSystem.Components;
 using Common.Maths;
+using AccountingSystem.Utils;
 
 namespace AccountingSystem.Controls
 {
@@ -282,7 +283,7 @@ namespace AccountingSystem.Controls
             vatcol.FlatStyle = FlatStyle.Flat;
             vatcol.DefaultCellStyle.DataSourceNullValue = -1;
             vatcol.DefaultCellStyle.NullValue = "[Hóa đơn]";
-            vatcol.DisplayIndex = 1;
+            vatcol.DisplayIndex = 0;
             vatcol.Name = "VatCol";
             
 
@@ -299,7 +300,7 @@ namespace AccountingSystem.Controls
             colCustomer.FlatStyle = FlatStyle.Flat;
             colCustomer.DefaultCellStyle.DataSourceNullValue = -1;
             colCustomer.DefaultCellStyle.NullValue = "[Khách hàng]";
-            colCustomer.DisplayIndex = 0;
+            colCustomer.DisplayIndex = 3;
             
             DataTable tb = new DataTable();
             tb.Columns.Add("Id");
@@ -331,6 +332,7 @@ namespace AccountingSystem.Controls
 
             gridInvoices.Columns["Id"].DefaultCellStyle.NullValue = "[Số hóa đơn]";
             gridInvoices.Columns["Id"].DefaultCellStyle.DataSourceNullValue = -1;
+            gridInvoices.Columns["Id"].Visible = false;
 
             gridInvoices.Columns["Code"].DefaultCellStyle.NullValue = "[Số hóa đơn]";
             gridInvoices.Columns["Code"].DefaultCellStyle.DataSourceNullValue = -1;
@@ -347,6 +349,7 @@ namespace AccountingSystem.Controls
 
             gridInvoices.Columns["CustomerId"].DefaultCellStyle.NullValue = "[Mã số khách hàng]";
             gridInvoices.Columns["CustomerId"].DefaultCellStyle.DataSourceNullValue = -1;
+            gridInvoices.Columns["CustomerId"].Visible = false;
 
             gridInvoices.Columns["CustomerName"].DefaultCellStyle.NullValue = "[Tên khách hàng]";
             gridInvoices.Columns["CustomerName"].DefaultCellStyle.DataSourceNullValue = -1;
@@ -389,7 +392,7 @@ namespace AccountingSystem.Controls
             //}
         }
         void text_KeyPress(object sender, KeyPressEventArgs e) {
-            e.Handled = !ValidateInput.OnlyDecimal(((TextBox)sender).Text, e.KeyChar);
+            e.Handled = !Common.Maths.ValidateInput.OnlyDecimal(((TextBox)sender).Text, e.KeyChar);
         }
         string textbefore = string.Empty;
         void text_TextChanged(object sender, EventArgs e) {
@@ -426,6 +429,19 @@ namespace AccountingSystem.Controls
         }
        
         #endregion
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (ValidateGuideInput()) { }
+        }
+        private ErrorProvider errorprovider=new ErrorProvider();
+        bool ValidateGuideInput() { 
+            bool iserror = true;
+            iserror &= errorprovider.UpdateError(txtCode, "aaa", string.IsNullOrEmpty(txtCode.Text.TrimOrEmpty()));
+            iserror &= errorprovider.UpdateError(txtCAddress, "aaa", cbbCCode.SelectedValue.ToInt() == 0);
+
+            return !iserror;
+        }
         
     }
 }
