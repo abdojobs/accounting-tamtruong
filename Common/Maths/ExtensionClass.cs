@@ -18,7 +18,13 @@ namespace Common.Maths
         //        return new Converter<Int32, T>(0);
         //    return new Converter<object, T>(x=>(T));
         //}
-
+        public static int ToInt(this object value) {
+            if (value is string && string.IsNullOrEmpty((string)value))
+                return 0;
+            if (value == DBNull.Value || value == null)
+                return 0;
+            return Convert.ToInt32(value);
+        }
         public static double ToDouble(this object value) {
             if (value is string && string.IsNullOrEmpty((string)value))
                 return 0;
@@ -46,6 +52,14 @@ namespace Common.Maths
             return reg.IsMatch(c.ToString());
         }
         
+    }
+
+    public static class StringExtension {
+        public static string TrimOrEmpty(this string s) {
+            if (string.IsNullOrEmpty(s))
+                return string.Empty;
+            return s.Trim();
+        }
     }
 
     public class ValidateInput {
