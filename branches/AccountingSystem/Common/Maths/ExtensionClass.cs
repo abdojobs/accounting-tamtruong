@@ -7,17 +7,19 @@ using System.Text.RegularExpressions;
 namespace Common.Maths
 {
     public static class ExtensionClass {
-        ///// <summary>
-        ///// only use for type digit
-        ///// </summary>
-        ///// <typeparam name="T">type digit ex:int,double...</typeparam>
-        ///// <param name="value"></param>
-        ///// <returns>type</returns>
-        //public static T ToValue<T>(this object value) {
-        //    if (value == null)
-        //        return new Converter<Int32, T>(0);
-        //    return new Converter<object, T>(x=>(T));
-        //}
+        /// <summary>
+        /// only use for type digit
+        /// </summary>
+        /// <typeparam name="T">type digit ex:int,double...</typeparam>
+        /// <param name="value"></param>
+        /// <returns>type</returns>
+        public static T ToValue<T>(this object value)
+        {
+            if (value == null)
+                return (T)Convert.ChangeType(0,typeof(T));
+            return (T)Convert.ChangeType(value, typeof(T));
+        }
+        
         public static int ToInt(this object value) {
             if (value is string && string.IsNullOrEmpty((string)value))
                 return 0;
