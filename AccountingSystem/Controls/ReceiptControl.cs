@@ -16,6 +16,8 @@ using AccountBusiness.Business;
 using AccountingSystem.Components;
 using Common.Maths;
 using AccountingSystem.Utils;
+using DataAccess.Entities;
+using Business.Models;
 
 namespace AccountingSystem.Controls
 {
@@ -437,11 +439,47 @@ namespace AccountingSystem.Controls
         private ErrorProvider errorprovider=new ErrorProvider();
         bool ValidateGuideInput() { 
             bool iserror = true;
-            iserror &= errorprovider.UpdateError(txtCode, "aaa", string.IsNullOrEmpty(txtCode.Text.TrimOrEmpty()));
-            iserror &= errorprovider.UpdateError(txtCAddress, "aaa", cbbCCode.SelectedValue.ToInt() == 0);
-
+            iserror &= errorprovider.UpdateError(txtCode, ErrorsManager.Error0019, string.IsNullOrEmpty(txtCode.Text.TrimOrEmpty()));
+            iserror &= errorprovider.UpdateError(txtCAddress, ErrorsManager.Error0024, cbbCCode.SelectedValue.ToInt() == 0);
+            iserror &= errorprovider.UpdateError(txtAcLDesription, ErrorsManager.Error0025, cbbAccountClause.SelectedValue.ToInt() == 0);
             return !iserror;
         }
-        
+        IList<Invoice> GetInvoices() {
+            List<Invoice> list = new List<Invoice>();
+            foreach (DataGridViewRow r in gridInvoices.Rows) {
+                if (!r.IsNewRow) {
+                    Invoice inv = new Invoice();
+                    inv.VatType = new VatType();
+                    inv.VatType.Id = r.Cells["Id"].Value.ToInt();
+                    inv.PerformDate = dpCreateDate.Value;
+                    inv.Description = (string)r.Cells["Note"].Value;
+                    inv.Code = (string)r.Cells["Code"].Value;
+                    inv.Amount = r.Cells["AmountHasTax"].Value.ToValue<decimal>();
+                    inv.Customer = new Customer();
+                    inv.Customer.Id = r.Cells["AmountHasTax"].ToValue<int>();
+
+                    list.Add(inv);
+                }
+            }
+            return list;
+        }
+        IList<BalanceAccountModel> GetBalanceAccounts() {
+            List<BalanceAccountModel> list = new List<BalanceAccountModel>();
+            foreach (DataGridViewRow r in gridBalanceAccounts.Rows)
+            {
+                if (!r.IsNewRow)
+                {
+                    BalanceAccountModel bl = new BalanceAccountModel();
+                    bl.Account = new Account();
+                    bl.Account.Id = r.Cells["Account_Id"].ToValue<int>();
+                    bl.ReceiveAmount = r.Cells["Amount"].ToValue<decimal>();
+                    bl.DedtAmount = 0;
+
+                    list.Add(bl);
+                }
+            }
+            return list;
+        }
+        void SaveReceipt() { }
     }
 }

@@ -103,6 +103,14 @@ namespace Common.Messages
         /// Account code must numeric type
         /// </summary>
         public static readonly string Error0023 = "";
+        /// <summary>
+        /// Address not empty
+        /// </summary>
+        public static readonly string Error0024 = "";
+        /// <summary>
+        /// AccountClause not empty
+        /// </summary>
+        public static readonly string Error0025 = "";
         
     }
     public class WarnningsManager { 

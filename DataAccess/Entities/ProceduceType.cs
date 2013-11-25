@@ -20,7 +20,7 @@ namespace DataAccess.Entities
     public enum EProceduceType { 
         I,//Import,
         E,//Export,
-        R,//Recieve,
+        R,//Receive,
         P//Pay
     }
 }
