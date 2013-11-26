@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\..\trunk\documents\AccountingSystem.vsd = ..\..\trunk\documents\AccountingSystem.vsd
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unitest", "Unitest\Unitest.csproj", "{62EA9243-45F4-494B-9170-724D5E7A27A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,16 @@ Global
 		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Release|Mixed Platforms.Build.0 = Release|x86
 		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Release|x86.ActiveCfg = Release|x86
 		{B2C3A713-2C23-44DB-8C7D-7E845648EB13}.Release|x86.Build.0 = Release|x86
+		{62EA9243-45F4-494B-9170-724D5E7A27A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62EA9243-45F4-494B-9170-724D5E7A27A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62EA9243-45F4-494B-9170-724D5E7A27A1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{62EA9243-45F4-494B-9170-724D5E7A27A1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{62EA9243-45F4-494B-9170-724D5E7A27A1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{62EA9243-45F4-494B-9170-724D5E7A27A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62EA9243-45F4-494B-9170-724D5E7A27A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62EA9243-45F4-494B-9170-724D5E7A27A1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{62EA9243-45F4-494B-9170-724D5E7A27A1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{62EA9243-45F4-494B-9170-724D5E7A27A1}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

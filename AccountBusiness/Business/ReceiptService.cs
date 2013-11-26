@@ -67,39 +67,27 @@ namespace Business.Business
         public void writeGeneralLedger(Receipt receipt, List<BalanceAccountModel> balanceaccounts)
         {
             List<GeneralJournal> list = new List<GeneralJournal>();
+            int proceducetype_id=Context.ProceduceTypes.GetReceiptProceduceType();
             foreach (var a in balanceaccounts)
             {
                 GeneralJournal gj = new GeneralJournal();
-                gj.Account = a.Account;
                 gj.DebtAmount = a.DedtAmount;
                 gj.ReceiveAmount = a.ReceiveAmount;
                 gj.Description = a.Description;
-                gj.Proceduce_Id = receipt.Id;
+                gj.Account_Id=a.Account.Id;
                 list.Add(gj);
             }
-            Context.GeneralJournals.AddList(list);
+            Context.Receipts.WriteGeneralJournal(receipt.Id, proceducetype_id, list);
         }
 
 
         public Receipt addReceipt(ReceiptModel receiptmodel)
         {
             #region receipt
-
-            Receipt receipt = receiptmodel.Receipt;
-            // set tradingpartner for receipt
-            receipt.TradingPartner = receiptmodel.TradingPartner;
-            // set DeliveryPerson for receipt
-            receipt.DeliveryPerson = receiptmodel.DeliveryPerson;
             // set createdate for receipt
+            Receipt receipt = receiptmodel.Receipt;
             receipt.CreateDate = receipt.CreateDate == DateTime.MinValue ? DateTime.Now : receipt.CreateDate;
-
-            // validate
-            receiptValidate.validate(receipt, receiptmodel.BalanceAccounts);
-
-            //save
-            Context.Receipts.AddSubmit(receipt);
-
-            return receipt;
+            return Context.Receipts.AddReceipt(receipt, receiptmodel.TradingPartner.Id, receiptmodel.DeliveryPerson.Id, receiptmodel.AccountClause.Id);
             #endregion
             
         }
@@ -112,8 +100,9 @@ namespace Business.Business
             {
                 //validate invoice
                 invoiceValidate.validate(i);
-                //save
-                Context.Invoices.Add(i);
+
+                Context.Invoices.AddInvoice(i.Customer.Id,i.VatType.Id,i);
+
                 //save detail invoice
                 Invoice_Receipt invrec = new Invoice_Receipt()
                 {
@@ -122,7 +111,7 @@ namespace Business.Business
                 };
                 invrecs.Add(invrec);
             }
-            Context.InvoiceReceipts.AddList(invrecs);
+            Context.Receipts.AddInvoiceReceipts(invrecs);
             #endregion
         }
 

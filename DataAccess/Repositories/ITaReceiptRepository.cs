@@ -8,5 +8,8 @@ namespace DataAccess.Repositories
 {
     public interface ITaReceiptRepository:ITaRepositoryBase<Receipt>
     {
+        Receipt AddReceipt(Receipt receipt, int tradingpartner_id, int deliveryperson_id, int accountclause_id);
+        void AddInvoiceReceipts(List<Invoice_Receipt> invoices);
+        void WriteGeneralJournal(int receipt_id, int proceducetype_id, List<GeneralJournal> gens);
     }
 }

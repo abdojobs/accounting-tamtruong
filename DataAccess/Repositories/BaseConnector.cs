@@ -56,7 +56,7 @@ namespace DataAccess.Repositories
                 throw new UserException(ErrorsManager.Error0000);
             }
         }
-        public SqlConnection CreatConnection() {
+        public SqlConnection CreateConnection() {
             return new SqlConnection(ConfigurationManager.ConnectionStrings[GlobalConstant.DBConnecstring].ConnectionString);
         }
     }

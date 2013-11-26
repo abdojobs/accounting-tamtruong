@@ -17,6 +17,7 @@ namespace DataAccess.Entities
         public decimal Amount { get; set; }
         public virtual TradingPartner TradingPartner { get; set; }
         public virtual DeliveryPerson DeliveryPerson { get; set; }
+        
         public virtual AccountClause AccountClause { get; set; }
         #endregion
 

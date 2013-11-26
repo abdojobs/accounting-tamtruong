@@ -15,7 +15,7 @@ namespace Common.Maths
         /// <returns>type</returns>
         public static T ToValue<T>(this object value)
         {
-            if (value == null)
+            if (value == null || value is string)
                 return (T)Convert.ChangeType(0,typeof(T));
             return (T)Convert.ChangeType(value, typeof(T));
         }

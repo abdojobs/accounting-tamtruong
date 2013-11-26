@@ -111,7 +111,14 @@ namespace Common.Messages
         /// AccountClause not empty
         /// </summary>
         public static readonly string Error0025 = "";
-        
+
+
+        #region Database message
+        /// <summary>
+        /// Error Common
+        /// </summary>
+        public static readonly string DbError0000 = "";
+        #endregion
     }
     public class WarnningsManager { 
         
