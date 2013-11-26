@@ -20,6 +20,7 @@ namespace DataAccess.Repositories.Linq
                     invoice.Customer = cus;
                     invoice.VatType = vat;
 
+                    Context.Invoices.Add(invoice);
                     Context.SaveChanges();
                 }
                 catch (Exception ex)
