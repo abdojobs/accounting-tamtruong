@@ -16,7 +16,8 @@ namespace DataAccess.Repositories.Linq
             {
                 try
                 {
-                    return Context.ProceduceTypes.Where(x => x.Code == EProceduceType.R.ToString()).FirstOrDefault().Id;
+                    string receiptType = EProceduceType.R.ToString();
+                    return Context.ProceduceTypes.Where(x => x.Code == receiptType).FirstOrDefault().Id;
                 }
                 catch (Exception ex)
                 {

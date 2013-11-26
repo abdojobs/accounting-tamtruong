@@ -6,6 +6,7 @@ using DataAccess.Entities;
 using Common.Logs;
 using Common.Exceptions;
 using Common.Messages;
+using System.Data;
 
 namespace DataAccess.Repositories.Linq
 {
@@ -57,9 +58,9 @@ namespace DataAccess.Repositories.Linq
                             Receipt_Id=item.Receipt.Id
                         };
                         Context.Invoice_Receipts.Add(i);
-                        Context.SaveChanges();
+                        
                     }
-                    
+                    Context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -83,8 +84,33 @@ namespace DataAccess.Repositories.Linq
                     {
                         item.Proceduce_Id=receipt_id;
                         item.Proceducetype_Id=proceducetype_id;
+
                         Context.GeneralJournals.Add(item);
                     }
+                    Context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    WriteLog.ErrorDbCommon(this.GetType(), ex);
+                }
+                finally
+                {
+                    Context.Dispose();
+                }
+            }
+        }
+
+
+        public void UpdateAmount(int id, decimal amount)
+        {
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    Receipt receipt = Context.Receipts.Find(id);
+                    receipt.Amount = amount;
+                    Context.Receipts.Attach(receipt);
+                    Context.Entry(receipt).State = EntityState.Modified;
                     Context.SaveChanges();
                 }
                 catch (Exception ex)

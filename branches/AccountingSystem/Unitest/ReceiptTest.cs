@@ -26,19 +26,19 @@ namespace Unitest
 
             List<BalanceAccountModel> balances = new List<BalanceAccountModel>() { 
                 new BalanceAccountModel(){
-                    Account=new Account(){Id=13},
+                    Account=new Account(){Id=23},
                     ReceiveAmount=10,
                     DedtAmount=0,
                     Description="thu tien khach hang"
                 },
                 new BalanceAccountModel(){
-                    Account=new Account(){Id=2},
+                    Account=new Account(){Id=24},
                     ReceiveAmount=20,
                     DedtAmount=0,
                     Description="thu tien khach hang"
                 },
                 new BalanceAccountModel(){
-                    Account=new Account(){Id=3},
+                    Account=new Account(){Id=25},
                     ReceiveAmount=30,
                     DedtAmount=0,
                     Description="thu tien khach hang"
@@ -50,7 +50,7 @@ namespace Unitest
                     Code="inv0001",
                     Amount=1000,
                     PerformDate=DateTime.Now,
-                    VatType=new VatType(){Id=8},
+                    VatType=new VatType(){Id=5},
                     Customer=new Customer(){Id=2},
                     Description="thanh toan cho inv0001"
                 },
@@ -58,7 +58,7 @@ namespace Unitest
                     Code="inv0002",
                     Amount=2000,
                     PerformDate=DateTime.Now,
-                    VatType=new VatType(){Id=8},
+                    VatType=new VatType(){Id=6},
                     Customer=new Customer(){Id=2},
                     Description="thanh toan cho inv0002"
                 },
@@ -66,7 +66,7 @@ namespace Unitest
                     Code="inv0003",
                     Amount=3000,
                     PerformDate=DateTime.Now,
-                    VatType=new VatType(){Id=8},
+                    VatType=new VatType(){Id=5},
                     Customer=new Customer(){Id=2},
                     Description="thanh toan cho inv0003"
                 }
@@ -78,7 +78,7 @@ namespace Unitest
             rm.Invoices = invoices;
             rm.TradingPartner = new TradingPartner() { Id = 1 };
             rm.DeliveryPerson = new DeliveryPerson() { Id = 1 };
-            rm.AccountClause = new AccountClause() { Id=1};
+            rm.AccountClause = new AccountClause() { Id=7};
 
             receiptManager.addReceiptProceduce(rm);
         }

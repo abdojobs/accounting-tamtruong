@@ -68,6 +68,7 @@ namespace Business.Business
         {
             List<GeneralJournal> list = new List<GeneralJournal>();
             int proceducetype_id=Context.ProceduceTypes.GetReceiptProceduceType();
+            decimal receiptAmount = 0;
             foreach (var a in balanceaccounts)
             {
                 GeneralJournal gj = new GeneralJournal();
@@ -76,7 +77,10 @@ namespace Business.Business
                 gj.Description = a.Description;
                 gj.Account_Id=a.Account.Id;
                 list.Add(gj);
+
+                receiptAmount += a.ReceiveAmount;
             }
+            Context.Receipts.UpdateAmount(receipt.Id, receiptAmount);
             Context.Receipts.WriteGeneralJournal(receipt.Id, proceducetype_id, list);
         }
 
