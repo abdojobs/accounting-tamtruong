@@ -434,7 +434,24 @@ namespace AccountingSystem.Controls
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (ValidateGuideInput()) { }
+            try
+            {
+                if (ValidateGuideInput())
+                {
+                    SaveReceipt();
+                }
+            }
+            catch (UserException ex)
+            {
+                MessageBox.Show(ex.Message);
+                WriteLog.Warnning(this.GetType(), ex);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ErrorsManager.Error0000);
+                WriteLog.Error(this.GetType(), ex);
+            }
         }
         private ErrorProvider errorprovider=new ErrorProvider();
         bool ValidateGuideInput() { 
@@ -444,7 +461,7 @@ namespace AccountingSystem.Controls
             iserror &= errorprovider.UpdateError(txtAcLDesription, ErrorsManager.Error0025, cbbAccountClause.SelectedValue.ToInt() == 0);
             return !iserror;
         }
-        IList<Invoice> GetInvoices() {
+        List<Invoice> GetInvoices() {
             List<Invoice> list = new List<Invoice>();
             foreach (DataGridViewRow r in gridInvoices.Rows) {
                 if (!r.IsNewRow) {
@@ -463,7 +480,7 @@ namespace AccountingSystem.Controls
             }
             return list;
         }
-        IList<BalanceAccountModel> GetBalanceAccounts() {
+        List<BalanceAccountModel> GetBalanceAccounts() {
             List<BalanceAccountModel> list = new List<BalanceAccountModel>();
             foreach (DataGridViewRow r in gridBalanceAccounts.Rows)
             {
@@ -480,6 +497,31 @@ namespace AccountingSystem.Controls
             }
             return list;
         }
-        void SaveReceipt() { }
+        Receipt GetReceipt() {
+            Receipt receipt = new Receipt();
+            receipt.Code = txtCode.Text.TrimOrEmpty();
+            receipt.CreateDate = dpCreateDate.Value;
+            receipt.DeliveryPerson = new DeliveryPerson();
+            receipt.DeliveryPerson.Id = cbbPersonDelievery.SelectedValue.ToValue<int>();
+            receipt.AccountClause = new AccountClause();
+            receipt.AccountClause.Id = cbbAccountClause.SelectedValue.ToValue<int>();
+            receipt.TradingPartner = new TradingPartner();
+            receipt.TradingPartner.Id = cbbCCode.SelectedValue.ToValue<int>();
+
+            return receipt;
+        }
+        void SaveReceipt() {
+            Receipt receipt = GetReceipt();
+            List<Invoice> invoices = GetInvoices();
+            List<BalanceAccountModel> balances = GetBalanceAccounts();
+            ReceiptModel rm = new ReceiptModel();
+            rm.BalanceAccounts = balances;
+            rm.Invoices = invoices;
+            rm.Receipt = receipt;
+            rm.TradingPartner = receipt.TradingPartner;
+            rm.DeliveryPerson = receipt.DeliveryPerson;
+
+            ReceiptManager.addReceiptProceduce(rm);
+        }
     }
 }

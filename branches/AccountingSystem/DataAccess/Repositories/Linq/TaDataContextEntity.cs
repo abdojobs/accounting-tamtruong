@@ -24,6 +24,10 @@ namespace DataAccess.Repositories.Linq
                 _DbContext = value;
             }
         }
+        public TaDalContext CreateContext() {
+            return new TaDalContext(GlobalConstant.DBConnecstring);
+        }
+        
         protected void ContextAdd(T entity) {
             Entities.Add(entity);
             Context.SaveChanges();
@@ -66,7 +70,10 @@ namespace DataAccess.Repositories.Linq
         }
         protected T ContextGet(int id)
         {
-            return Entities.Find(id);
+            using (var Context = CreateContext())
+            {
+                return Context.Set<T>().Find(id);
+            }
         }
         public virtual IEnumerable<T> GetAll() {
             return Entities;

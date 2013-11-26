@@ -5,6 +5,8 @@ using System.Text;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
+using Common.Exceptions;
+using Common.Messages;
 
 namespace Common.Logs
 {
@@ -19,6 +21,15 @@ namespace Common.Logs
             get {
                 return _logger;
             }
+        }
+        public static void ErrorDbCommon(Type type, Exception ex) {
+            Error(type, ex);
+            throw new UserException(ErrorsManager.DbError0000);
+        }
+        public static void ErrorCommon(Type type, Exception ex)
+        {
+            Error(type, ex);
+            throw new UserException(ErrorsManager.Error0000);
         }
         public static void Error(Type type, Exception ex)
         {
