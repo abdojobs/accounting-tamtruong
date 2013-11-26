@@ -3,6 +3,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files\NUnit 2.6\bin\nunit.exe</StartProgram>
-    <StartArguments>D:\Data\Personal\projects\accounting\branches\AccountingSystem\Unitest\bin\Debug\Unitest.dll</StartArguments>
+    <StartArguments>D:\tam\project\ketoan\accounting-tamtruong\branches\AccountingSystem\Unitest\bin\Debug\Unitest.dll</StartArguments>
   </PropertyGroup>
 </Project>
