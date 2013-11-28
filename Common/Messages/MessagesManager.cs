@@ -111,6 +111,10 @@ namespace Common.Messages
         /// AccountClause not empty
         /// </summary>
         public static readonly string Error0025 = "";
+        /// <summary>
+        /// Invoice amount is not equal BalanceAccount amount
+        /// </summary>
+        public static readonly string Error0026 = "";
 
 
         #region Database message

@@ -76,6 +76,7 @@
     <Compile Include="Entities\TradingPartner.cs" />
     <Compile Include="Entities\VatType.cs" />
     <Compile Include="Entities\WareHouse.cs" />
+    <Compile Include="Models\View\ReceiptView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ADO\ADOData.cs" />
     <Compile Include="Repositories\BaseConnector.cs" />

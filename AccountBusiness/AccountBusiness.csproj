@@ -71,7 +71,6 @@
     <Compile Include="Models\ReceiptModel.cs" />
     <Compile Include="Models\StockInReceiptModel.cs" />
     <Compile Include="Models\StockOutReceiptModel.cs" />
-    <Compile Include="Models\Views\ReceiptView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validations\AccountClauseValidate.cs" />
     <Compile Include="Validations\AccountValidate.cs" />
@@ -94,7 +93,9 @@
       <Name>AccountDataAccess</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\Views\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
