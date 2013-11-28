@@ -14,6 +14,7 @@ using Common.Logs;
 using DataAccess.Repositories.Linq;
 using AccountBusiness.Models.Views;
 using System.Data;
+using Common.Utils;
 
 namespace Business.Business
 {
@@ -122,35 +123,20 @@ namespace Business.Business
 
         public IList<ReceiptView> Search(DateTime to, DateTime fro, string code)
         {
-            using (var Context = new TaDalContext())
+            try
             {
-                try
-                {
-                    to = new DateTime(to.Year, to.Month, to.Day);
-                    fro = new DateTime(fro.Year, fro.Month, fro.Day);
+                to = to.BeginOfDate();
+                fro = fro.EndOfDate();
 
+                var list = Context.Receipts.Search(to, fro, code);
 
-                    var query = from r in Context.Receipts
-                                where r.CreateDate <= to
-                                && r.CreateDate >= fro
-                                && (r.Code.Contains(code) || string.IsNullOrEmpty(code))
-                                select new ReceiptView() { 
-                                    Id=r.Id,
-                                    Code=r.Code,
-                                    CreateDate=r.CreateDate,
-                                    TradingPartner=r.TradingPartner.Name,
-                                    Amount=r.Amount,
-                                    DeliveryPerson=r.DeliveryPerson.Name,
-                                };
-                    return query.ToList();
-                }
-                catch { }
-                finally
-                {
-                    Context.Dispose();
-                }
-                return null;
+                return list;
             }
+            catch (Exception ex)
+            {
+                WriteLog.ErrorDbCommon(this.GetType(), ex);
+            }
+            return null;
         }
 
 

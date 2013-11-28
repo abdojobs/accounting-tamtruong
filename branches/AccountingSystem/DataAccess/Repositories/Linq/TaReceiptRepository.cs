@@ -7,6 +7,8 @@ using Common.Logs;
 using Common.Exceptions;
 using Common.Messages;
 using System.Data;
+using System.Data.Entity;
+using AccountBusiness.Models.Views;
 
 namespace DataAccess.Repositories.Linq
 {
@@ -121,6 +123,36 @@ namespace DataAccess.Repositories.Linq
                 {
                     Context.Dispose();
                 }
+            }
+        }
+
+
+        public List<ReceiptView> Search(DateTime to, DateTime fro, string code)
+        {
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    var query = Context.Receipts
+                        .Where(r => r.CreateDate >= fro && r.CreateDate <= to && (r.Code.Contains(code) || string.IsNullOrEmpty(code)))
+                        .AsNoTracking().Select(
+                            r => new ReceiptView()
+                            {
+                                Id = r.Id,
+                                Code = r.Code,
+                                CreateDate = r.CreateDate,
+                                TradingPartner = r.TradingPartner.Name,
+                                Amount = r.Amount,
+                                DeliveryPerson = r.DeliveryPerson.Name,
+                            }); ;
+                    return query.ToList();
+                }
+                catch (Exception ex)
+                {
+                    WriteLog.ErrorDbCommon(this.GetType(), ex);
+                }
+                
+                return null;
             }
         }
     }
