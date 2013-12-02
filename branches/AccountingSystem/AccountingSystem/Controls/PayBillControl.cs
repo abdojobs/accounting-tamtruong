@@ -28,6 +28,8 @@ namespace AccountingSystem.Controls
         IInvoiceBusiness _invoiceManager;
         ICustomerBusiness _customerManager;
         IAccountBusiness _accountMananger;
+        IPayBillBusiness _payBillManager;
+        IMainBusiness _mainManager;
 
         
 
@@ -42,7 +44,26 @@ namespace AccountingSystem.Controls
         DataTable _tbBalanceAccount;
 
         #region properties
-
+        public IMainBusiness MainManager
+        {
+            get {
+                if (_mainManager == null) {
+                    _mainManager = new MainService();
+                }
+                return _mainManager;
+            }
+            set { _mainManager = value; }
+        }
+        public IPayBillBusiness PayBillManager
+        {
+            get {
+                if (_payBillManager == null) {
+                    _payBillManager = new PayBillService();
+                }
+                return _payBillManager;
+            }
+            set { _payBillManager = value; }
+        }
         public DataTable TbBalanceAccount
         {
             get {
@@ -107,7 +128,7 @@ namespace AccountingSystem.Controls
                     _tbDeliveryPerson.Columns.Add("Id",typeof(int));
                     _tbDeliveryPerson.Columns.Add("Name");
 
-                    var query = ReceiptManager.GetDeliveryPersons();
+                    var query = MainManager.GetRecievers();
                     foreach (var item in query)
                     {
                         _tbDeliveryPerson.Rows.Add(new object[] { item.Id, item.Name });
@@ -127,7 +148,7 @@ namespace AccountingSystem.Controls
                     _tbTradingPartner.Columns.Add("Address");
 
 
-                    var query = ReceiptManager.GetTradingPartners();
+                    var query = MainManager.GetSuppliers();
 
                     _tbTradingPartner.Rows.Add(new object[]{0,"[Chọn đối tượng]","[Địa chỉ]"});
                     foreach (var item in query) {
@@ -244,13 +265,13 @@ namespace AccountingSystem.Controls
             DateTime to = fro.AddMonths(1);
 
             string code = txtCodeSearch.Text.Trim();
-            gridReceipts.DataSource = ReceiptManager.Search(fro,to, code);
+            gridReceipts.DataSource = PayBillManager.Search(fro,to, code);
 
             gridReceipts.Columns["Code"].HeaderText = "Mã số";
             gridReceipts.Columns["CreateDate"].HeaderText = "Ngày chứng từ";
             gridReceipts.Columns["Amount"].HeaderText = "Tiền";
-            gridReceipts.Columns["TradingPartner"].HeaderText = "Đối tượng thu";
-            gridReceipts.Columns["DeliveryPerson"].HeaderText = "Người nộp";
+            gridReceipts.Columns["Receiver"].HeaderText = "Đối tượng thu";
+            gridReceipts.Columns["Supplier"].HeaderText = "Người nộp";
             gridReceipts.Columns["Id"].Visible = false;
         }
         void LoadAccountClauses()
@@ -609,12 +630,12 @@ namespace AccountingSystem.Controls
 
             ReceiptManager.addReceiptProceduce(rm);
 
-            LoadReceipts();
+            LoadPayBills();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            LoadReceipts();
+            LoadPayBills();
         }
     }
 }

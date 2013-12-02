@@ -7,7 +7,7 @@ using Business.Business.ServiceInterfaces;
 using Business.Business;
 using DataAccess.Entities;
 using Business.Models;
-using AccountBusiness.Models.Views;
+using DataAccess.Models.Views;
 
 namespace Unitest
 {

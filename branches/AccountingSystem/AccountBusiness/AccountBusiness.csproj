@@ -52,12 +52,14 @@
     <Compile Include="Business\AccountClauseService.cs" />
     <Compile Include="Business\CustomerService.cs" />
     <Compile Include="Business\InvoiceService.cs" />
+    <Compile Include="Business\MainService.cs" />
     <Compile Include="Business\PayBillService.cs" />
     <Compile Include="Business\ReceiptService.cs" />
     <Compile Include="Business\ServiceInterfaces\IAccountBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\IAccountClauseBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\ICustomerBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\IInvoiceBusiness.cs" />
+    <Compile Include="Business\ServiceInterfaces\IMainBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\IPayBillBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\IReceiptBusiness.cs" />
     <Compile Include="Business\ServiceInterfaces\IStockInReceiptBusiness.cs" />

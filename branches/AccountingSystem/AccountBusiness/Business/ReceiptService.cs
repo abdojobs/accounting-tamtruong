@@ -12,7 +12,7 @@ using Business.Validations;
 using System.Transactions;
 using Common.Logs;
 using DataAccess.Repositories.Linq;
-using AccountBusiness.Models.Views;
+using DataAccess.Models.Views;
 using System.Data;
 using Common.Utils;
 

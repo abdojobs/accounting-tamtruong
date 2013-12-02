@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataAccess.Entities;
-using AccountBusiness.Models.Views;
+using DataAccess.Models.Views;
 
 namespace DataAccess.Repositories
 {
