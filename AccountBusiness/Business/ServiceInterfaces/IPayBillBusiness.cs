@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Business.Models;
 using DataAccess.Entities;
-using DataAccess.Models.View;
+using DataAccess.Models.Views;
 
 namespace Business.Business.ServiceInterfaces
 {

@@ -37,10 +37,15 @@ namespace AccountingSystem
             //plcontainer.Panel2.Controls.Clear();
             //plcontainer.Panel2.Controls.Add(accountClause);
 
-            ReceiptControl receipt = new ReceiptControl();
-            receipt.Dock = DockStyle.Fill;
+            //ReceiptControl receipt = new ReceiptControl();
+            //receipt.Dock = DockStyle.Fill;
+            //plcontainer.Panel2.Controls.Clear();
+            //plcontainer.Panel2.Controls.Add(receipt);
+
+            PayBillControl paybill = new PayBillControl();
+            paybill.Dock = DockStyle.Fill;
             plcontainer.Panel2.Controls.Clear();
-            plcontainer.Panel2.Controls.Add(receipt);
+            plcontainer.Panel2.Controls.Add(paybill);
 
             //GetData();
             

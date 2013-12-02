@@ -8,7 +8,7 @@ using Common.Exceptions;
 using Common.Messages;
 using System.Data;
 using System.Data.Entity;
-using AccountBusiness.Models.Views;
+using DataAccess.Models.Views;
 
 namespace DataAccess.Repositories.Linq
 {

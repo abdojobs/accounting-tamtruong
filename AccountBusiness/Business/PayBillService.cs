@@ -11,6 +11,7 @@ using Common.Logs;
 using Common.Messages;
 using Common.Exceptions;
 using Business.Models;
+using Common.Utils;
 
 namespace Business.Business
 {
@@ -127,6 +128,25 @@ namespace Business.Business
                 invrecs.Add(invpay);
             }
             Context.InvoicePayBills.AddList(invrecs);
+        }
+
+
+        public IList<DataAccess.Models.Views.PayBillView> Search(DateTime from, DateTime to, string code)
+        {
+            try
+            {
+                from = from.BeginOfDate();
+                to = to.EndOfDate();
+
+                var list = Context.PayBills.Search(to, from, code);
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                WriteLog.ErrorDbCommon(this.GetType(), ex);
+            }
+            return null;
         }
     }
 }
