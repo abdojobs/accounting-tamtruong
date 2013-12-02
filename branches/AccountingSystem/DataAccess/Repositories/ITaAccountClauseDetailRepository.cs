@@ -8,5 +8,7 @@ namespace DataAccess.Repositories
 {
     public interface ITaAccountClauseDetailRepository : ITaRepositoryBase<AccountClauseDetail>
     {
+        IEnumerable<AccountClauseDetail> GetAccountReceivableDetail(int accountclause_id);
+        IEnumerable<AccountClauseDetail> GetAccountDebtDetail(int accountclause_id);
     }
 }

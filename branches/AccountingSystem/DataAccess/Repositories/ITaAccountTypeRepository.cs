@@ -8,5 +8,6 @@ namespace DataAccess.Repositories
 {
     public interface ITaAccountTypeRepository : ITaRepositoryBase<AccountType>
     {
+        int GetAccountTypeId(AccountTypeEnum type);
     }
 }

@@ -124,7 +124,7 @@ namespace Business.Business
         {
             try
             {
-                string sql = "select Id,Code from Account";
+                string sql = "select Id,Code,Description from Account";
                 return Execute(sql);
             }
             catch (Exception ex) {

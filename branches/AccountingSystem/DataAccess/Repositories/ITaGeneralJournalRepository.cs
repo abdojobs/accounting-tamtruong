@@ -8,5 +8,6 @@ namespace DataAccess.Repositories
 {
     public interface ITaGeneralJournalRepository:ITaRepositoryBase<GeneralJournal>
     {
+        bool IsValidBalanceAccountAmount(int prodeduce_id,int proceducetype_id);
     }
 }

@@ -111,6 +111,29 @@ namespace DataAccess.Repositories.Linq
                 {
                     Receipt receipt = Context.Receipts.Find(id);
                     receipt.Amount = amount;
+
+                    // update Debt Account
+                    string acTypeCode = AccountTypeEnum.N.ToString();
+                    int accountTypeId = Context.AccountTypes.Where(t => t.Code == acTypeCode).Select(t => t.Id).FirstOrDefault();
+                    AccountClauseDetail acDetail = Context.AccountClauseDetails.Where(d => d.AccountClause_Id==receipt.AccountClause.Id && d.AccountType_Id==accountTypeId).FirstOrDefault();
+                    string pTypeCode=EProceduceType.R.ToString();
+                    ProceduceType ptype=Context.ProceduceTypes.Where(p=>p.Code==pTypeCode).FirstOrDefault();
+                    if (acDetail != null && ptype!=null) { 
+                        // save Debt Account amount into GeneralJournal
+                        
+                        GeneralJournal gj = new GeneralJournal() { 
+                            Account_Id=acDetail.Account_Id,
+                            Proceduce_Id=receipt.Id,
+                            Proceducetype_Id=ptype.Id,
+                            Description=receipt.AccountClause.Description,
+                            ReceiveAmount=0,
+                            DebtAmount=amount
+                        };
+
+                        Context.GeneralJournals.Add(gj);
+                    }
+
+                    //update receipt
                     Context.Receipts.Attach(receipt);
                     Context.Entry(receipt).State = EntityState.Modified;
                     Context.SaveChanges();
