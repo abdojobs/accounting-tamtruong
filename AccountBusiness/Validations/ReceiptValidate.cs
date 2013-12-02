@@ -27,7 +27,7 @@ namespace Business.Validations
             if (accounts != null && accounts.Count > 0 && invoices != null && invoices.Count > 0) {
                 decimal accountAmount = 0;
                 decimal invoiceAmount = 0;
-                accountAmount = accounts.Sum(a => a.DedtAmount);
+                accountAmount = accounts.Sum(a => a.ReceiveAmount);
                 invoiceAmount = invoices.Sum(i => i.Amount);
                 if(accountAmount!=invoiceAmount)
                     throw new UserException(ErrorsManager.Error0026);

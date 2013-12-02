@@ -7,7 +7,7 @@ using Business.Business.ServiceInterfaces;
 using Business.Business;
 using DataAccess.Entities;
 using Business.Models;
-using DataAccess.Repositories.Linq;
+using AccountBusiness.Models.Views;
 
 namespace Unitest
 {
@@ -24,57 +24,23 @@ namespace Unitest
             Receipt receipt = new Receipt();
             receipt.Code = "PT0001";
             receipt.CreateDate = DateTime.Now;
-            /* auto delete data had in DB*/
-            //first delete data GeneralJournal have receipt.code=PT0001
-            //delete invoice_receipt and invoice have codes inv0001,inv0002,inv0003 and receipt.code=PT0001
-            //delete receipt have code=PT0001
-            using (var Context = new TaDalContext()) {
-                try { 
-                    
-                    Receipt delreceipt = Context.Receipts.Where(r => r.Code == "PT0001").FirstOrDefault();
-                    string ptypeCode = EProceduceType.R.ToString();
-                    ProceduceType ptype = Context.ProceduceTypes.Where(p => p.Code == ptypeCode).FirstOrDefault();
-                    if (delreceipt != null && ptype!=null)
-                    {
-                        //delete GeneralJournal
-                        var gjs = Context.GeneralJournals.Where(g => g.Proceduce_Id == delreceipt.Id && g.Proceducetype_Id==ptype.Id);
-                        foreach (var gj in gjs) {
-                            Context.GeneralJournals.Remove(gj);
-                        }
 
-                        //delete invoice and delete invoice_receipt because relationship foreign key
-                        string[] invsCode=new string[]{"inv0001","inv0002","inv0003"};
-                        var invs = Context.Invoices.Where(i => invsCode.Contains(i.Code));
-                        foreach (var i in invs) {
-                            Context.Invoices.Remove(i);
-                        }
-
-                        //delete receipt
-                        Context.Receipts.Remove(delreceipt);
-                    }
-                    Context.SaveChanges();
-                }
-                catch { }
-                finally {
-                    Context.Dispose();
-                }
-            }
             List<BalanceAccountModel> balances = new List<BalanceAccountModel>() { 
                 new BalanceAccountModel(){
                     Account=new Account(){Id=23},
-                    ReceiveAmount=10,
+                    ReceiveAmount=500,
                     DedtAmount=0,
                     Description="thu tien khach hang"
                 },
                 new BalanceAccountModel(){
                     Account=new Account(){Id=24},
-                    ReceiveAmount=20,
+                    ReceiveAmount=1500,
                     DedtAmount=0,
                     Description="thu tien khach hang"
                 },
                 new BalanceAccountModel(){
                     Account=new Account(){Id=25},
-                    ReceiveAmount=30,
+                    ReceiveAmount=4000,
                     DedtAmount=0,
                     Description="thu tien khach hang"
                 }
@@ -116,12 +82,15 @@ namespace Unitest
             rm.AccountClause = new AccountClause() { Id=7};
 
             receiptManager.addReceiptProceduce(rm);
+        }
 
-            // check balance account amount is valid
-            int ptypeid=receiptManager.GetReceiptProceduceType();
-            bool rs= receiptManager.IsValidBalanceAccountAmount(receipt.Id, ptypeid);
+        [Test]
+        public void SearchReceipt() {
+            DateTime to = DateTime.Now;
+            DateTime fro = to.AddMonths(-1);
+            IList<ReceiptView> list = receiptManager.Search(to,fro,string.Empty);
 
-            Assert.IsTrue(rs);
+            Assert.IsNotNull(list);
         }
     }
 }
