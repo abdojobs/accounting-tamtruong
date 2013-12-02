@@ -14,6 +14,7 @@ using Common.Logs;
 using DataAccess.Repositories.Linq;
 using AccountBusiness.Models.Views;
 using System.Data;
+using Common.Utils;
 
 namespace Business.Business
 {
@@ -44,7 +45,7 @@ namespace Business.Business
             {
                 try
                 {
-                    // validate
+                    //validate
                     receiptValidate.validate(receiptmodel.Receipt, receiptmodel.BalanceAccounts, receiptmodel.Invoices);
                     // add receipt
                     Receipt receipt = addReceipt(receiptmodel);
@@ -122,37 +123,22 @@ namespace Business.Business
         }
 
 
-        public IList<ReceiptView> Search(DateTime to, DateTime fro, string code)
+        public IList<ReceiptView> Search(DateTime fro,DateTime to,string code)
         {
-            using (var Context = new TaDalContext())
+            try
             {
-                try
-                {
-                    to = new DateTime(to.Year, to.Month, to.Day);
-                    fro = new DateTime(fro.Year, fro.Month, fro.Day);
+                fro = fro.BeginOfDate();
+                to = to.EndOfDate();
 
+                var list = Context.Receipts.Search(to, fro, code);
 
-                    var query = from r in Context.Receipts
-                                where r.CreateDate <= to
-                                && r.CreateDate >= fro
-                                && (r.Code.Contains(code) || string.IsNullOrEmpty(code))
-                                select new ReceiptView() { 
-                                    Id=r.Id,
-                                    Code=r.Code,
-                                    CreateDate=r.CreateDate,
-                                    TradingPartner=r.TradingPartner.Name,
-                                    Amount=r.Amount,
-                                    DeliveryPerson=r.DeliveryPerson.Name,
-                                };
-                    return query.ToList();
-                }
-                catch { }
-                finally
-                {
-                    Context.Dispose();
-                }
-                return null;
+                return list;
             }
+            catch (Exception ex)
+            {
+                WriteLog.ErrorDbCommon(this.GetType(), ex);
+            }
+            return null;
         }
 
 
@@ -193,5 +179,12 @@ namespace Business.Business
             }
         }
 
+        public bool IsValidBalanceAccountAmount(int proceduce_id, int proceducetype_id) {
+            return Context.GeneralJournals.IsValidBalanceAccountAmount(proceduce_id, proceducetype_id);
+        }
+        public int GetReceiptProceduceType()
+        {
+            return Context.ProceduceTypes.GetReceiptProceduceType();
+        }
     }
 }

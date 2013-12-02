@@ -15,9 +15,15 @@ namespace Common.Maths
         /// <returns>type</returns>
         public static T ToValue<T>(this object value)
         {
-            if (value == null || value is string)
+            if (value == null || value==DBNull.Value || value is string)
                 return (T)Convert.ChangeType(0,typeof(T));
             return (T)Convert.ChangeType(value, typeof(T));
+        }
+
+        public static string DBValueToString(this object value) {
+            if (value == DBNull.Value || value==null)
+                return string.Empty;
+            return string.Format("{0}",value);
         }
         
         public static int ToInt(this object value) {

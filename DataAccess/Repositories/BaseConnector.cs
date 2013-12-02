@@ -38,7 +38,7 @@ namespace DataAccess.Repositories
         }
         public DataTable Execute(string sql) {
             try {
-                using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings[GlobalConstant.DBConnecstring].ConnectionString))
+                using (var conn = CreateConnection())
                 {
                     using (var cmd = conn.CreateCommand())
                     {

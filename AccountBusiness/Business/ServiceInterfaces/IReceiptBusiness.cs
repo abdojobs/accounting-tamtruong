@@ -15,8 +15,10 @@ namespace Business.Business.ServiceInterfaces
         Receipt addReceipt(ReceiptModel receiptmodel);
         void writeGeneralLedger(Receipt receipt, List<BalanceAccountModel> balanceaccounts);
         void writeInvoices(Receipt receipt, List<Invoice> invoices);
-        IList<ReceiptView> Search(DateTime to, DateTime from, string code);
+        IList<ReceiptView> Search(DateTime from,DateTime to, string code);
         IList<TradingPartner> GetTradingPartners();
         IList<DeliveryPerson> GetDeliveryPersons();
+        bool IsValidBalanceAccountAmount(int proceduce_id, int proceducetype_id);
+        int GetReceiptProceduceType();
     }
 }
