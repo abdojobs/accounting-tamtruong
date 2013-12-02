@@ -33,10 +33,10 @@ namespace AccountingSystem.Controls
             this.gridReceipts = new System.Windows.Forms.DataGridView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.btnSave = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtAmount = new System.Windows.Forms.TextBox();
             this.txtAcLDesription = new System.Windows.Forms.TextBox();
@@ -47,10 +47,19 @@ namespace AccountingSystem.Controls
             this.txtCode = new System.Windows.Forms.TextBox();
             this.gridBalanceAccounts = new System.Windows.Forms.DataGridView();
             this.gridInvoices = new System.Windows.Forms.DataGridView();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.dpMonth = new System.Windows.Forms.DateTimePicker();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtCodeSearch = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.cbbAccountClause = new MultiColumnComboBoxDemo.MultiColumnComboBox();
             this.cbbCName = new MultiColumnComboBoxDemo.MultiColumnComboBox();
             this.cbbCCode = new MultiColumnComboBoxDemo.MultiColumnComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbDebtAccount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -66,6 +75,11 @@ namespace AccountingSystem.Controls
             this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridBalanceAccounts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridInvoices)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -77,7 +91,7 @@ namespace AccountingSystem.Controls
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.gridReceipts);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer4);
             // 
             // splitContainer1.Panel2
             // 
@@ -95,7 +109,7 @@ namespace AccountingSystem.Controls
             this.gridReceipts.Location = new System.Drawing.Point(0, 0);
             this.gridReceipts.Name = "gridReceipts";
             this.gridReceipts.ReadOnly = true;
-            this.gridReceipts.Size = new System.Drawing.Size(1024, 208);
+            this.gridReceipts.Size = new System.Drawing.Size(891, 208);
             this.gridReceipts.TabIndex = 0;
             // 
             // splitContainer2
@@ -124,11 +138,12 @@ namespace AccountingSystem.Controls
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.lbDebtAccount);
+            this.splitContainer3.Panel1.Controls.Add(this.label8);
             this.splitContainer3.Panel1.Controls.Add(this.btnSave);
             this.splitContainer3.Panel1.Controls.Add(this.label6);
             this.splitContainer3.Panel1.Controls.Add(this.label5);
             this.splitContainer3.Panel1.Controls.Add(this.label4);
-            this.splitContainer3.Panel1.Controls.Add(this.label3);
             this.splitContainer3.Panel1.Controls.Add(this.label2);
             this.splitContainer3.Panel1.Controls.Add(this.txtAmount);
             this.splitContainer3.Panel1.Controls.Add(this.txtAcLDesription);
@@ -147,6 +162,16 @@ namespace AccountingSystem.Controls
             this.splitContainer3.Size = new System.Drawing.Size(1024, 140);
             this.splitContainer3.SplitterDistance = 770;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(575, 91);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(126, 43);
+            this.btnSave.TabIndex = 15;
+            this.btnSave.Text = "Lưu Phiếu";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label6
             // 
@@ -174,15 +199,6 @@ namespace AccountingSystem.Controls
             this.label4.Size = new System.Drawing.Size(56, 13);
             this.label4.TabIndex = 12;
             this.label4.Text = "Người nộp";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 42);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Đối tượng thu";
             // 
             // label2
             // 
@@ -266,15 +282,91 @@ namespace AccountingSystem.Controls
             this.gridInvoices.Size = new System.Drawing.Size(1024, 158);
             this.gridInvoices.TabIndex = 0;
             // 
-            // btnSave
+            // splitContainer4
             // 
-            this.btnSave.Location = new System.Drawing.Point(575, 91);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(126, 43);
-            this.btnSave.TabIndex = 15;
-            this.btnSave.Text = "Lưu Phiếu";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.groupBox1);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.gridReceipts);
+            this.splitContainer4.Size = new System.Drawing.Size(1024, 208);
+            this.splitContainer4.SplitterDistance = 129;
+            this.splitContainer4.TabIndex = 0;
+            // 
+            // dpMonth
+            // 
+            this.dpMonth.CustomFormat = "MM/yyyy";
+            this.dpMonth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dpMonth.Location = new System.Drawing.Point(12, 44);
+            this.dpMonth.Name = "dpMonth";
+            this.dpMonth.Size = new System.Drawing.Size(111, 20);
+            this.dpMonth.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnPrint);
+            this.groupBox1.Controls.Add(this.btnSearch);
+            this.groupBox1.Controls.Add(this.txtCodeSearch);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.dpMonth);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(129, 208);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tìm Phiếu thu";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 28);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Tháng/Năm";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 67);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(67, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Số phiếu thu";
+            // 
+            // txtCodeSearch
+            // 
+            this.txtCodeSearch.Location = new System.Drawing.Point(12, 83);
+            this.txtCodeSearch.Name = "txtCodeSearch";
+            this.txtCodeSearch.Size = new System.Drawing.Size(111, 20);
+            this.txtCodeSearch.TabIndex = 14;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(12, 109);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(111, 44);
+            this.btnSearch.TabIndex = 1;
+            this.btnSearch.Text = "Xem";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(12, 158);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(111, 44);
+            this.btnPrint.TabIndex = 2;
+            this.btnPrint.Text = "In";
+            this.btnPrint.UseVisualStyleBackColor = true;
             // 
             // cbbAccountClause
             // 
@@ -303,6 +395,28 @@ namespace AccountingSystem.Controls
             this.cbbCCode.Size = new System.Drawing.Size(76, 21);
             this.cbbCCode.TabIndex = 3;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 106);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(73, 13);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Tài khoản nợ:";
+            // 
+            // lbDebtAccount
+            // 
+            this.lbDebtAccount.AutoSize = true;
+            this.lbDebtAccount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbDebtAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDebtAccount.ForeColor = System.Drawing.Color.OrangeRed;
+            this.lbDebtAccount.Location = new System.Drawing.Point(77, 101);
+            this.lbDebtAccount.Name = "lbDebtAccount";
+            this.lbDebtAccount.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lbDebtAccount.Size = new System.Drawing.Size(124, 22);
+            this.lbDebtAccount.TabIndex = 17;
+            this.lbDebtAccount.Text = "Tài khoản nợ";
+            // 
             // ReceiptControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -326,6 +440,12 @@ namespace AccountingSystem.Controls
             this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridBalanceAccounts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridInvoices)).EndInit();
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -350,9 +470,18 @@ namespace AccountingSystem.Controls
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView gridInvoices;
         private Button btnSave;
+        private SplitContainer splitContainer4;
+        private DateTimePicker dpMonth;
+        private GroupBox groupBox1;
+        private Button btnPrint;
+        private Button btnSearch;
+        private TextBox txtCodeSearch;
+        private Label label7;
+        private Label label3;
+        private Label lbDebtAccount;
+        private Label label8;
     }
 }

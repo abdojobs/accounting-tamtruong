@@ -15,11 +15,15 @@ namespace AccountingSystem.Components
         const int columnPadding = 5;
         private int valueMemberColumnIndex = 0;
         private int columnCount;
+        private bool isCreate=false;
+        private DataGridView SelfGridView;
+        private List<string> columnNameOfSelfGridView;
 
         public void SetupColumn() {
             if (this.DataGridView != null)
             {
-                this.DataGridView.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(DataGridView_EditingControlShowing);
+                SelfGridView = this.DataGridView;
+                SelfGridView.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(DataGridView_EditingControlShowing);
                 InitializeColumns();
             }
         }
@@ -37,12 +41,38 @@ namespace AccountingSystem.Components
             {
                 columnNames[i] = tb.Columns[i].ColumnName;
             }
+            // get columnnames for SelfGridView
+            columnNameOfSelfGridView = new List<string>();
+            foreach (DataGridViewColumn col in SelfGridView.Columns) {
+                columnNameOfSelfGridView.Add(col.Name);
+            }
         }
         protected void DataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e) {
-            if (e.Control is ComboBox)
+            if (e.Control is ComboBox && !isCreate)
             {
-                InitializeCombo(e.Control as ComboBox);
-
+                ComboBox combo = e.Control as ComboBox;
+                InitializeCombo(combo);
+                isCreate = true;
+                //register event combobox change
+                combo.SelectionChangeCommitted+=new EventHandler(combo_SelectionChangeCommitted);
+            }
+        }
+        void combo_SelectionChangeCommitted(object sender, EventArgs e) {
+            ComboBox combo = sender as ComboBox;
+            DataRowView item = combo.SelectedItem as DataRowView;
+            string colname = SelfGridView.Columns[SelfGridView.CurrentCell.ColumnIndex].Name;
+            if (item != null)
+            {
+                if (colname == this.Name)
+                {
+                    foreach (var name in columnNames)
+                    {
+                        if (name != this.DataPropertyName && name != this.ValueMember && columnNameOfSelfGridView.Contains(name))
+                        {
+                            SelfGridView.CurrentRow.Cells[name].Value = item.Row[name];
+                        }
+                    }
+                }
             }
         }
         void InitializeCombo(ComboBox combo)

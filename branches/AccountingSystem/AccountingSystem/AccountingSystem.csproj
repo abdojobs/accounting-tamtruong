@@ -101,6 +101,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Utils\EditEventStyle.cs" />
     <Compile Include="Utils\ErrorManager.cs" />
+    <Compile Include="Utils\UtilGui.cs" />
     <EmbeddedResource Include="Controls\AccountClauseControl.resx">
       <DependentUpon>AccountClauseControl.cs</DependentUpon>
     </EmbeddedResource>
