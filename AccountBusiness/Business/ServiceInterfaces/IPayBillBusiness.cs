@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Business.Models;
 using DataAccess.Entities;
+using DataAccess.Models.View;
 
 namespace Business.Business.ServiceInterfaces
 {
@@ -13,5 +14,6 @@ namespace Business.Business.ServiceInterfaces
         PayBill addPayBill(PayBillModel payBillModel);
         void writeGeneralLedger(PayBill payBill, List<BalanceAccountModel> balanceaccounts);
         void writeInvoices(PayBill payBill, List<Invoice> invoices);
+        IList<PayBillView> Search(DateTime from, DateTime to, string code);
     }
 }
