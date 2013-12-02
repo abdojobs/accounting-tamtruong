@@ -27,23 +27,55 @@ namespace AccountingSystem.Controls
         IAccountClauseBusiness _accountClauseManager;
         IInvoiceBusiness _invoiceManager;
         ICustomerBusiness _customerManager;
+        IAccountBusiness _accountMananger;
+
+        
 
         
 
         DataTable _tbVatType;
-
-       
         DataTable _tbAccountClause;
         DataTable _tbTradingPartner;
         DataTable _tbDeliveryPerson;
         DataTable _tbCustomer;
-
-        
-        
-
-        
+        DataTable _tbAccount;
+        DataTable _tbBalanceAccount;
 
         #region properties
+
+        public DataTable TbBalanceAccount
+        {
+            get {
+                if (_tbBalanceAccount == null)
+                {
+                    _tbBalanceAccount = new DataTable();
+                    _tbBalanceAccount.Columns.Add("Account_Id", typeof(int));
+                    _tbBalanceAccount.Columns.Add("Description");
+                    _tbBalanceAccount.Columns.Add("Amount", typeof(int));
+                }
+                return _tbBalanceAccount;
+            }
+            set { _tbBalanceAccount = value; }
+        }
+        public IAccountBusiness AccountMananger
+        {
+            get {
+                if (_accountMananger == null)
+                    _accountMananger = new AccountService();
+                return _accountMananger;
+            }
+            set { _accountMananger = value; }
+        }
+        public DataTable TbAccount
+        {
+            get {
+                if (_tbAccount == null) {
+                    _tbAccount = AccountMananger.GetToDataTable();
+                }
+                return _tbAccount;
+            }
+            set { _tbAccount = value; }
+        }
         public DataTable TbVatType
         {
             get {
@@ -72,7 +104,7 @@ namespace AccountingSystem.Controls
                 if (_tbDeliveryPerson == null)
                 {
                     _tbDeliveryPerson = new DataTable();
-                    _tbDeliveryPerson.Columns.Add("Id");
+                    _tbDeliveryPerson.Columns.Add("Id",typeof(int));
                     _tbDeliveryPerson.Columns.Add("Name");
 
                     var query = ReceiptManager.GetDeliveryPersons();
@@ -90,7 +122,7 @@ namespace AccountingSystem.Controls
             get {
                 if (_tbTradingPartner == null) {
                     _tbTradingPartner = new DataTable();
-                    _tbTradingPartner.Columns.Add("Id");
+                    _tbTradingPartner.Columns.Add("Id",typeof(int));
                     _tbTradingPartner.Columns.Add("Name");
                     _tbTradingPartner.Columns.Add("Address");
 
@@ -115,7 +147,7 @@ namespace AccountingSystem.Controls
                 {
                     var query = AccountClauseManager.GetAllWithAccountClauseModel();
                     _tbAccountClause = new DataTable();
-                    _tbAccountClause.Columns.Add("Id");
+                    _tbAccountClause.Columns.Add("Id",typeof(int));
                     _tbAccountClause.Columns.Add("Code");
                     _tbAccountClause.Columns.Add("Description");
 
@@ -133,7 +165,7 @@ namespace AccountingSystem.Controls
             get {
                 if (_tbCustomer == null) {
                     DataTable tb = new DataTable();
-                    tb.Columns.Add("CustomerId");
+                    tb.Columns.Add("CustomerId",typeof(int));
                     tb.Columns.Add("CustomerName");
                     tb.Columns.Add("CustomerAccountNo");
                     var query = CustomerManager.GetAll();
@@ -208,11 +240,11 @@ namespace AccountingSystem.Controls
         }
         void LoadReceipts()
         {
-            DateTime current = DateTime.Now;
-            DateTime from = new DateTime(current.Year, current.Month, 1);
-            DateTime to = DateTime.Now;
+            DateTime fro = new DateTime(dpMonth.Value.Year,dpMonth.Value.Month,1);
+            DateTime to = fro.AddMonths(1);
 
-            gridReceipts.DataSource = ReceiptManager.Search(to, from, string.Empty);
+            string code = txtCodeSearch.Text.Trim();
+            gridReceipts.DataSource = ReceiptManager.Search(fro,to, code);
         }
         void LoadAccountClauses()
         {
@@ -223,6 +255,9 @@ namespace AccountingSystem.Controls
             Binding b = new Binding("Text", TbAccountClause, "Description");
             b.NullValue = 0;
             txtAcLDesription.DataBindings.Add(b);
+
+            // init Grid BalanceAccount
+            InitBalanceAccountGrid();
 
             cbbAccountClause.SelectedIndexChanged+=new EventHandler(cbbAccountClause_SelectedIndexChanged);
         }
@@ -256,17 +291,46 @@ namespace AccountingSystem.Controls
 
             
         }
+        void InitBalanceAccountGrid() {
+            gridBalanceAccounts.DataSource = TbBalanceAccount;
+
+            gridBalanceAccounts.Columns["Account_Id"].Visible = false;
+            // setting columncombobox
+            DataGridViewMultiComboboxColumn colCbReceiveAccount = new DataGridViewMultiComboboxColumn();
+            colCbReceiveAccount.DataPropertyName = "Account_Id";
+            colCbReceiveAccount.HeaderText = "Tài khoản có";
+            colCbReceiveAccount.Width = 120;
+            colCbReceiveAccount.DataSource = TbAccount;
+            colCbReceiveAccount.ValueMember = "Id";
+            colCbReceiveAccount.DisplayMember = "Code";
+            colCbReceiveAccount.Name = "ReceiveAccount";
+            colCbReceiveAccount.ValueType = typeof(int);
+            colCbReceiveAccount.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+            colCbReceiveAccount.FlatStyle = FlatStyle.Flat;
+            colCbReceiveAccount.DefaultCellStyle.DataSourceNullValue = -1;
+            colCbReceiveAccount.DefaultCellStyle.NullValue = "[Tài khoản có]";
+            colCbReceiveAccount.DisplayIndex = 0;
+            gridBalanceAccounts.Columns.Add(colCbReceiveAccount);
+            colCbReceiveAccount.SetupColumn();
+            
+        }
+        
         void LoadBalanceAccount(int accountClauseId) {
-            DataTable tb = new DataTable();
-            tb.Columns.Add("Account_Id");
-            tb.Columns.Add("Description");
-            tb.Columns.Add("Amount",typeof(int));
 
             var query = AccountClauseManager.GetAccountReceivableDetail(accountClauseId);
+            TbBalanceAccount.Rows.Clear();
             foreach (var item in query) {
-                tb.Rows.Add(new object[] { item.Account_Id,item.Description});
+                TbBalanceAccount.Rows.Add(new object[] { item.Account_Id, item.Description });
             }
-            gridBalanceAccounts.DataSource = tb;
+            
+            // get DebtAccount
+            var daccount = AccountClauseManager.GetAccountDebtDetail(accountClauseId);
+            lbDebtAccount.Text = string.Empty;
+            foreach (var item in daccount) {
+                lbDebtAccount.Text += UtilGui.ConcatHasHyphen(item.Account.Code);
+            }
+            if (!string.IsNullOrEmpty(lbDebtAccount.Text))
+                lbDebtAccount.Text = lbDebtAccount.Text.Substring(1);
         }
 
         void LoadInvoices() {
@@ -308,7 +372,7 @@ namespace AccountingSystem.Controls
             tb.Columns.Add("Id");
             tb.Columns.Add("Code");
             tb.Columns.Add("DateTax", typeof(DateTime));
-            tb.Columns.Add("CustomerId");
+            tb.Columns.Add("CustomerId",typeof(int));
             tb.Columns.Add("CustomerName");
             tb.Columns.Add("CustomerAccountNo");
             tb.Columns.Add("Tax");
@@ -316,7 +380,7 @@ namespace AccountingSystem.Controls
             tb.Columns.Add("AmountHasTax");
             tb.Columns.Add("Note");
 
-            tb.Rows.Add(new object[] { 6, null, DateTime.Now });
+            //tb.Rows.Add(new object[] { 6, null, DateTime.Now });
             
 
             CalendarColumn calcol = new CalendarColumn();
@@ -394,7 +458,9 @@ namespace AccountingSystem.Controls
             //}
         }
         void text_KeyPress(object sender, KeyPressEventArgs e) {
-            e.Handled = !Common.Maths.ValidateInput.OnlyDecimal(((TextBox)sender).Text, e.KeyChar);
+            string colname = gridInvoices.Columns[gridInvoices.CurrentCell.ColumnIndex].Name;
+            if (colname == "AmountNotTax")
+                e.Handled = !Common.Maths.ValidateInput.OnlyDecimal(((TextBox)sender).Text, e.KeyChar);
         }
         string textbefore = string.Empty;
         void text_TextChanged(object sender, EventArgs e) {
@@ -404,7 +470,7 @@ namespace AccountingSystem.Controls
             if (colname == "AmountNotTax")
             {
                 double tax = gridInvoices.CurrentRow.Cells["Tax"].Value.ToDouble();
-                decimal amount = gridInvoices.CurrentRow.Cells["AmountNotTax"].Value.ToDecimal();
+                decimal amount = gridInvoices.CurrentRow.Cells["AmountNotTax"].EditedFormattedValue.ToDecimal();
                 gridInvoices.CurrentRow.Cells["AmountHasTax"].Value = AccountMath.CalculateTax(amount, (double)tax);
             }
         }
@@ -423,8 +489,8 @@ namespace AccountingSystem.Controls
                     gridInvoices.CurrentRow.Cells["AmountHasTax"].Value = AccountMath.CalculateTax(amount, (double)tax);
                 }
                 else if (colname == "Customer") {
-                    gridInvoices.CurrentRow.Cells["CustomerName"].Value = item.Row["CustomerName"];
-                    gridInvoices.CurrentRow.Cells["CustomerAccountNo"].Value = item.Row["CustomerAccountNo"];
+                    //gridInvoices.CurrentRow.Cells["CustomerName"].Value = item.Row["CustomerName"];
+                    //gridInvoices.CurrentRow.Cells["CustomerAccountNo"].Value = item.Row["CustomerAccountNo"];
                 }
             }
 
@@ -469,11 +535,11 @@ namespace AccountingSystem.Controls
                     inv.VatType = new VatType();
                     inv.VatType.Id = r.Cells["Id"].Value.ToInt();
                     inv.PerformDate = dpCreateDate.Value;
-                    inv.Description = (string)r.Cells["Note"].Value;
-                    inv.Code = (string)r.Cells["Code"].Value;
-                    inv.Amount = r.Cells["AmountHasTax"].Value.ToValue<decimal>();
+                    inv.Description = r.Cells["Note"].Value.DBValueToString();
+                    inv.Code = r.Cells["Code"].Value.DBValueToString();
+                    inv.Amount = r.Cells["AmountHasTax"].Value.ToValue<decimal>() + r.Cells["AmountNotTax"].Value.ToValue<decimal>();
                     inv.Customer = new Customer();
-                    inv.Customer.Id = r.Cells["AmountHasTax"].ToValue<int>();
+                    inv.Customer.Id = ((DataGridViewComboBoxCell)r.Cells["Customer"]).Value.ToValue<int>();
 
                     list.Add(inv);
                 }
@@ -488,9 +554,10 @@ namespace AccountingSystem.Controls
                 {
                     BalanceAccountModel bl = new BalanceAccountModel();
                     bl.Account = new Account();
-                    bl.Account.Id = r.Cells["Account_Id"].ToValue<int>();
-                    bl.ReceiveAmount = r.Cells["Amount"].ToValue<decimal>();
+                    bl.Account.Id = r.Cells["Account_Id"].Value.ToValue<int>();
+                    bl.ReceiveAmount = r.Cells["Amount"].Value.ToValue<decimal>();
                     bl.DedtAmount = 0;
+                    bl.Description = r.Cells["Description"].Value.DBValueToString();
 
                     list.Add(bl);
                 }
@@ -520,8 +587,16 @@ namespace AccountingSystem.Controls
             rm.Receipt = receipt;
             rm.TradingPartner = receipt.TradingPartner;
             rm.DeliveryPerson = receipt.DeliveryPerson;
+            rm.AccountClause = receipt.AccountClause;
 
             ReceiptManager.addReceiptProceduce(rm);
+
+            LoadReceipts();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            LoadReceipts();
         }
     }
 }
