@@ -21,7 +21,7 @@ using Business.Models;
 
 namespace AccountingSystem.Controls
 {
-    public partial class ReceiptControl : UserControl
+    public partial class PayBillControl : UserControl
     {
         IReceiptBusiness _receiptManager;
         IAccountClauseBusiness _accountClauseManager;
@@ -213,12 +213,12 @@ namespace AccountingSystem.Controls
         #region methods
 
 
-        public ReceiptControl()
+        public PayBillControl()
         {
             try
             {
                 InitializeComponent();
-                LoadReceipts();
+                LoadPayBills();
                 LoadAccountClauses();
                 LoadTradingPartners();
                 LoadDeliveryPersons();
@@ -238,7 +238,7 @@ namespace AccountingSystem.Controls
             }
             
         }
-        void LoadReceipts()
+        void LoadPayBills()
         {
             DateTime fro = new DateTime(dpMonth.Value.Year,dpMonth.Value.Month,1);
             DateTime to = fro.AddMonths(1);
