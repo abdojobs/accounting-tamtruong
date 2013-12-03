@@ -59,6 +59,11 @@ namespace Business.Business
                     Context.SaveChanges();
                     transactionScope.Complete();
                 }
+                catch (UserException ex)
+                {
+                    WriteLog.Error(this.GetType(), ex);
+                    throw new UserException(ex.Message);
+                }
                 catch (Exception ex) {
                     WriteLog.Error(this.GetType(), ex);
                     throw new UserException(ErrorsManager.Error0000);

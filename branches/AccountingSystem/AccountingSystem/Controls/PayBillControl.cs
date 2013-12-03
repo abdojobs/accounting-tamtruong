@@ -270,8 +270,8 @@ namespace AccountingSystem.Controls
             gridReceipts.Columns["Code"].HeaderText = "Mã số";
             gridReceipts.Columns["CreateDate"].HeaderText = "Ngày chứng từ";
             gridReceipts.Columns["Amount"].HeaderText = "Tiền";
-            gridReceipts.Columns["Receiver"].HeaderText = "Đối tượng thu";
-            gridReceipts.Columns["Supplier"].HeaderText = "Người nộp";
+            gridReceipts.Columns["Receiver"].HeaderText = "Người nhận tiền";
+            gridReceipts.Columns["Supplier"].HeaderText = "Đối tượng chi";
             gridReceipts.Columns["Id"].Visible = false;
         }
         void LoadAccountClauses()
@@ -326,7 +326,7 @@ namespace AccountingSystem.Controls
             // setting columncombobox
             DataGridViewMultiComboboxColumn colCbReceiveAccount = new DataGridViewMultiComboboxColumn();
             colCbReceiveAccount.DataPropertyName = "Account_Id";
-            colCbReceiveAccount.HeaderText = "Tài khoản có";
+            colCbReceiveAccount.HeaderText = "Nợ tài khoản";
             colCbReceiveAccount.Width = 120;
             colCbReceiveAccount.DataSource = TbAccount;
             colCbReceiveAccount.ValueMember = "Id";
@@ -336,7 +336,7 @@ namespace AccountingSystem.Controls
             colCbReceiveAccount.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
             colCbReceiveAccount.FlatStyle = FlatStyle.Flat;
             colCbReceiveAccount.DefaultCellStyle.DataSourceNullValue = -1;
-            colCbReceiveAccount.DefaultCellStyle.NullValue = "[Tài khoản có]";
+            colCbReceiveAccount.DefaultCellStyle.NullValue = "[Nợ tài khoản]";
             colCbReceiveAccount.DisplayIndex = 0;
             gridBalanceAccounts.Columns.Add(colCbReceiveAccount);
             colCbReceiveAccount.SetupColumn();
@@ -616,19 +616,32 @@ namespace AccountingSystem.Controls
 
             return receipt;
         }
+        PayBill GetPayBill() {
+            PayBill paybill = new PayBill();
+            paybill.Code = txtCode.Text.TrimOrEmpty();
+            paybill.CreateDate = dpCreateDate.Value;
+            paybill.Receiver = new Receiver();
+            paybill.Receiver.Id = cbbPersonDelievery.SelectedValue.ToValue<int>();
+            paybill.AccountClause = new AccountClause();
+            paybill.AccountClause.Id = cbbAccountClause.SelectedValue.ToValue<int>();
+            paybill.Supplier = new Supplier();
+            paybill.Supplier.Id = cbbCCode.SelectedValue.ToValue<int>();
+
+            return paybill;
+        }
         void SaveReceipt() {
-            Receipt receipt = GetReceipt();
+            PayBill paybill = GetPayBill();
             List<Invoice> invoices = GetInvoices();
             List<BalanceAccountModel> balances = GetBalanceAccounts();
-            ReceiptModel rm = new ReceiptModel();
-            rm.BalanceAccounts = balances;
-            rm.Invoices = invoices;
-            rm.Receipt = receipt;
-            rm.TradingPartner = receipt.TradingPartner;
-            rm.DeliveryPerson = receipt.DeliveryPerson;
-            rm.AccountClause = receipt.AccountClause;
+            PayBillModel pm = new PayBillModel();
+            pm.BalanceAccounts = balances;
+            pm.Invoices = invoices;
+            pm.PayBill = paybill;
+            pm.Supplier = paybill.Supplier;
+            pm.Receiver = paybill.Receiver;
+            pm.AccountClause = paybill.AccountClause;
 
-            ReceiptManager.addReceiptProceduce(rm);
+            PayBillManager.addPayBillProceduce(pm);
 
             LoadPayBills();
         }

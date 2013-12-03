@@ -58,6 +58,11 @@ namespace Business.Business
             {
                 try
                 {
+                    // validate paybill
+                    payBillValidate.validate(payBillModel.PayBill, payBillModel.BalanceAccounts, payBillModel.Invoices);
+                    // validate balanceaccounts
+                    balanceAccountValidate.validate(payBillModel.BalanceAccounts);
+
                     // add paybill
                     PayBill payBill = addPayBill(payBillModel);
 
@@ -69,6 +74,10 @@ namespace Business.Business
 
                     Context.SaveChanges();
                     transaction.Complete();
+                }
+                catch (UserException ex) {
+                    WriteLog.Error(this.GetType(), ex);
+                    throw new UserException(ex.Message);
                 }
                 catch (Exception ex)
                 {
@@ -85,29 +94,31 @@ namespace Business.Business
             payBill.Receiver = payBillModel.Receiver;
             // set createdate for paybill
             payBill.CreateDate = payBill.CreateDate == DateTime.MinValue ? DateTime.Now : payBill.CreateDate;
-            // validate paybill
-            payBillValidate.validate(payBill);
-            // validate balanceaccounts
-            balanceAccountValidate.validate(payBillModel.BalanceAccounts);
+            // set supplier for paybill
+            payBill.Supplier = payBillModel.Supplier;
             // save
-            Context.PayBills.AddSubmit(payBill);
+            Context.PayBills.AddPayBill(payBill, payBillModel.Receiver.Id, payBillModel.Supplier.Id, payBillModel.AccountClause.Id);
             return payBill;
         }
 
         public void writeGeneralLedger(PayBill payBill, List<BalanceAccountModel> balanceaccounts)
         {
             List<GeneralJournal> list = new List<GeneralJournal>();
+            int proceducetype_id = Context.ProceduceTypes.GetPayBillProceduceType();
+            decimal Amount = 0;
             foreach (var a in balanceaccounts)
             {
                 GeneralJournal gj = new GeneralJournal();
-                gj.Account = a.Account;
                 gj.DebtAmount = a.DedtAmount;
                 gj.ReceiveAmount = a.ReceiveAmount;
                 gj.Description = a.Description;
-                gj.Proceduce_Id = payBill.Id;
+                gj.Account_Id = a.Account.Id;
                 list.Add(gj);
+
+                Amount += a.ReceiveAmount;
             }
-            Context.GeneralJournals.AddList(list);
+            Context.PayBills.UpdateAmount(payBill.Id, Amount);
+            Context.PayBills.WriteGeneralJournal(payBill.Id, proceducetype_id, list);
         }
 
         public void writeInvoices(DataAccess.Entities.PayBill payBill, List<DataAccess.Entities.Invoice> invoices)
@@ -118,7 +129,7 @@ namespace Business.Business
                 //validate invoice
                 invoiceValidate.validate(i);
                 //save
-                Context.Invoices.Add(i);
+                Context.Invoices.AddInvoice(i.Customer.Id, i.VatType.Id, i);
                 //save detail invoice
                 Invoice_PayBill invpay = new Invoice_PayBill()
                 {
@@ -127,7 +138,8 @@ namespace Business.Business
                 };
                 invrecs.Add(invpay);
             }
-            Context.InvoicePayBills.AddList(invrecs);
+            Context.PayBills.AddInvoicePayBills(invrecs);
+            
         }
 
 

@@ -6,6 +6,8 @@ using DataAccess.Entities;
 namespace DataAccess.Repositories {
 	public interface ITaProceduceTypeRepository : ITaRepositoryBase<ProceduceType> {
         int GetReceiptProceduceType();
+        int GetPayBillProceduceType();
+        int GetProceduceTypeId(EProceduceType type);
 	}
 
 }
