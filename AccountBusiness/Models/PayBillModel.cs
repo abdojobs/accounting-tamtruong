@@ -11,6 +11,7 @@ namespace Business.Models
         public PayBill PayBill { get; set; }
         public List<Invoice> Invoices { get; set; }
         public Receiver Receiver { get; set; }
+        public Supplier Supplier { get; set; }
         public List<BalanceAccountModel> BalanceAccounts { get; set; }
         /// <summary>
         /// use to get reason write to GeneralJournal

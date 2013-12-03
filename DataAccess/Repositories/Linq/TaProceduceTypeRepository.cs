@@ -12,11 +12,22 @@ namespace DataAccess.Repositories.Linq
 
         public int GetReceiptProceduceType()
         {
+            return GetProceduceTypeId(EProceduceType.R);
+        }
+
+
+        public int GetPayBillProceduceType()
+        {
+            return GetProceduceTypeId(EProceduceType.P);
+        }
+
+        public int GetProceduceTypeId(EProceduceType type)
+        {
             using (var Context = new TaDalContext())
             {
                 try
                 {
-                    string receiptType = EProceduceType.R.ToString();
+                    string receiptType = type.ToString();
                     return Context.ProceduceTypes.Where(x => x.Code == receiptType).FirstOrDefault().Id;
                 }
                 catch (Exception ex)
