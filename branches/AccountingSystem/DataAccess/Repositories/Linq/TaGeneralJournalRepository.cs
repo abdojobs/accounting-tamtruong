@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataAccess.Entities;
+using Common.Logs;
 
 namespace DataAccess.Repositories.Linq
 {
@@ -35,6 +36,30 @@ namespace DataAccess.Repositories.Linq
                     Context.Dispose();
                 }
                 return false;
+            }
+        }
+
+
+        public void WriteGeneralJournals(List<GeneralJournal> gens)
+        {
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    foreach (var item in gens)
+                    {
+                        Context.GeneralJournals.Add(item);
+                    }
+                    Context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    WriteLog.ErrorDbCommon(this.GetType(), ex);
+                }
+                finally
+                {
+                    Context.Dispose();
+                }
             }
         }
     }
