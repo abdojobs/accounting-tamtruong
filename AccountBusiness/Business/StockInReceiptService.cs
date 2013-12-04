@@ -149,5 +149,6 @@ namespace Business.Business
         {
             return stockInDetail.IncludeFee + AccountMath.MultiDouAndDecimal(stockInDetail.Price, stockInDetail.Quantity);
         }
+        
     }
 }

@@ -96,6 +96,12 @@
     <Compile Include="Controls\ReceiptControl.Designer.cs">
       <DependentUpon>ReceiptControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\StockInReceiptControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\StockInReceiptControl.Designer.cs">
+      <DependentUpon>StockInReceiptControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ReceiptControl.resx">
       <DependentUpon>ReceiptControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\StockInReceiptControl.resx">
+      <DependentUpon>StockInReceiptControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
