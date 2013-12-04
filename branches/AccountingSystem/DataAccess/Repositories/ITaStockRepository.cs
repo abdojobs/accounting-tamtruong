@@ -8,5 +8,6 @@ namespace DataAccess.Repositories
 {
     public interface ITaStockRepository:ITaRepositoryBase<Stock>
     {
+        void UpdateInventory(int id, double quantity);
     }
 }
