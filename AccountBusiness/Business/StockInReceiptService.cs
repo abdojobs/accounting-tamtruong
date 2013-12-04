@@ -80,7 +80,7 @@ namespace Business.Business
             StockInReceipt stockInReceipt = model.StockInReceipt;
             stockInReceipt.CreateDate = stockInReceipt.CreateDate.NowOrOwner();
             // add and submit stockinreceipt
-            Context.StockInReceipts.AddSubmit(stockInReceipt);
+            Context.StockInReceipts.AddStockInReceipt(stockInReceipt);
 
             stockInReceipt.Amount = writeStockInDetails(stockInReceipt, model.StockInDetails);
             // validate
@@ -91,6 +91,7 @@ namespace Business.Business
         public decimal writeStockInDetails(StockInReceipt stockInReceipt, List<StockInDetail> stockInDetails)
         {
             decimal amount = 0;
+            int quantity = 0;
             foreach (var s in stockInDetails)
             {
                 //validate

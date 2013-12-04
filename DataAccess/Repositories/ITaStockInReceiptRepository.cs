@@ -8,5 +8,6 @@ namespace DataAccess.Repositories
 {
     public interface ITaStockInReceiptRepository:ITaRepositoryBase<StockInReceipt>
     {
+        StockInReceipt AddStockInReceipt(StockInReceipt stockIn);
     }
 }

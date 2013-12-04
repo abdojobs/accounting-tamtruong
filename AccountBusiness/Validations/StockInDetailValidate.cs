@@ -17,12 +17,6 @@ namespace Business.Validations
             // stock is not null
             if(stockInDetail.Stock==null)
                 throw new UserException(ErrorsManager.Error0008);
-            // quantity is not less than or equal 0
-            if(stockInDetail.Quantity<=0)
-                throw new UserException(ErrorsManager.Error0009);
-            // price is not less than or equal 0
-            if(stockInDetail.Price<=0)
-                throw new UserException(ErrorsManager.Error0010);
 
         }
     }
