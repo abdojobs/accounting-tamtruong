@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using DataAccess.Entities;
+using System.Data;
 
 namespace DataAccess.Repositories.Linq
 {
@@ -29,6 +30,10 @@ namespace DataAccess.Repositories.Linq
         }
         public TaDalContext():base(GlobalConstant.DBConnecstring) { 
             
+        }
+        public void Update<T>(T entity) where T:class {
+            this.Set<T>().Attach(entity);
+            this.Entry(entity).State = EntityState.Modified;
         }
         #region DataContext To Database
         public DbSet<Account> Accounts { get;set; }

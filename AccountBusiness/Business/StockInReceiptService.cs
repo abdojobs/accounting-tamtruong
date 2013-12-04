@@ -91,7 +91,6 @@ namespace Business.Business
         public decimal writeStockInDetails(StockInReceipt stockInReceipt, List<StockInDetail> stockInDetails)
         {
             decimal amount = 0;
-            int quantity = 0;
             foreach (var s in stockInDetails)
             {
                 //validate
@@ -143,7 +142,7 @@ namespace Business.Business
 
         public void updateInventory(StockInDetail stockInDetail)
         {
-            stockInDetail.Stock.Inventory -= stockInDetail.Quantity;
+            Context.Stocks.UpdateInventory(stockInDetail.Stock.Id, stockInDetail.Quantity);
         }
 
         public decimal CalAmount(StockInDetail stockInDetail)
