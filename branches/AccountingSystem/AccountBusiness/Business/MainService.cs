@@ -44,5 +44,24 @@ namespace AccountBusiness.Business
                 return null;
             }
         }
+
+
+        public List<DataAccess.Entities.Stock> GetStocks()
+        {
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    return Context.Stocks.Include("MensuralUnit").ToList();
+
+                }
+                catch { }
+                finally
+                {
+                    Context.Dispose();
+                }
+                return null;
+            }
+        }
     }
 }
