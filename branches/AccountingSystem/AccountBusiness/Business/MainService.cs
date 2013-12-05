@@ -63,5 +63,24 @@ namespace AccountBusiness.Business
                 return null;
             }
         }
+
+
+        public List<DataAccess.Entities.WareHouse> GetWareHouse()
+        {
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    return Context.WareHouses.ToList();
+
+                }
+                catch { }
+                finally
+                {
+                    Context.Dispose();
+                }
+                return null;
+            }
+        }
     }
 }
