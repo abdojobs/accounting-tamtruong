@@ -11,6 +11,7 @@ using AccountBusiness.Business;
 using Business.Business.ServiceInterfaces;
 using Business.Business;
 using AccountingSystem.Components;
+using Common.Maths;
 
 namespace AccountingSystem.Controls
 {
@@ -376,6 +377,38 @@ namespace AccountingSystem.Controls
 
             gridStock.Columns.Add(stockCol);
             stockCol.SetupColumn();
+
+            gridStock.EditingControlShowing+=new DataGridViewEditingControlShowingEventHandler(gridStock_EditingControlShowing);
+        }
+        #endregion
+        #region Event
+        void gridStock_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e) {
+            TextBox text = e.Control as TextBox;
+            if (text != null && text.Name != "Quantity")
+            {
+                text.TextChanged += new EventHandler(text_TextChanged);
+                text.KeyPress += new KeyPressEventHandler(text_KeyPress);
+                text.Name = "Quantity";
+            }
+        }
+        void text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string colname = gridStock.Columns[gridStock.CurrentCell.ColumnIndex].Name;
+            if (colname == "Quantity")
+                e.Handled = !Common.Maths.ValidateInput.OnlyDecimal(((TextBox)sender).Text, e.KeyChar);
+        }
+        string textbefore = string.Empty;
+        void text_TextChanged(object sender, EventArgs e)
+        {
+            TextBox text = sender as TextBox;
+
+            string colname = gridStock.Columns[gridStock.CurrentCell.ColumnIndex].Name;
+            if (colname == "AmountNotTax")
+            {
+                double tax = gridStock.CurrentRow.Cells["Tax"].Value.ToDouble();
+                decimal amount = gridStock.CurrentRow.Cells["AmountNotTax"].EditedFormattedValue.ToDecimal();
+                gridStock.CurrentRow.Cells["AmountHasTax"].Value = AccountMath.CalculateTax(amount, (double)tax);
+            }
         }
         #endregion
     }
