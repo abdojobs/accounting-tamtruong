@@ -380,6 +380,15 @@ namespace AccountingSystem.Controls
 
             gridStock.EditingControlShowing+=new DataGridViewEditingControlShowingEventHandler(gridStock_EditingControlShowing);
         }
+        decimal CalculateAmount() {
+            decimal amount = 0;
+            foreach (DataGridViewRow r in gridStock.Rows) {
+                if (!r.IsNewRow) {
+                    amount += r.Cells["Amount"].Value.ToDecimal();
+                }
+            }
+            return amount;
+        }
         #endregion
         #region Event
         void gridStock_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e) {
@@ -403,11 +412,11 @@ namespace AccountingSystem.Controls
             TextBox text = sender as TextBox;
 
             string colname = gridStock.Columns[gridStock.CurrentCell.ColumnIndex].Name;
-            if (colname == "AmountNotTax")
+            if (colname == "Quantity")
             {
-                double tax = gridStock.CurrentRow.Cells["Tax"].Value.ToDouble();
-                decimal amount = gridStock.CurrentRow.Cells["AmountNotTax"].EditedFormattedValue.ToDecimal();
-                gridStock.CurrentRow.Cells["AmountHasTax"].Value = AccountMath.CalculateTax(amount, (double)tax);
+                decimal price = gridStock.CurrentRow.Cells["SellPrice"].Value.ToDecimal();
+                double quantiy = gridStock.CurrentRow.Cells["Quantity"].EditedFormattedValue.ToDouble();
+                gridStock.CurrentRow.Cells["Amount"].Value = AccountMath.MultiDouAndDecimal(price, quantiy);
             }
         }
         #endregion
