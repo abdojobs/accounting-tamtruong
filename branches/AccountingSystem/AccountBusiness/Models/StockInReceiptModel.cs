@@ -10,7 +10,8 @@ namespace Business.Models
     {
         public StockInReceipt StockInReceipt { get; set; }
         public List<StockInDetail> StockInDetails { get; set; }
-        public List<BalanceAccountModel> BalanceAccounts { get; set; }
         public List<Invoice> Invoices { get; set; }
+        public int AccountClause_Id { get; set; }
+        public double Tax { get; set; }
     }
 }

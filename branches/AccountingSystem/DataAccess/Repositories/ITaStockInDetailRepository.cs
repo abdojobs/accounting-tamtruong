@@ -7,7 +7,7 @@ using DataAccess.Entities;
 namespace DataAccess.Repositories {
     public interface ITaStockInDetailRepository : ITaRepositoryBase<StockInDetail>
     {
-        public void AddDetails(List<StockInDetail> details);
+        void AddDetails(List<StockInDetail> details);
 	}
 
 }

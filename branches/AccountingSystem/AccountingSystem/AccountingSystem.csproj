@@ -84,6 +84,12 @@
     <Compile Include="Controls\AccountControl.Designer.cs">
       <DependentUpon>AccountControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\StockOutReceiptControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\StockOutReceiptControl.Designer.cs">
+      <DependentUpon>StockOutReceiptControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PayBillControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -119,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AccountControl.resx">
       <DependentUpon>AccountControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\StockOutReceiptControl.resx">
+      <DependentUpon>StockOutReceiptControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PayBillControl.resx">
       <DependentUpon>PayBillControl.cs</DependentUpon>

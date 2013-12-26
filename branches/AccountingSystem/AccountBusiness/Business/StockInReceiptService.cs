@@ -22,6 +22,7 @@ namespace Business.Business
         StockInDetailValidate _stockInDetailValidate;
         StockInReceiptValidate _stockInReceiptValidate;
 
+        string accountRecForTaxCode = "1331";
         
         #region properties
         InvoiceValidate invoiceValidate
@@ -61,7 +62,7 @@ namespace Business.Business
                     // write invoice
                     writeInvoices(stockInReceipt, model.Invoices);
                     // write general ledger
-                    writeGeneralLedger(stockInReceipt, model.BalanceAccounts);
+                    writeGeneralLedger(stockInReceipt, model.AccountClause_Id, model.Tax, stockInReceipt.Description);
 
 
                     Context.SaveChanges();
@@ -124,8 +125,9 @@ namespace Business.Business
             Context.InvoiceStockInReceipts.AddList(invrecs);
         }
 
-        public void writeGeneralLedger(StockInReceipt stockInReceipt, List<BalanceAccountModel> accounts)
+        public void writeGeneralLedger(StockInReceipt stockInReceipt,int accountClause_Id,double tax,string desc)
         {
+            List<BalanceAccountModel> accounts = GetBalanceAccounts(accountClause_Id, stockInReceipt.Amount, tax, desc);
             List<GeneralJournal> list = new List<GeneralJournal>();
             foreach (var a in accounts)
             {
@@ -149,6 +151,44 @@ namespace Business.Business
         {
             return stockInDetail.IncludeFee + AccountMath.MultiDouAndDecimal(stockInDetail.Price, stockInDetail.Quantity);
         }
+
+        List<BalanceAccountModel> GetBalanceAccounts(int accountclause_id,decimal amount,double tax,string desc) {
+            AccountClauseDetail debt = Context.AccountClauseDetails.GetAccountDebtDetail(accountclause_id).FirstOrDefault();
+            IEnumerable<AccountClauseDetail> recs = Context.AccountClauseDetails.GetAccountReceivableDetail(accountclause_id);
+
+            BalanceAccountModel blDebt = new BalanceAccountModel() {
+                Account = debt.Account,
+                DedtAmount=amount,
+                Description = desc,
+                ReceiveAmount=0
+            };
+
+            List<BalanceAccountModel> list = new List<BalanceAccountModel>();
+            list.Add(blDebt);
+
+            AccountClauseDetail recForTax = recs.Where(x=>x.Account.Code==accountRecForTaxCode).FirstOrDefault();
+            BalanceAccountModel blRecForTax = new BalanceAccountModel() { 
+                Account=recForTax.Account,
+                ReceiveAmount = AccountMath.CalculateTax(amount, tax),
+                DedtAmount=0,
+                Description=desc
+            };
+
+            AccountClauseDetail recNotTax = recs.Where(x => x.Account.Code != accountRecForTaxCode).FirstOrDefault();
+            BalanceAccountModel blRecNotTax = new BalanceAccountModel()
+            {
+                Account = recNotTax.Account,
+                ReceiveAmount = AccountMath.AmountExcludeTax(amount, tax),
+                DedtAmount = 0,
+                Description = desc
+            };
+
+            list.Add(blRecForTax);
+            list.Add(blRecNotTax);
+
+            return list;
+        }
         
+
     }
 }

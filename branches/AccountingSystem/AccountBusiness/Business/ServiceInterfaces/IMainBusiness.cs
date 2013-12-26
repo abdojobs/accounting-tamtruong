@@ -12,5 +12,6 @@ namespace AccountBusiness.Business.ServiceInterfaces
         List<Receiver> GetRecievers();
         List<Stock> GetStocks();
         List<WareHouse> GetWareHouse();
+        List<TradingPartner> GetTradingPartner();
     }
 }
