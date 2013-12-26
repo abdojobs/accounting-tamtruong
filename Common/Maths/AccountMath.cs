@@ -21,5 +21,10 @@ namespace Common.Maths
             decimal.TryParse(s, out d);
             return d;
         }
+        public static decimal AmountExcludeTax(decimal amount, double percent)
+        {
+            decimal amountTax = CalculateTax(amount, percent);
+            return amount - amountTax;
+        }
     }
 }

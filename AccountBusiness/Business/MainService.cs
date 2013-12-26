@@ -82,5 +82,24 @@ namespace AccountBusiness.Business
                 return null;
             }
         }
+
+
+        public List<DataAccess.Entities.TradingPartner> GetTradingPartner()
+        {
+            using (var Context = new TaDalContext())
+            {
+                try
+                {
+                    return Context.TradingPartners.ToList();
+
+                }
+                catch { }
+                finally
+                {
+                    Context.Dispose();
+                }
+                return null;
+            }
+        }
     }
 }

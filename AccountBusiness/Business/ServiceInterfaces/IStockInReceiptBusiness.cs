@@ -19,7 +19,7 @@ namespace Business.Business.ServiceInterfaces
         /// <returns>amount fo receipt</returns>
         decimal writeStockInDetails(StockInReceipt stockInReceipt, List<StockInDetail> stockInDetails);
         void writeInvoices(StockInReceipt stockInReceipt, List<Invoice> invoices);
-        void writeGeneralLedger(StockInReceipt stockInReceipt, List<BalanceAccountModel> accounts);
+        void writeGeneralLedger(StockInReceipt stockInReceipt,int accountClause_Id,double tax,string desc);
         void updateInventory(StockInDetail stockInDetail);
         decimal CalAmount(StockInDetail stockInDetail);
     }
