@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSReports" targetNamespace="http://tempuri.org/DSReports.xsd" xmlns:mstns="http://tempuri.org/DSReports.xsd" xmlns="http://tempuri.org/DSReports.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSReports" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DSReports" msprop:Generator_UserDSName="DSReports">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ReceiptReport" msprop:Generator_TableClassName="ReceiptReportDataTable" msprop:Generator_TableVarName="tableReceiptReport" msprop:Generator_TablePropName="ReceiptReport" msprop:Generator_RowDeletingName="ReceiptReportRowDeleting" msprop:Generator_RowChangingName="ReceiptReportRowChanging" msprop:Generator_RowEvHandlerName="ReceiptReportRowChangeEventHandler" msprop:Generator_RowDeletedName="ReceiptReportRowDeleted" msprop:Generator_UserTableName="ReceiptReport" msprop:Generator_RowChangedName="ReceiptReportRowChanged" msprop:Generator_RowEvArgName="ReceiptReportRowChangeEvent" msprop:Generator_RowClassName="ReceiptReportRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" minOccurs="0" />
+              <xs:element name="Code" msprop:Generator_ColumnVarNameInTable="columnCode" msprop:Generator_ColumnPropNameInRow="Code" msprop:Generator_ColumnPropNameInTable="CodeColumn" msprop:Generator_UserColumnName="Code" type="xs:string" minOccurs="0" />
+              <xs:element name="CreateDate" msprop:Generator_ColumnVarNameInTable="columnCreateDate" msprop:Generator_ColumnPropNameInRow="CreateDate" msprop:Generator_ColumnPropNameInTable="CreateDateColumn" msprop:Generator_UserColumnName="CreateDate" type="xs:string" minOccurs="0" />
+              <xs:element name="Amount" msprop:Generator_ColumnVarNameInTable="columnAmount" msprop:Generator_ColumnPropNameInRow="Amount" msprop:Generator_ColumnPropNameInTable="AmountColumn" msprop:Generator_UserColumnName="Amount" type="xs:string" minOccurs="0" />
+              <xs:element name="TradingPartner" msprop:Generator_ColumnVarNameInTable="columnTradingPartner" msprop:Generator_ColumnPropNameInRow="TradingPartner" msprop:Generator_ColumnPropNameInTable="TradingPartnerColumn" msprop:Generator_UserColumnName="TradingPartner" type="xs:string" minOccurs="0" />
+              <xs:element name="DeliveryPerson" msprop:Generator_ColumnVarNameInTable="columnDeliveryPerson" msprop:Generator_ColumnPropNameInRow="DeliveryPerson" msprop:Generator_ColumnPropNameInTable="DeliveryPersonColumn" msprop:Generator_UserColumnName="DeliveryPerson" type="xs:string" minOccurs="0" />
+              <xs:element name="AccountClause" msprop:Generator_ColumnVarNameInTable="columnAccountClause" msprop:Generator_ColumnPropNameInRow="AccountClause" msprop:Generator_ColumnPropNameInTable="AccountClauseColumn" msprop:Generator_UserColumnName="AccountClause" type="xs:string" minOccurs="0" />
+              <xs:element name="Decree" msprop:Generator_ColumnVarNameInTable="columnDecree" msprop:Generator_ColumnPropNameInRow="Decree" msprop:Generator_ColumnPropNameInTable="DecreeColumn" msprop:Generator_UserColumnName="Decree" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
